@@ -1,0 +1,217 @@
+\documentclass{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+% Changing of bullet foreground color not possible if {itemize item}[ball]
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{00. Organizacija vještine}
+\author[Goran Cetušić]{Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+    %\beamerdefaultoverlayspecification{<+->}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}
+\frametitle{Sadržaj}
+\tableofcontents
+\end{frame}
+
+\section{Predavanja}
+\begin{frame}[t]
+\frametitle{Predavanja}
+\begin{itemize}
+	\item 10 x 2 sata predavanja
+	\item A102 - 2 grupe
+	\begin{itemize}
+		\item 10-12 sati
+		\item 12-14 sati
+	\end{itemize}
+	\item Promjena grupe samo uz međusobni dogovor
+	\item Termini predavanja
+	\begin{itemize}
+		\item 15.10., 22.10... - svaka subota osim u tjednima ispita
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Ocjenjivanje}
+\begin{frame}[t]
+\frametitle{Ocjenjivanje}
+\begin{itemize}
+	\item 4 ispita
+	\begin{itemize}
+		\item 2 ispita po ciklusu
+	\end{itemize}
+	\item Zadaci koje treba riješiti do kraja semestra
+	\item Prolaz:
+	\begin{itemize}
+		\item $>$ 50\% na svim blicevima
+		\item uspješno predani svi zadaci
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Cilj vještine}
+\begin{frame}[t]
+\frametitle{Cilj vještine (1)}
+\begin{itemize}
+	\item Dati pregled mogućnosti Linux-a
+	\item Priviknuti studente na rad u konzoli
+	\begin{itemize}
+		\item rad u konzoli bez osjećaja “neugode”
+	\end{itemize}
+	\item Udariti temelje na kojima se gradi daljnje znanje
+	\begin{itemize}
+		\item gdje tražiti problem, kako pronaći rješenje
+	\end{itemize}
+	\item Dobiti osjećaj za rješavanje onih problema koji nisu eksplicitno pokriveni u vještini
+	\item Definirati znanja potrebna za NKOSL :)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Cilj vještine (2)}
+\begin{itemize}
+	\item Potrebno predznanje je minimalno
+	\item Vještina je opcionalna
+	\begin{itemize}
+		\item pretpostavlja se da vještinu slušaju studenti koji žele naučiti
+		\item očekuje se angažiranost studenata, prijedlozi, komentari, kritike (konstruktivne)...
+	\end{itemize}
+	\item Iz istih razloga prepisivanje je strogo zabranjeno!
+	\item Sve je podložno dogovoru, bitno je da naučite!
+\end{itemize}
+\end{frame}
+
+\section{Teme}
+\begin{frame}[t]
+\frametitle{Teme(1)}
+\begin{itemize}
+	\item Uvod
+	\begin{itemize}
+		\item Operacijski sustavi, distribucije, sustav pomoći
+	\end{itemize}
+	\item Rad sa datotekama i direktorijima
+	\begin{itemize}
+		\item Osnovne operacije – kreiranje, brisanje...
+	\end{itemize}
+	\item Struktura datotečnog sustava
+	\begin{itemize}
+		\item Raspored i značenje datoteka
+	\end{itemize}
+	\item Pregled datoteka
+	\begin{itemize}
+		\item Tipovi datoteka, sadržaj datoteka, editiranje
+	\end{itemize}
+	\item Vlasništvo i dozvole
+	\begin{itemize}
+		\item Korisnici i grupe, manipulacija dozvolama
+	\end{itemize}
+	\item Pretraživanja, filtri, cjevovodi
+	\begin{itemize}
+		\item Preusmjeravanje ispisa, filtriranje, najčešće situacije
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Teme(2)}
+\begin{itemize}
+	\item Procesi
+	\begin{itemize}
+		\item Manipulacija procesima i poslovima
+	\end{itemize}
+	\item Grafičko sučelje
+	\begin{itemize}
+		\item Desktop okruženja
+	\end{itemize}
+	\item Ljuska
+	\begin{itemize}
+		\item Varijable, skripte, skripte Bash ljuske 
+	\end{itemize}
+	\item Linux u drugim kolegijima
+	\begin{itemize}
+		\item rad sa gcc i make alatima, uvod u Bash jezik
+	\end{itemize}
+	\item Zadnje predavanje namijenjeno je za lakše polaganje kolegija na faksu
+	\item NAPOMENA: Vještina je za početnike
+\end{itemize}
+\end{frame}
+
+\section{Radna okolina}
+\begin{frame}[t]
+\frametitle{Radna okolina}
+\begin{itemize}
+	\item Predavanja se sastoje od teorije i primjera
+	\item Nema strogo definiranih pravila kako isprobavati primjere
+	\begin{itemize}
+		\item Računala dostupna u laboratoriju (VMware)
+		\item Dopušteno (i poželjno) korištenje laptopa
+		\item Live distribucije na gore navedenom
+		\item ...
+	\end{itemize} 
+	\item Jedini uvjet je pokrenut Linux
+	\begin{itemize}
+		\item Ubuntu distribucija (preferirana ali nije uvjet)
+		\item Gradivo vrijedi za svaki Linux/Unix
+	\end{itemize}
+	\item Ispiti se pišu na računalu
+	\item Pratite obavijesti na stranicama vještine
+\end{itemize}
+\end{frame}
+
+\section{Literatura}
+\begin{frame}[t]
+\frametitle{Literatura}
+\begin{itemize}
+	\item ...znanje je znanje bez obzira otkuda došlo
+	\item Koristite SVU literaturu koja vam je na raspolaganju!
+	\begin{itemize}
+		\item Knjige, članci, druga predavanja, stripovi... :)
+		\item Internet (najbolji izvor)
+		\item wiki, irc, forumi, google 
+		\item jedna od pogodnosti Linux-a je jaka zajednica
+	\end{itemize}
+	\item Postoji nekoliko istaknutih web stranica
+	\begin{itemize}
+		\item www.lwn.net, linuxtoday.com, tldp.org, linux.com...
+	\end{itemize}
+	\item Na kraju svakog poglavlja priložit će se korisni linkovi
+	\item Podijelite korisne informacije sa kolegama
+	\item PONAVLJAM: Bitno je da naučite
+\end{itemize}
+\end{frame}
+
+\end{document}
