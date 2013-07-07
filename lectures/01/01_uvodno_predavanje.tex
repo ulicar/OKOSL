@@ -1,0 +1,528 @@
+\documentclass{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usetikzlibrary{shapes,arrows}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+% Changing of bullet foreground color not possible if {itemize item}[ball]
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{01. Uvod}
+\author[Goran Cetušić]{Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+    %\beamerdefaultoverlayspecification{<+->}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}
+\frametitle{Sadržaj}
+\tableofcontents
+\end{frame}
+
+\section{Osnovni pojmovi iz operacijskih sustava}
+\begin{frame}[t]
+\frametitle{Operacijski sustav (1)}
+\begin{itemize}
+	\item Operacijski sustav ima nekoliko primarnih zadaća:
+  \begin{itemize}
+    \item Pristup uređajima
+    \begin{itemize}
+      \item Kontrolira svaki zahtjev za pristup uređajima
+      \item Određuje koji zahtjev ima prioritet
+    \end{itemize}
+    \item Upravljanje korisnicima
+    \begin{itemize}
+      \item Razlikuje zahtjeve korisnika
+    \end{itemize}
+	\end{itemize}
+  \item Ovakav opis skriva puno detalja, ali definira dvije najbitnije uloge
+        operacijskog sustava 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Operacijski sustav (2)}
+\begin{itemize}
+  \item Sklopovlje – mnoštvo kompleksnih uređaja
+   \begin{itemize}
+     \item Pisanje aplikacija za samo jedan je komplicirano
+   \end{itemize}
+  \item OS preuzima detalje 
+  \begin{itemize}
+    \item Korisnik (u teoriji) treba znati samo što želi
+    \item OS zna kako pristupiti određenom uređaju
+  \end{itemize}
+  \item Primjer: pisanje podataka na tvrdi disk
+  \begin{itemize}
+    \item Korisnik/aplikacija uputi zahtjev za brisanje datoteke
+    \item OS primi zahtjev i dalje odlučuje što sa njime
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Operacijski sustav (3)}
+\begin{itemize}
+  \item OS je posrednik između aplikacije i sklopovlja
+  \begin{itemize}
+    \item korisnik $\rightarrow$ aplikacija $\rightarrow$ OS 
+          $\rightarrow$ uređaj
+  \end{itemize}
+  \item Aplikacijama nikada nije dopušteno izravno pristupanje uređajima
+  \begin{itemize}
+    \item Moglo bi doći do kolizije
+    \begin{itemize}
+      \item Tome služi operacijski sustav
+    \end{itemize}
+    \item Primjer iznimke je DOS
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Osnovni pojmovi (1)}
+\begin{itemize}
+  \item Kernel -- jezgra sustava
+  \begin{itemize}
+    \item Ono što nazivamo Linux je jezgra
+    \begin{itemize}
+      \item Linux u širem smislu je jezgra + aplikacije
+    \end{itemize}
+  \end{itemize}
+  \item Vrste operacijskih sustava
+  \begin{itemize}
+    \item Monolitni vs. mikrokernel bazirani
+    \item Opće namjene, rad u stvarnom vremenu, \ldots
+  \end{itemize}
+  \item Sklopovska podrška izvršavanju OS-a
+  \begin{itemize}
+    \item Nadzorni način rada, MMU, \ldots
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Unix porodica operacijskih sustava}
+\begin{frame}[t]
+\frametitle{Unix porodica operacijskih sustava (1)}
+\begin{itemize}
+  \item Većina se grubo može podijeliti u dvije skupine
+  \begin{itemize}
+    \item Windows bazirani
+    \item Unix bazirani
+  \end{itemize}
+  \item Suprotno očekivanjima, većina su Unix bazirani
+  \item Unix – prvi višekorisnički sustav
+  \begin{itemize}
+    \item Nastao 1970-ih u Bell Labs laboratoriju
+    \item Prvotno potpuno besplatan
+  \end{itemize}
+\end{itemize}
+\end{frame} 
+
+\begin{frame}[t]
+\frametitle{Unix porodica operacijskih sustava (2)}
+\begin{itemize}
+  \item Nastaju razne inačice
+  \begin{itemize}
+    \item AIX, Solaris (OpenSolaris), HP-UX, \ldots
+  \end{itemize}
+  \item 1983. Unix je komercijaliziran
+  \item Dvije glavne grupe
+  \begin{itemize}
+    \item BSD verzije
+    \item System V Release 4 verzije
+  \end{itemize}
+  \item Linux \textbf{nije} Unix, Unix je zaštićeni znak
+  \begin{itemize}
+    \item Spada u grupu tzv. unixoida (Linux, *BSD, \ldots)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{GNU}
+\begin{frame}[t]
+\frametitle{GNU (1)}
+\begin{itemize}
+  \item Pokušaj slobodne reimplementacije Unix operacijskog sustava
+  \begin{itemize}
+    \item Započet 1983. godine na MIT-u
+    \item Richard Stallman
+    \item Puno filozofije
+  \end{itemize}
+  \item Do 1992. godine na raspolaganju sve osim jezgre operacijskog 
+        sustava
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{GNU (2)}
+\begin{itemize}
+  \item GNU Hurd, mikrokernel OS
+  \begin{itemize}
+    \item Slabo napredovao
+    \item Još uvijek nije izdan
+  \end{itemize}
+  \item 1992. godine Linus Torvalds objavljuje Linux
+  \begin{itemize}
+    \item ``\ldots kao hobi, dok ne izađe Hurd'' - Torvalds
+  \end{itemize}
+  \item Linux nadopunjuje GNU
+  \begin{itemize}
+    \item Linux OS sa GNU sistemskim alatima
+  \end{itemize}
+  \item Linux vs GNU/Linux
+\end{itemize}
+\end{frame}
+
+\section{Razvoj Linuxa}
+\begin{frame}[t]
+\frametitle{Razvoj Linuxa (1)}
+\begin{itemize}
+  \item Distribuirani razvoj 
+  \item Tisuće programera diljem svijeta
+  \begin{itemize}
+    \item Velik broj nezavisnih, gledano pojedinačno
+    \item Još veći pod sponzorstvom
+    \begin{itemize}
+      \item Google, IBM, Oracle, Intel, \ldots
+    \end{itemize}
+  \item Pišu se moduli, zakrpe, dokumentacija
+  \item Izmjene se predlažu odgovornim osobama
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Razvoj Linuxa (2)}
+\begin{itemize}
+  \item Linux je podijeljen na podsustave
+  \item Svaki podsustav ima tzv. ``održavatelja'' (engl. 
+        \emph{maintainer})
+  \begin{itemize}
+    \item Održavatelj odlučuje o izmjenama (više-manje)
+  \end{itemize}
+  \item Linus Torvalds ima najveći autoritet
+  \begin{itemize}
+    \item Izmjene danas rijetko idu izravno preko njega
+  \end{itemize}
+  \item Značajni održavatelji
+  \begin{itemize}
+    \item Andrew Morton
+    \item Greg Kroah-Hartman
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Razvoj Linuxa (3)}
+\begin{itemize}
+  \item Model razvoja nekada
+  \begin{itemize}
+    \item Parne verzije stabilne, neparne razvojne
+    \begin{itemize}
+      \item 1.0, 1.2, 2.0, 2.2, 2.4 stabilne verzije
+      \item 1.1, 1.3, 2.1, 2.3, 2.5 nestabilne verzije
+    \end{itemize}
+  \end{itemize}
+  \item Novi model razvoja
+  \begin{itemize}
+    \item Počinje od verzije 2.6
+    \item Stabilne verzije 2.6.x.y
+  \end{itemize}
+  \item Moguće skinuti sa \url{www.kernel.org}
+\end{itemize}
+\end{frame}
+
+\section{Licence}
+\begin{frame}[t]
+\frametitle{Licence (1)}
+\begin{itemize}
+  \item Licence (EULA -- end-user licence agreement) su vrlo bitne jer
+        određuju prava i obaveze korisnika
+  \item Niz različitih tipova licenci
+  \begin{itemize}
+    \item Komercijalne, ``shareware'', otvoreni kod, \ldots
+  \end{itemize}
+  \item Licence otvorenog koda su bitne za razvoj Linuxa
+  \item GPL (1,2,3), LGPL, Apache, BSD
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Licence (2)}
+\begin{itemize}
+  \item 1989. GNU izdaje GPLv1
+  \item Razvija se pojam otvorenog koda
+  \item Postoje razlike, ali generalni principi su:
+  \begin{itemize}
+    \item Uz binarni program mora biti dostupan i izvorni kod
+    \item Izvorni kod pod takvom licencom ne može biti preuzet i 
+          licenciran pod drugom licencom
+    \item Izvorni kod se (ne)može koristiti u komercijalnim proizvodima
+  \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\section{Distribucije}
+\begin{frame}[t]
+\frametitle{Distribucije (1)}
+\begin{itemize}
+  \item Labavo definirano, distribucija je Linux kernel + skup programa
+  \item Većina operacijskih sustava i njihovih alata dolaze u kompletu
+  \begin{itemize}
+    \item 1 izdavač -- 1 operacijski sustav sa 1 ``distribucijom''
+    \begin{itemize}
+      \item Microsoft/Windows, Apple/Mac OS X, FreeBSD
+    \end{itemize}
+  \end{itemize}
+  \item Linux ima stotine distribucija
+  \begin{itemize}
+    \item specijalizirane ili opće namjene
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Distribucije (2)}
+\begin{itemize}
+  \item Tri najveće grane distribucija
+  \begin{itemize}
+    \item Debian, Red Hat, Slackware
+  \end{itemize}
+  \item Najočitije razlike su grafičko sučelje i instalacijski sustav
+  \begin{itemize}
+    \item GNOME, KDE, Xfce, Awesome, \ldots
+    \item apt, yum, pacman, \ldots
+  \end{itemize}
+  \item Distribucije su konačni proizvodi, operacijski sustavi u 
+        najširem smislu
+\end{itemize}
+\end{frame}
+
+\section{Komunikacija s računalom}
+\begin{frame}[t]
+\frametitle{Terminal}
+\begin{itemize}
+  \item ``Uređaj'' koji prima znakove i prikazuje ispis
+  \begin{itemize}
+    \item Nekada su terminali bili fizički uređaji
+    \item Danas su aplikacije koje oponašaju fizičke terminale
+  \end{itemize}
+  \item Postoji nekoliko emulatora terminala na Unix sustavima
+  \begin{itemize}
+    \item xterm, rxvt, gnome-terminal, \ldots
+  \end{itemize}
+  \item Terminali upravljaju unosom i ispisom znakova
+  \item Ljuska interpretira značenje znakova
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Komunikacija sa računalom (1)}
+\begin{itemize}
+  \item Dva temeljna načina komunikacije
+  \begin{itemize}
+    \item Kroz grafičko sučelje i putem ljuske/komandne linije
+  \end{itemize}
+  \item Ljuska je aplikacija(!) koja prihvaća korisnikove naredbe i 
+        izvršava ih
+  \begin{itemize}
+    \item Ljuska olakšava komunikaciju sa sustavom
+  \end{itemize}
+  \item Ljuska označava spremnost za prihvaćanje naredbi prikazivanjem 
+        naredbenog retka (engl. \emph{command prompt})
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Komunikacija sa računalom (2)}
+\begin{itemize}
+  \item Kada ljuska pokrene naredbu, čeka da se njeno izvršavanje 
+        završi
+  \item Za to vrijeme ljuska ne prikazuje narebenu liniju!
+  \begin{itemize}
+    \item Moguće \textbf{prisilno} zaustaviti naredbu, Ctrl+C
+  \end{itemize}
+  \item Primjer:
+  \begin{itemize}
+    \item Pokrenuti naredbu \shell{cat}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Sustav pomoći}
+\begin{frame}[t]
+\frametitle{Sustav pomoći}
+\begin{itemize}
+  \item Linux ima sustav pomoći
+  \begin{itemize}
+    \item Naredba \shell{man}
+    \begin{itemize}
+      \item Dostupna na svakom Unixu
+    \end{itemize}
+    \item Naredba \shell{info}
+    \begin{itemize}
+      \item Dostupna sa GNU alatima
+    \end{itemize}
+    \item U direktoriju \shell{/usr/share/doc} dosta materijala
+  \end{itemize}
+  \item Sadrži opise i načine korištenja naredbi, funkcija i 
+        konfiguracijskih datoteka
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{man} (1)}
+\begin{itemize}
+  \item Stranice su podijeljene u sekcije:
+  \begin{itemize}
+    \item 1. sekcija – korisničke naredbe
+    \item 2. sekcija – pozivi operacijskog sustava
+    \item 3. sekcija – funkcije iz biblioteka
+    \item 4. sekcija – opis posebnih datoteka
+    \item 5. sekcija – opis formata datoteka
+    \item 6. sekcija – igre
+    \item 7. sekcija – pregledi, konvencije, razno
+    \item 8. sekcija – administrativne naredbe
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{man} (2)}
+\begin{itemize}
+  \item Korištenje naredbe man
+  \begin{itemize}
+    \item Pregled neke upute
+    \begin{itemize}
+      \item \shell{man <ime naredbe>}
+      \item \shell{man <sekcija> <ime naredbe>}
+    \end{itemize}
+    \item Pretraživanje stranica
+    \begin{itemize}
+      \item \shell{man -k <ključna riječ>}
+      \item \shell{man -f <ime datoteke>}
+    \end{itemize}
+  \end{itemize}
+  \item Primjer: Pregledavanje upute za naredbu \shell{man}
+  \begin{itemize}
+    \item \shell{man man}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{man} (3)}
+\begin{itemize}
+  \item Standardni dijelovi \shell{man} stranice
+  \begin{itemize}
+    \item NAME -- ime i kratki opis
+    \item SYNOPSIS -- mogući načini korištenja
+    \item DESCRIPTION -- dulji opis što naredba radi
+    \item OPTIONS -- opcije koje naredba prihvaća
+    \item ENVIRONMENT -- varijable okruženja (o njima kasnije)
+    \item AUTHOR -- autor stranice/naredbe
+    \item SEE ALSO -- koje su vezane naredbe
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{man} (4)}
+\begin{itemize}
+  \item Opcionalni dijelovi se stavljaju unutar $[$ i $]$
+  \item Ponavljanje se označava sa \ldots
+  \item Obvezni dijelovi su potcrtani
+  \item Izlazak iz pregledavanja upute
+  \begin{itemize}
+    \item malo slovo \shell{q}
+  \end{itemize}
+  \item Zadatak: pronaći sve varijante naredbe/funkcije \shell{printf}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{info} (1)}
+\begin{itemize}
+  \item Proširena verzija \shell{man} naredbe
+  \item Sintaksa naredbe info:
+  \begin{itemize}
+    \item \shell{info [<opcija menija>]}
+  \end{itemize}
+  \item Korištenje naredbe \shell{info}
+  \begin{itemize}
+    \item Izlazak iz info programa tipkom q
+    \item Kretanje po stranici strelicama i tipkama PgUp i PgDn
+    \item Dokumentacija je organizirana po stranicama
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{info} (2)}
+\begin{itemize}
+  \item Enter (na nekom linku) prelazi na novu stranicu
+  \begin{itemize}
+    \item Link se prepoznaje po znaku *
+    \item Tipke p, n, u
+  \end{itemize}
+  \item Tipka ? izlistava raspoložive tipke
+  \begin{itemize}
+    \item  Pronaći kako se izlazi iz dobivene pomoći!
+  \end{itemize}
+  \item Zadatak
+  \begin{itemize}
+    \item Pogledati info stranicu naredbe \shell{info}
+    \item Pokrenuti naredbu \shell{info} bez parametara
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Literatura}
+\begin{itemize}
+  \item \url{http://www.troubleshooters.com/linux/info.htm}
+  \item \url{http://www.schweikhardt.net/man_page_howto.html#q3}
+  \item \url{http://www.debian.org/doc/debian-policy/ch-docs.html}
+  \item \url{http://www.unix.org/what_is_unix/history_timeline.html}
+  \item \url{http://distrowatch.com/dwres.php?resource=major}
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+\end{document}

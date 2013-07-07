@@ -1,0 +1,5 @@
+*/lectures/*
+!*/lectures/*.tex
+!*/lectures/*.jpg
+!*/lectures/*.png
+issues*
