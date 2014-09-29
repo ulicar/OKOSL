@@ -30,8 +30,8 @@
 \definecolor{LightGray}{gray}{0.9}
 
 \title{Osnove korištenja operacijskog sustava Linux}
-\subtitle{06. Vlasništvo i dozvole}
-\author[Goran Cetušić]{Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\subtitle{08. Vlasništvo i dozvole}
+\author[Lucija Petricioli, Josip Žuljević]{Lucija Petricioli, Josip Žuljević\\{\small Nositelj: doc. dr. sc. Stjepan Groš}}
 \institute[FER]{Sveučilište u Zagrebu \\
 				Fakultet elektrotehnike i računarstva}
 				
@@ -62,7 +62,7 @@
   \begin{itemize}
     \item Objekt je vlasništvo korisnika i grupe
     \begin{itemize}
-      \item Njih ispisuje naredba \shell{ls}
+      \item Njih ispisuje naredba \shell{ls -l}
     \end{itemize}
     \item Uz objekt vezano je 9 bitova koji definiraju prava svih
           korisnika na taj objekt
@@ -77,18 +77,14 @@
 \begin{frame}[t]
 \frametitle{Općenito o dozvolama (2)}
 \begin{itemize}
-  \item Tih devet bitova piše se u simboličkom obliku \shell{-rwxrwxrwx}
+  \item Deset bitova piše se u simboličkom obliku \shell{-rwxrwxrwx}
   \begin{itemize}
+	\item Prvi bit (-) označava vrstu datoteke
     \item Prva grupa od tri bita (rwx) s lijeve strane definira prava za 
           vlasnika (prvi bit je vrsta datoteke)
     \item Druga grupa od tri bita (sredina) definira prava za grupu
     \item Konačno, zadnja tri bita s desne strane definiraju prava za sve 
           ostale
-  \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Izlistati svoj matični direktorij i pogledati vlasnike, grupu i 
-          definirana prava
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -141,7 +137,7 @@
           zastavice:
     \begin{itemize}
       \item[] \shell{rwxr-x---}
-      \item[-] student1 može čitati, pisati i izvršavati datoteku 
+      \item[-] student1 mođe čitati, pisati i izvršavati datoteku 
       \item[-] student2, član grupe grupa1, može čitati i izvršavati 
                datoteku
       \item[-] student3, koji nije član grupe grupa1, ne može niti čitati 
@@ -222,31 +218,11 @@
 
 \begin{frame}[t]
 \frametitle{Promjena dozvola (3)}
-\begin{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Kopirati datoteku \shell{/etc/passwd} u svoj matični direktorij
-    \item Promijeniti dozvole datoteke tako da isključivo vlasnik ima 
-          pravo čitanja i pisanja u datoteku
-    \item Provjeriti s naredbom \shell{ls} jesu li dozvole dobro 
-          postavljene
-    \item Promijeniti dozvole tako da vlasnik, grupa i svi ostali imaju 
-          pravo samo čitanja datoteke
-    \item Provjeriti naredbom \shell{ls} jesu li dozvole dobro postavljene
-    \item Dozvoliti grupi sva prava na datoteku (čitanje, pisanje, 
-          izvršavanje), a sebi i ostalima ukloniti sva prava
-    \item Pokušati ispisati sadržaj datoteke
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Promjena dozvola (4)}
   \begin{table}[h]
 %  \rowcolors{2}{White}{LightGray}
   \begin{tabular}{|c|l|l|}
     \hline
-    \rowcolor{BlueViolet!20}Simbolički prikaz & Vrijednost & Opis       \\
+    \rowcolor{BlueViolet!20}Simbolički prikaz & Oznaka & Opis       \\
     \hline
     \multirow{4}{*}{Tko} & \multirow{2}{*}{a} & Svi korisnici (vlasnik, 
            vlasnikova \\  & & grupa, svi ostali korisnici) \\ \cline{2-3}
@@ -283,15 +259,6 @@
       \item Moguće je kombinirati dopuštenja
       \item Vlasnik može sve dok ostali mogu čitati i izvršavati datoteke
     \end{itemize}
-  \end{itemize}
-\end{itemize}
-\end{frame}
-   
-\begin{frame}[t]
-\frametitle{Promjena dozvola (6)}
-\begin{itemize}
-  \item Primjer
-  \begin{itemize}
     \item[] \shell{chmod g+w file1 file2 file3}
     \begin{itemize}
       \item Dodavanje prava čitanja grupi
@@ -301,27 +268,16 @@
       \item Oduzimanje prava izvršavanja svim korisnicima
     \end{itemize}
   \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Napraviti datoteku \shell{file1}
-    \item Oduzeti grupi i korisnicima koji nisu vlasnici prava čitanja i 
-          izvršavanja datoteke
-  \end{itemize}
 \end{itemize}
 \end{frame}
-
+   
 \begin{frame}[t]
-\frametitle{Promjena dozvola (7)}
+\frametitle{Promjena dozvola (6)}
 \begin{itemize}
-  \item Zadatak
+  \item Uobičajeni način omogućavanja pokretanja skripte je promjena dozvola nad tom skriptom
   \begin{itemize}
-    \item Kreirati direktorij s nazivom \shell{dir}
-    \item Kopirati u taj direktorij datoteku \shell{/etc/passwd}
-    \item Izlistati sadržaj direktorija \shell{dir}
-    \item Ukloniti si pravo izvršavanja/pretraživanja direktorija i ponovo
-          izlistati njegov sadržaj
-    \item Ukloniti si pravo čitanja direktorija i pokušati izlistati njegov
-          sadržaj
+	\item Dodavanje oznake x prvog terceta bitova
+	\item Pokretanje pomoću sintagme \shell{./<ime-skripte>}
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -336,22 +292,16 @@
     \item Ne može promijeniti vlasnika datoteke
     \item Može obrisati datoteku
   \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Stvoriti datoteku \shell{vlasnik} i postaviti dozvole na 
-          \shell{000}
-    \item Pokušati obrisati datoteku kao vlasnik datoteke
-  \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Podrazumijevane dozvole (1)}
+\frametitle{Podrazumijevane dozvole}
 \begin{itemize}
   \item Kada se kreira nova datoteka ona prima neke podrazumijevane dozvole
   \begin{itemize}
     \item Na podrazumijevane dozvole utječe se naredbom \shell{umask}
-    \item Vrijednost \shell{umask} varijable se XOR-a s vrijednošću 777 i 
+    \item Vrijednost \shell{umask} varijable se XOR-a s vrijednosti 777 i 
           to je nova dozvola datoteke
   \end{itemize}
   \item Primjer: ako je \shell{umask} postavljen na 022 tada će datoteke 
@@ -359,27 +309,11 @@
   \begin{itemize}
     \item Naredba \shell{umask} bez argumenata ispisuje trenutnu vrijednost
   \end{itemize}
+  \item Postavljanje vrijednosti umask obavlja se tako da se zada nova 
+        vrijednost (oktalno ili simbolički sa \shell{-S})
 \end{itemize}
 \end{frame}
   
-\begin{frame}[t]
-\frametitle{Podrazumijevane dozvole (2)}
-\begin{itemize}
-  \item Postavljanje vrijednosti umask obavlja se tako da se zada nova 
-        vrijednost (oktalno ili simbolički sa \shell{-S})
-  \item Zadatak
-  \begin{itemize}
-    \item Postaviti umask na 777 i kreirati datoteku \shell{test}
-    \item Provjeriti dozvole datoteke \shell{test}
-    \item Koju vrijednost umask moramo postaviti kako bi ukinuli sve 
-          dozvole grupi i ostalima? 
-    \begin{itemize}
-      \item Isprobati izračunatu vrijednost
-    \end{itemize}
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
 \section{Promjena vlasnika}
 \begin{frame}[t]
 \frametitle{Promjena vlasnika (1)}
@@ -453,12 +387,6 @@
     \item Opcija \shell{-u} zadaje korisnika pod čijim imenom se izvršava 
           naredba, podrazumijeva se root
   \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Kao običan korisnik stvorite direktorij naziva \shell{dir1}
-    \item Promijenite vlasnika datoteke \shell{dat1} na root
-    \item Promijenite dozvole direktorija \shell{dir1} na 644 
-  \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -471,7 +399,7 @@
     \item Aliasa
     \item Dopuštenja
     \item[] \shell{root\hspace{5pt}    ALL=(ALL) ALL}
-    \item[] \shell{cetko   ALL=(ALL) ALL}
+    \item[] \shell{<tvoj-username>   ALL=(ALL) ALL}
   \end{itemize}
   \item Brisanjem root korisnika iz datoteke ograničava roota samo kod 
         korištenja naredbe sudo -- i dalje može sve!
@@ -486,12 +414,6 @@
     \item \shell{visudo} upozorava na moguće greške
     \item Neke distribucije dopuštaju mijenjanje datoteke samo pomoću 
           \shell{visudo}
-  \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Naredbom \shell{visudo} promijeniti \shell{/etc/sudoers}
-    \item Namjerno ubaciti grešku
-    \item Pokušati spremiti promjene
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -569,4 +491,28 @@
   \item \url{https://help.ubuntu.com/community/Sudoers}
 \end{itemize}
 \end{frame}
+
+\section{Naredbe}
+\begin{frame}[t]
+	\frametitle{Naredbe}
+	\begin{table}[h]
+		%  \rowcolors{2}{White}{LightGray}
+		\begin{tabular}{|c|l|}
+			\hline
+			\rowcolor{BlueViolet!20}Naredba & Opis \\
+			\hline
+			chmod & promjena dozvola datoteke/direktorija \\
+			\hline
+			umask & promjena podrazumijevanih dozvola \\
+			\hline
+			chown & promjena vlasnika datoteke/direktorija \\
+			\hline
+			chgrp & promjena grupe datoteke/direktorija \\
+			\hline
+			sudo & kratkotrajne administratorske ovlasti \\
+			\hline
+		\end{tabular}
+	\end{table}
+\end{frame}
+
 \end{document}
