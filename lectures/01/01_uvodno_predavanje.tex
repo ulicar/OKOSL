@@ -28,7 +28,7 @@
 
 \title{Osnove korištenja operacijskog sustava Linux}
 \subtitle{01. Uvod}
-\author[Goran Cetušić]{Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\author[Antun Aleksa, Josip Žuljević]{Antun Aleksa, Josip Žuljević\\{\small Nositelj: dr. sc. Stjepan Groš}}
 \institute[FER]{Sveučilište u Zagrebu \\
 				Fakultet elektrotehnike i računarstva}
 				
@@ -120,11 +120,6 @@
       \item Linux u širem smislu je jezgra + aplikacije
     \end{itemize}
   \end{itemize}
-  \item Vrste operacijskih sustava
-  \begin{itemize}
-    \item Monolitni vs. mikrokernel bazirani
-    \item Opće namjene, rad u stvarnom vremenu, \ldots
-  \end{itemize}
   \item Sklopovska podrška izvršavanju OS-a
   \begin{itemize}
     \item Nadzorni način rada, MMU, \ldots
@@ -167,41 +162,6 @@
   \begin{itemize}
     \item Spada u grupu tzv. unixoida (Linux, *BSD, \ldots)
   \end{itemize}
-\end{itemize}
-\end{frame}
-
-\section{GNU}
-\begin{frame}[t]
-\frametitle{GNU (1)}
-\begin{itemize}
-  \item Pokušaj slobodne reimplementacije Unix operacijskog sustava
-  \begin{itemize}
-    \item Započet 1983. godine na MIT-u
-    \item Richard Stallman
-    \item Puno filozofije
-  \end{itemize}
-  \item Do 1992. godine na raspolaganju sve osim jezgre operacijskog 
-        sustava
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{GNU (2)}
-\begin{itemize}
-  \item GNU Hurd, mikrokernel OS
-  \begin{itemize}
-    \item Slabo napredovao
-    \item Još uvijek nije izdan
-  \end{itemize}
-  \item 1992. godine Linus Torvalds objavljuje Linux
-  \begin{itemize}
-    \item ``\ldots kao hobi, dok ne izađe Hurd'' - Torvalds
-  \end{itemize}
-  \item Linux nadopunjuje GNU
-  \begin{itemize}
-    \item Linux OS sa GNU sistemskim alatima
-  \end{itemize}
-  \item Linux vs GNU/Linux
 \end{itemize}
 \end{frame}
 
@@ -255,12 +215,7 @@
       \item 1.1, 1.3, 2.1, 2.3, 2.5 nestabilne verzije
     \end{itemize}
   \end{itemize}
-  \item Novi model razvoja
-  \begin{itemize}
-    \item Počinje od verzije 2.6
-    \item Stabilne verzije 2.6.x.y
-  \end{itemize}
-  \item Moguće skinuti sa \url{www.kernel.org}
+  \item \url{www.distrowatch.com}
 \end{itemize}
 \end{frame}
 
@@ -276,21 +231,6 @@
   \end{itemize}
   \item Licence otvorenog koda su bitne za razvoj Linuxa
   \item GPL (1,2,3), LGPL, Apache, BSD
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Licence (2)}
-\begin{itemize}
-  \item 1989. GNU izdaje GPLv1
-  \item Razvija se pojam otvorenog koda
-  \item Postoje razlike, ali generalni principi su:
-  \begin{itemize}
-    \item Uz binarni program mora biti dostupan i izvorni kod
-    \item Izvorni kod pod takvom licencom ne može biti preuzet i 
-          licenciran pod drugom licencom
-    \item Izvorni kod se (ne)može koristiti u komercijalnim proizvodima
-  \end{itemize} 
 \end{itemize}
 \end{frame}
 
@@ -405,23 +345,6 @@
 \begin{frame}[t]
 \frametitle{Naredba \shell{man} (1)}
 \begin{itemize}
-  \item Stranice su podijeljene u sekcije:
-  \begin{itemize}
-    \item 1. sekcija – korisničke naredbe
-    \item 2. sekcija – pozivi operacijskog sustava
-    \item 3. sekcija – funkcije iz biblioteka
-    \item 4. sekcija – opis posebnih datoteka
-    \item 5. sekcija – opis formata datoteka
-    \item 6. sekcija – igre
-    \item 7. sekcija – pregledi, konvencije, razno
-    \item 8. sekcija – administrativne naredbe
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Naredba \shell{man} (2)}
-\begin{itemize}
   \item Korištenje naredbe man
   \begin{itemize}
     \item Pregled neke upute
@@ -443,7 +366,7 @@
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Naredba \shell{man} (3)}
+\frametitle{Naredba \shell{man} (2)}
 \begin{itemize}
   \item Standardni dijelovi \shell{man} stranice
   \begin{itemize}
@@ -459,53 +382,352 @@
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Naredba \shell{man} (4)}
+\frametitle{Naredba \shell{man} (3)}
 \begin{itemize}
   \item Opcionalni dijelovi se stavljaju unutar $[$ i $]$
   \item Ponavljanje se označava sa \ldots
-  \item Obvezni dijelovi su potcrtani
   \item Izlazak iz pregledavanja upute
   \begin{itemize}
     \item malo slovo \shell{q}
   \end{itemize}
-  \item Zadatak: pronaći sve varijante naredbe/funkcije \shell{printf}
+\end{itemize}
+\end{frame}
+
+\section{Prikaz sadržaja direktorija}
+\begin{frame}[t]
+\frametitle{Prikaz sadržaja direktorija}
+\begin{itemize}
+  \item Naredba \texttt {ls} (engl. \emph{list})
+  \begin{itemize}
+    \item Prva akcija nakon pokretanja ljuske na nepoznatom sustavu
+    \item bez parametara: popis svih datoteka i direktorija, poredan
+          abecednim redom, odozgo prema dolje te s lijeva na desno
+  \end{itemize}
+  \item \textbf {Linux razlikuje velika i mala slova}
+\end{itemize}
+\end{frame}
+
+\section{Naredbe}
+\begin{frame}[t]
+\frametitle{Naredbe (1)}
+\begin{itemize}
+  \item Naredbe se pokreću na sljedeći način
+  \begin{itemize}
+    \item[] \textless naredba\textgreater \textless opcije\textgreater 
+          \textless arugmenti\textgreater
+  \end{itemize}
+  \item Argumenti označavaju nad čime se vrši naredba
+  \begin{itemize}
+    \item Često datoteke
+    \item Ponekad nisu potrebni
+    \begin{itemize}
+      \item Primjer \texttt{ls}
+    \end{itemize}
+    \item Sve piše u man stranicama
+  \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Naredba \shell{info} (1)}
+\frametitle{Naredbe (2)}
 \begin{itemize}
-  \item Proširena verzija \shell{man} naredbe
-  \item Sintaksa naredbe info:
+  \item Opcije utječu na ponašanje naredbe
   \begin{itemize}
-    \item \shell{info [<opcija menija>]}
+    \item duge opcije (engl. \emph{long options}) počinju s ``-{}-''  
+    \item kratke opcije (engl. \emph{short options}) počinju s ``-''
   \end{itemize}
-  \item Korištenje naredbe \shell{info}
+  \item Naredbe obično imaju različite opcije za isto ponašanje
   \begin{itemize}
-    \item Izlazak iz info programa tipkom q
-    \item Kretanje po stranici strelicama i tipkama PgUp i PgDn
-    \item Dokumentacija je organizirana po stranicama
+    \item Primjer: \texttt{man -k regex} \textbf{ili}
+          \texttt{man --apropos regex}
+  \end{itemize}
+  \item Duge opcije su često opisne zbog lakšeg razumijevanja
+\end{itemize}
+\end{frame}
+
+%\section{Naredba \texttt{ls}}
+\begin{frame}[t]
+\frametitle{Naredba \texttt{ls} (1)}
+\begin{itemize}
+  \item Naredba \texttt{ls} prihvaća niz opcija
+  \item Često korištena opcije je \texttt{-l} (engl. \emph{long})
+  \begin{itemize}
+    \item Ispisuje detalje o datotekama i direktorijima
+  \end{itemize}
+  \item Primjer: Izvršiti sljedeću naredbu
+  \item[] \small\texttt{\$ ls -l /bin/sh}
+  \item[] \small\texttt{lrwxrwxrwx 1 root root 4 2010-04-29 10:44 /bin/sh 
+                        -> bash}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \texttt{ls} (2)}
+\begin{itemize}
+  \item Stupci kod korištenja \texttt{ls} naredbe s \texttt{-l} opcijom
+  \begin{itemize}
+    \item Tip datoteke, dozvole, broj referenci, vlasnik, grupa, veličina
+          u oktetima, vrijeme zadnje promijene, ime datoteke
+  \end{itemize}
+  \item Često \texttt{ls} implicitno dodaje opciju \texttt{-{}-color}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \texttt{ls} (3)}
+\begin{itemize}
+  \item Naredbi \texttt{ls} moguće je zadati i ime datoteke/direktorija
+  \begin{itemize}
+    \item niz odvojen prazninama (označen s \ldots u \texttt{man})
+  \end{itemize}
+  \item Primjer
+  \item[] \small\texttt{\$ ls -l /bin/sh}
+  \item[] \small\texttt{lrwxrwxrwx 1 root root 4 2010-04-29 10:44 /bin/sh 
+                        -> bash}
+  \item Opcija \texttt{-h} (engl. \emph{human readable})
+  \begin{itemize}
+    \item U kombinaciji s \texttt{-l} ispisuje veličine u čitljivijem
+          formatu
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Skrivene datoteke}
+\begin{frame}[t]
+\frametitle{Skrivene datoteke}
+\begin{itemize}
+  \item Skrivene datoteke su skrivene u svrhu ljepšeg/jednostavnijeg ispisa, te kako se ne bi slučajno oštetile nepažnjom korisnika
+  \item Na Unix/Linux operacijskom sustavu datoteke čija imena započinju
+        točkom su \textbf{skrivene datoteke}
+  \begin{itemize}
+    \item Ne ispisuju se prilikom izvršavanja naredbe \texttt{ls}, osim
+          ako to ne zatražimo
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Direktoriji}
+\begin{frame}[t]
+\frametitle{Direktoriji}
+\begin{itemize}
+  \item Direktoriji su organizirani kao stablo
+  \item U Unix operacijskom sustavu nema diskova
+  \begin{itemize}
+    \item Sve je \textbf{jedno} stablo direktorija s \textbf{jednim} 
+          korijenom
+  \end{itemize}
+  \centering
+  \begin{tikzpicture}
+    \node {/ (root)}
+        child { 
+          node {home} 
+          child {node {student} }
+          child {node {predavac} }
+        }
+        child { node {bin} }
+    ;
+\end{tikzpicture}
+\end{itemize}
+\end{frame} 
+
+
+\begin{frame}[t]
+\frametitle{Trenutni direktorij}
+\begin{itemize}
+  \item Trenutni (tekući, radni) direktorij je direktorij u kojem se
+        nalazimo
+  \begin{itemize}
+    \item Korisnik ili aplikacija
+  \end{itemize}
+  \item Možemo saznati koji je radni direktorij naredbom \texttt{pwd} 
+        \\(engl. \emph{print working directory})
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Matični direktorij}
+\begin{itemize}
+  \item Svaki korisnik ima matični (engl. \emph{home}) direktoriji
+  \begin{itemize}
+    \item Služi za spremanje osobnih podataka i postavki
+    \item Korisnik ima ovlasti za pisanje i brisanje unutar svog matičnog
+          direktorija
+    \item Izvan matičnog direktorija \textbf{nije dozvoljeno} pisanje 
+          korisnicima koji nisu administratori
+  \end{itemize}
+  \item Neposredno nakon pokretanja ljuske, trenutni direktorij je matični
+        direktorij 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Relativna i apsolutna staza (1)}
+\begin{itemize}
+  \item Položaj datoteke ili direktorija na Unix/Linux sustavu može se 
+        zadati
+  \begin{itemize}
+    \item Apsolutno - počinje znakom ``\texttt{/}''
+    \begin{itemize}
+      \item[] Primjer: \texttt{/home/student/okosl}
+    \end{itemize}
+    \item Relativno 
+    \begin{itemize}
+      \item[] Primjer: \texttt{student/okosl}
+    \end{itemize}
+  \end{itemize}
+
+  \item Relativna staza ovisi o trenutnom direktoriju
+  \begin{itemize}
+    \item Može se zadati samo za direktorije koji su niže u hijerarhiji
+    \item Ako ste u direktoriju \shell{/home}, apsolutna staza za
+          \textbf{student/okosl} je \textbf{/home/student/okosl}
   \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Naredba \shell{info} (2)}
+\frametitle{Relativna i apsolutna staza(2)}
 \begin{itemize}
-  \item Enter (na nekom linku) prelazi na novu stranicu
+  \item Znak ``\texttt{/}'' označava korijenski direktorij
   \begin{itemize}
-    \item Link se prepoznaje po znaku *
-    \item Tipke p, n, u
+    \item Kod staze znači da je sljedeći direktorij poddirektorij
+          prethodnog
   \end{itemize}
-  \item Tipka ? izlistava raspoložive tipke
+  \centering
+  \includegraphics[scale=0.3]{filetree_detail}
+%  \begin{tikzpicture}
+%    \node { / (root)}
+%        child { 
+%          node {usr} 
+%          child {
+%            node {local} 
+%            child { node {bin} }
+%          }
+%          child {node {sbin} }
+%        }
+%        child { node {home} }
+%    ;
+%    \end{tikzpicture}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Stvaranje direktorija}
+\begin{itemize}
+  \item Stvaranje novog direktorija obavlja se naredbom \texttt{mkdir}
   \begin{itemize}
-    \item  Pronaći kako se izlazi iz dobivene pomoći!
+    \item Argument je relativno ili apsolutno ime direktorija koji se
+          stvara
   \end{itemize}
-  \item Zadatak
+  \item Naredba \texttt{mkdir} prihvaća opciju \texttt{-p}
   \begin{itemize}
-    \item Pogledati info stranicu naredbe \shell{info}
-    \item Pokrenuti naredbu \shell{info} bez parametara
+    \item Stvara sve potrebne poddirektorije ako ne postoje
   \end{itemize}
+\end{itemize}
+\end{frame} 
+
+\begin{frame}[t]
+\frametitle{Prikaz sadržaja direktorija}
+\begin{itemize}
+  \item Naredba \texttt{ls} ispisuje sadržaj direktorija
+  \item Opcijom \texttt{-d} ne izlistava se sadržaj direktorija već 
+        informacije o samom direktoriju
+\end{itemize}
+\end{frame}
+    
+
+\begin{frame}[t]
+\frametitle{Promjena direktorija (1)}
+\begin{itemize}
+  \item Promjena direktorija obavlja se naredbom \texttt{cd} (engl. 
+        \emph{change directory})
+  \item Novi direktorij se zadaje 
+  \begin{itemize}
+    \item relativno u odnosu na tekući direktorij
+    \item apsolutno u odnosu na korijenski direktorij  
+  \end{itemize}
+  \item Naredba \texttt{cd} bez argumenata vraća u matični direktorij
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Posebni direktoriji (1)}
+\begin{itemize}
+  \item Svaki direktorij sadrži dva posebna direktorija
+  \begin{itemize}
+    \item \texttt{..} roditeljski direktorij (engl. \emph{parent directory})
+    \item \texttt{.} tekući direktorij (engl. \emph{current directory})
+  \end{itemize}
+  \item Primjeri
+  \begin{itemize}
+    \item \texttt{cd . } 
+    \begin{itemize}
+      \item Mijenja direktorij u tekući direktorij, efektivno nema 
+               promjene
+    \end{itemize}
+    \item \texttt{cd .. }
+    \begin{itemize}
+      \item Mijenja trenutni direktorij u direktorij iznad
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Posebni direktoriji (2)}
+\begin{itemize}
+  \item Koriste se za relativno ``adresiranje'' direktorija
+  \item Ne mogu ići van korijenskog direktorija, tj.
+  \begin{itemize}
+    \item[] \texttt{/../../} je isto što i \texttt{/}
+  \end{itemize}
+  \item Česta pogreška korisnika DOS-a
+  \begin{itemize}
+    \item Upisivanje \texttt{cd..} (bez razmaka)
+    \item Na Unixu to je posebna naredba (``.'' može biti sastavni dio 
+          imena)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Posebni direktoriji (3)}
+\begin{itemize}
+  \item Posebni direktoriji se mogu koristiti u imenima datoteka
+  \flushleft
+  \begin{tikzpicture}[auto, >=latex]
+  \node{\$HOME}
+    child {
+      node (a) {student} 
+      child {
+        node (b) {VJEZBA}
+        child { node {dir1} }
+        child { node {dir2} }
+      }
+    }
+  ;
+  \node (c) [left=1cm of a] {\$HOME/student/VJEZBA/../}; 
+  \node (d) [left=1cm of b] {\$HOME/student/./VJEZBA};
+  \draw[->] (c) -- (a);
+  \draw[->] (d) -- (b);
+  \end{tikzpicture}
+\end{itemize}
+\end{frame}
+
+\section{Skripte u bashu}
+\begin{frame}[t]
+\frametitle{Skripte}
+\begin{itemize}
+  \item Skripta je niz naredbi zapisan u tekstualnu datoteku, a za čije izvršavanje nije potreban compiler
+  \item Inače bi korisnik morao unostit svaku naredbu zasebno u ljusku
+  \item Kratica za skriptu je .sh, te se pokreće naredbom \shell{bash <ime_skripte>}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Primjer skripte}
+\begin{itemize}
+  \item #!/bin/bash \\ mkdir radno \\ echo pozdrav_ekipa \\ ls-lh
 \end{itemize}
 \end{frame}
 
@@ -519,10 +741,6 @@
   \item \url{http://distrowatch.com/dwres.php?resource=major}
 \end{itemize}
 \end{frame}
-
-
-
-
 
 
 \end{document}
