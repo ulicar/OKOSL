@@ -1,0 +1,168 @@
+\documentclass[table,usenames,dvipsnames]{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usepackage{listings}
+\usetikzlibrary{shapes,arrows}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+\definecolor{LightGray}{gray}{0.9}
+
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{11. Linux u praksi}
+\author[Dominik Barbarić]{Dominik Barbarić\\ \small{Nositelj: dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+	Fakultet elektrotehnike i računarstva}
+
+\date{\todayiso}
+
+\begin{document}
+%\beamerdefaultoverlayspecification{<+->}
+{
+	\setbeamertemplate{headline}[] % still there but empty
+	\setbeamertemplate{footline}{}
+	
+	\begin{frame}
+		\maketitle
+	\end{frame}
+}
+
+\begin{frame}[t]
+	\frametitle{Programi u Linuxu}
+	\begin{itemize}
+		\item Izvršne datoteke u Linuxu mogu biti u formatu:
+		\begin{itemize}
+			\item \emph{a.out} - do kernela 1.2
+			\item \emph{elf} (Executable and Linkable Format) - od kernela 1.2 nadalje
+		\end{itemize}
+		\item[]
+		\item Uobičajene metode instalacije programa:
+		\begin{itemize}
+			\item Iz izvornog koda (tarball arhiva i \emph{make} alat)
+			\item Pomoću sustava upravljanja paketima
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Programi u Linuxu}
+	\framesubtitle{Kompajliranje i instalacija}
+	Zašto instaliravati programe iz izvornog koda?
+	\begin{itemize}
+		\item Linux je multiplatformski OS
+		\item Izvorni kod je pisan za određeni OS (ne ovisi o arhitekturi, osim u programima posebne namjene)
+		\item Kompajliranjem izvornog koda na odredišnoj arhitekturi dobivamo valjanu izvršnu datoteku
+		\item[]
+	\end{itemize}
+	Distribucija izvornih kodova open-source programa
+	\begin{itemize}
+		\item Većina izvornih kodova open source programa pisanih za Linux dolaze u tar arhivama
+		\item Tar arhive se obično dodatno komprimiraju gzip kompresijskim formatom - \emph{tarball} (.tar.gz / .tgz)
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]
+	\frametitle{Programi u Linuxu}
+	\framesubtitle{Kompajliranje i instalacija}
+	\emph{make}
+	\begin{itemize}
+		\item Alat koji služi za automatizaciju kompajliranja i instalacije programa
+		\item[] Sintaksa: \shell{make <target>}
+		\item \shell{make} se oslanja na skriptu \shell{Makefile} koja se nalazi u direktoriju s izvornim kodom
+		\item \shell{make} izvršava \emph{target} (ciljni) posao definiran u Makefileu
+		\item[]
+		\item Za svaki projekt piše se specifični Makefile koji onda izvršava sve potrebne radnje koje omogućuju pokretanje programa (npr. instaliranje posebnih bibilioteka)
+		\item Uobičajeni targeti u Makefileu su \emph{all}, \emph{install}, a mogu se definirati i targeti za deinstalaciju programa
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Programi u Linuxu}
+	\framesubtitle{Sustav upravljanja paketima}
+	\begin{itemize}
+		\item Programski paketi se u većini instaliraju \emph{sustavom upravljanja paketima}
+		\item Programi dolaze u paketima u kojima se nalaze izvorni kod ili (češće) izvršni program te podaci o koracima koje je potrebno provesti za instalaciju i pokretanje programa - \emph{dependencies}
+		\item Sustav upravljanja paketima pamti instalirane pakete te vodi računa o ažuriranju i postupcima za deinstalaciju paketa
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Programi u Linuxu}
+	\framesubtitle{Sustavi upravljanja paketima}
+	Poznatiji sustavi upravljanja paketima:
+	\begin{table}[h]
+		\rowcolors{1}{White}{LightGray}
+		\begin{tabular}{l l l}
+			\rowcolor{BlueViolet!20} Sustav & Distribucije & Format paketa \\
+			dpkg & Debian, Ubuntu, Knoppix, ... & .deb \\
+			RPM & Red Hat, Fedora, openSUSE, Cent OS, ... & .rpm \\
+			pacman & Arch & .tar.xz \\
+		\end{tabular}
+	\end{table}
+	\begin{itemize}
+		\item Svaki od ovih sustava se može koristiti pomoću ugrađenih alata ili putem nekog \emph{frontenda}
+		\item Primjer - Debian
+		\item[] \shell{apt-get install vim}
+		\item[] \small Naredba poziva \emph{apt} (Advanced packaging tool - frontend za dpkg) koji pretražuje Debianov repozitorij te preuzima i instalira paket \shell{vim}
+	\end{itemize}
+\end{frame}
+
+% % dpkg usage
+
+\begin{frame}[t]
+	\frametitle{Programi u Linuxu}
+	\framesubtitle{Sustavi upravljanja paketima}
+	\begin{itemize}
+		\item \shell{apt} je frontend za \shell{dpkg}
+		\begin{itemize}
+			\item Spaja se sa službenim Debian / Ubuntu / \ldots repozitorijem i ostalim repozitorijima navedenim u
+			\item[] \shell{/etc/apt/sources.list}
+			\item Vodi računa o redovitom ažuriranju instaliranih paketa
+			\item Za apt postoje i napredniji frontendi (npr. \emph{Synaptic package manager}, \shell{aptitude}, \ldots)
+		\end{itemize}
+		\item \shell{dpkg} se može koristiti kao samostalan alat za instalaciju lokalno dostupnih .deb paketa
+		\item[]
+		\item Zadatak
+		\begin{itemize}
+			\item Proučiti man stranice za dpkg i isprobati ručnu instalaciju nekog paketa iz službenog repozitorija distribucije
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+% DESKTOP
+
+\begin{frame}[t]
+	\frametitle{Literatura}
+	\begin{itemize}
+		\item \url{http://cs.mipt.ru/docs/comp/eng/os/linux/howto/howto\_english/elf/elf-howto-1.html}
+		\item \url{http://www.opensourceforu.com/2012/06/gnu-make-in-detail-for-beginners/}
+		\item \url{http://www.rpm.org/max-rpm/ch-intro-to-rpm.html}
+	\end{itemize}
+	
+	\begin{itemize}
+		\item man a.out
+		\item man elf
+	\end{itemize}
+\end{frame}
+	
+\end{document}
