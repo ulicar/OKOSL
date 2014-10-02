@@ -3,3 +3,4 @@ lectures/*
 !lectures/*.jpg
 !lectures/*.png
 issues*
+.sync/*

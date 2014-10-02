@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[table,usenames,dvipsnames] {beamer}
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
@@ -11,6 +11,7 @@
 \usepackage[normalem]{ulem}
 \usepackage{tikz}
 \usepackage{verbatim}
+\usepackage{multirow}
 \usetikzlibrary{shapes,arrows}
 \usetheme{CambridgeUS}
 \usecolortheme{seagull}
@@ -28,8 +29,8 @@
 \newcommand{\shell}[1]{\texttt{#1}}
 
 \title{Osnove korištenja operacijskog sustava Linux}
-\subtitle{05. Korisnici i grupe}
-\author[Goran Cetušić]{Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\subtitle{07. Korisnici i grupe}
+\author[Lucija Petricioli, Josip Žuljević]{Lucija Petricioli, Josip Žuljević\\{\small Nositelj: doc. dr. sc. Stjepan Groš}}
 \institute[FER]{Sveučilište u Zagrebu \\
 				Fakultet elektrotehnike i računarstva}
 				
@@ -94,7 +95,8 @@
   \begin{itemize}
     \item tty0, tty1, tty2, \ldots
     \begin{itemize}
-      \item Označavaju virtualne terminale
+      \item Označavaju virtualne terminale, dostupni u bilo kojem trenutku
+	  \item Između terminala se prebacuje sa Ctrl+Alt+F1\ldots F7
     \end{itemize}
     \item pts/N
     \begin{itemize}
@@ -102,48 +104,18 @@
                 spajanje preko mreže npr. \shell{gnome-terminal}
     \end{itemize}
   \end{itemize}
+  \item Izlazak iz terminala moguće je ostvariti sa Ctrl+D ili \shell{logout} naredbom iz terminala
 \end{itemize}
 \end{frame}
 
-\section{Prijava i odjava sa sustava}
-\begin{frame}[t]
-\frametitle{Odjava sa sustava}
-\begin{itemize}
-  \item Skraćeno se može izaći s Ctrl+D
-  \item Zadatak:
-  \begin{itemize}
-    \item pokrenuti pseudoterminal
-    \item odjaviti se sa Ctrl+D
-    \item pokrenuti pseudoterminal
-    \item pokrenuti dodatnu ljusku (\shell{bash})
-    \item odjaviti se sa Ctrl+D
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Prijava na sustav}
-\begin{itemize}
-  \item Na terminalu je pokrenut program \shell{login}
-  \item Između terminala se prebacuje sa Ctrl+Alt+F1\ldots F7
-  \item Zadatak:
-  \begin{itemize}
-    \item prebaciti se na prvi terminal
-    \item odjaviti se sa \shell{logout}
-    \item pokrenuti dodatnu ljusku (\shell{bash})
-    \item odjaviti se sa \shell{logout}
-  \end{itemize}
-\end{itemize}
-\end{frame}
 
 \section{Informacije o korisniku}
 \begin{frame}[t]
 \frametitle{Naredba \shell{who} (1)}
 \begin{itemize}
   \item Naredba može prikazati podatke o korisniku
-  \item Zadatak
+  \item Primjer ispisa
   \begin{itemize}
-    \item Pokrenuti naredbu \shell{who}
     \item[] \shell{\$ who}
     \begin{table}[h]
     \begin{flushleft}
@@ -171,55 +143,30 @@
   \begin{itemize}
     \item Ispisuje samo korisničko ime
   \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Isprobati prethodne dvije naredbe
-  \end{itemize}
 \end{itemize}
 \end{frame}
 
-%mozda je ova prva natuknica nepotrebna - ista je kao i naslov
 \begin{frame}[t]
-\frametitle{Naredba \shell{finger} (1)}
+\frametitle{Naredba \shell{finger}}
 \begin{itemize}
-  \item Naredba \shell{finger}
-  \begin{itemize}
-    \item Drugi način prikaza trenutno aktivnih korisnika
-    \item Prikazuje trenutno logirane korisnike, ili prikazuje 
+  \item Drugi način prikaza trenutno aktivnih korisnika
+  \item Prikazuje trenutno logirane korisnike, ili prikazuje 
           detaljnije podatke o nekom korisniku
-  \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Izvršiti naredbu \shell{finger} bez argumenata
-  \end{itemize}
+   \item Prikazuje dodatne podatke
+   \begin{itemize}
+   	\item Čita ih iz datoteka \shell{.project} i \shell{.plan}
+   \end{itemize}
+   \item Ako joj zadamo parametar pretražuje korisnika
+   \begin{itemize}
+   	\item Pretraživanje se obavlja po korisničkom imenu i pravom imenu
+   \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Naredba \shell{finger} (2)}
+\frametitle{Naredba \shell{w}}
 \begin{itemize}
-  \item Naredba \shell{finger} prikazuje dodatne podatke
-  \begin{itemize}
-    \item Čita ih iz datoteka \shell{.project} i \shell{.plan}
-  \end{itemize}
-  \item Ako naredbi \shell{finger} zadamo parametar pretražuje korisnika
-  \begin{itemize}
-    \item Pretraživanje se obavlja po korisničkom imenu i pravom imenu
-  \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Saznati upisane podatke o sebi
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Naredba \shell{w} (2)}
-\begin{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Pokrenuti naredbu \shell{w} i pogledati ispis
-  \end{itemize}
+  \item Primjer ispisa
     \begin{table}[h]\footnotesize
     \begin{flushleft}
     \shell{
@@ -243,12 +190,9 @@
     \item Naziva se i UID (engl. \emph{user ID})
     \item 16 ili 32-bitni broj
   \end{itemize}
-  \item Jedan korisnik se posebno tretira
+  \item Jedan korisnik se posebno tretira -\bf{root}
   \begin{itemize}
     \item Administratorski korisnički račun -- UID=0
-    \begin{itemize}
-      \item Daleko poznatiji kao root!
-    \end{itemize}
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -264,6 +208,7 @@
   \end{itemize}
   \item Sve ostale korisnike sustav ne tretira posebno ni na koji način
   \item Root može sve!!
+  \item Za privremeno dobivanje administrativnih ovlasti koristi se prefiks \shell {sudo}
 \end{itemize}
 \end{frame}
 
@@ -277,11 +222,6 @@
     \item \shell{su - <korisnicko ime>}
   \end{itemize}
   \item Bez argumenata mijenja korisnika u root
-  \item Preporuča se korištenje drugog oblika
-  \item Zadatak
-  \begin{itemize}
-    \item Postanite root korisnik!
-  \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -295,8 +235,7 @@
   \item Sadrži i ostale podatke
   \begin{itemize}
     \item Nekada je u njoj bila i lozinka
-    \item Vrlo loše sa sigurnosne strane, napad baziran na rječniku
-    \item Ne može se zabraniti njeno čitanje jer mnoštvo aplikacija ovisi 
+    \item Vrlo loše sa sigurnosne strane - ne može se zabraniti njeno čitanje jer mnoštvo aplikacija ovisi 
           o podacima u toj datoteci
   \end{itemize}
 \end{itemize}
@@ -305,10 +244,10 @@
 \begin{frame}[t]
 \frametitle{Baza passwd (2)} 
 \begin{itemize}
-  \item passwd baza sadrži jedan zapis po liniji
+  \item Sadrži jedan zapis po liniji
   \begin{itemize}
     \item Svaka linija sadrži sljedeće informacije razdvojene dvotočkom
-    \item Korisničko ime, UID, GID, info, matični direktorij,
+    \item Korisničko ime, UID, GID (group ID) , info, matični direktorij,
           ljuska koja se koristi
     \begin{itemize}
       \item[] root:x:0:0:root:/root:/bin/bash
@@ -368,10 +307,8 @@
     \item GID (Group ID)
   \end{itemize}
   \item Podatke možemo saznati korištenjem naredbe \shell{id}
-  \item Zadatak
   \begin{itemize}
-    \item Pokrenuti naredbu \shell{id} i provjeriti kojim grupama korisnik
-          pripada
+	\item uid=1000(user) gid=1000(user) groups=1000(user),4(adm)...
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -397,7 +334,7 @@
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Manipulacija korisnicima (1)}
+\frametitle{Manipulacija korisnicima}
 \begin{itemize}
   \item Tri osnovne operacije s korisnicima
   \begin{itemize}
@@ -442,27 +379,6 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t]
-\frametitle{Mijenjanje lozinke}
-\begin{itemize}
-  \item Lozinka je vrlo bitna
-  \begin{itemize}
-    \item Ne manja od 8 znakova, kombinacija slova, brojki i posebnih 
-          znakova
-    \item Izbjegavati riječi iz rječnika, imena i slično!
-    \item Promjena se obavlja naredbom \shell{passwd}
-    \begin{itemize}
-      \item Traži se postojeća lozinka, a potom dva puta nova lozinka
-    \end{itemize}
-  \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Promijenite lozinku, odlogirajte se, ulogirajte te potom vratite
-          staru lozinku
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
 \section{Promjena podataka o korisniku}
 \begin{frame}[t]
 \frametitle{Promjena podataka o korisniku (1)}
@@ -476,20 +392,8 @@
     \item Promjena ljuske, opcija \shell{-s <shell>}
     \item Promjena matičnog direktorija, opcija \shell{-d <dir>}
   \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Promijeniti ljusku korisnika testuser u tcsh
-    \item Pomaknuti matični direktorij korisnika testuser u direktorij 
-          \shell{/home/testuser}
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Promjena podataka o korisniku (2)}
-\begin{itemize}
   \item Ljuska korisnika može se promijeniti i  naredbom \shell{chsh}
-  \item Naredba \shell{chfn} mijenja podatke od korisnicima poput imena 
+  \item Naredba \shell{chfn} mijenja podatke o korisnicima poput imena 
         i telefonskog broja
   \begin{itemize}
     \item Ista polja koja se unose kod stvaranja korisnika naredbom 
@@ -499,22 +403,15 @@
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Promjena podataka o korisniku (3)}
+\frametitle{Promjena podataka o korisniku (2)}
 \begin{itemize}
+  \item Izmjena lozinke pomoću naredbe \shell{passwd}
   \item Moguće je privremeno onemogućavanje prijave korisnika na sustav
   \begin{itemize}
     \item[] \shell{passwd -l <username>}
     \item Uklanjanje privremenog onemogućavanja korisnika, opcija 
           \shell{-u}
     \item[] \shell{passwd -u <username>} 
-  \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Onemogućiti korisnika testuser
-    \begin{itemize}
-      \item Pogledati datoteku \shell{shadow}. Koja je promjena?
-    \end{itemize}
-    \item Ponovo omogućiti korisnika testuser
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -533,7 +430,7 @@
   \end{itemize}
   \item Brisanje grupe
   \begin{itemize}
-    \item[] \shell{\$ deluser –group <grupa>}
+    \item[] \shell{\$ deluser --group <grupa>}
     \item[] ili
     \item[] \shell{\$ delgroup}
   \end{itemize}
@@ -545,20 +442,6 @@
 \begin{itemize}
   \item Kod stvaranja korisnika se može definirati lokacija matičnog 
         direktorija i njegovo brisanje zajedno sa korisnikom
-  \item Zadatak
-  \begin{itemize}
-    \item Dodati korisnika testuser
-    \item Matični direktorij korisnika treba biti \shell{/home/abc}
-    \item Izlistati njegov matični direktorij
-    \item Jednom naredbom obrisati korisnika, uključujući i matični 
-          direktorij
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Manipulacija korisnicima (3)}
-\begin{itemize}
   \item Navedene naredbe su sučelja drugih naredbi
   \begin{itemize}
     \item[] \shell{adduser} $\Rightarrow$ \shell{useradd}
@@ -568,23 +451,6 @@
   \end{itemize}
   \item Sve prethodne akcije se mogu napraviti i navedenim naredbama, na 
         drugačiji način
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Manipulacija grupama}
-\begin{itemize}
-  \item Sve potrebne informacije nalaze se u man stranicama :)
-  \begin{itemize}
-    \item[] \shell{groupadd}
-    \item[] \shell{groupdel}
-    \item[] \shell{addgroup}
-    \item[] \shell{delgroup}
-  \end{itemize}
-  \item DZ
-  \begin{itemize}
-    \item Isprobati sve naredbe
-  \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -607,6 +473,39 @@
     \item Izlistati direktorij \shell{/etc/skel} i matični direktorij
   \end{itemize}
 \end{itemize}
+\end{frame}
+
+\section{Naredbe}
+\begin{frame}[t]
+	\frametitle{Naredbe}
+	\begin{table}[h]
+		%  \rowcolors{2}{White}{LightGray}
+		\begin{tabular}{|c|l|}
+			\hline
+			\rowcolor{BlueViolet!20}Naredba & Opis \\
+			\hline
+			Ctrl+D & odjava iz terminala \\
+			\hline
+			logout & odjava iz terminala \\
+			\hline
+			who & prikazuje podatke o korisniku \\
+			\hline
+			who am i & ispisuje korisnika u trenutnom terminalu \\
+			\hline
+			whoami & ispisuje isključivo korisničko ime korisnika u terminalu \\
+			\hline
+			finger & ispisuje trenutno aktivne korisnike \\
+			\hline
+			su & izmjena korisnika \\
+			\hline
+			newgrp & prijava u drugu grupu \\
+			\hline
+			usermod & izmjena podataka o korisniku \\
+			\hline
+			passwd & promjena korisničke lozinke \\
+			\hline
+		\end{tabular}
+	\end{table}
 \end{frame}
 
 \end{document}
