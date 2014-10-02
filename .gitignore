@@ -1,5 +1,5 @@
-*/lectures/*
-!*/lectures/*.tex
-!*/lectures/*.jpg
-!*/lectures/*.png
+lectures/*
+!lectures/*.tex
+!lectures/*.jpg
+!lectures/*.png
 issues*
