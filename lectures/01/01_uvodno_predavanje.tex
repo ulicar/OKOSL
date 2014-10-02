@@ -9,6 +9,7 @@
 \usepackage{color}
 \usepackage[normalem]{ulem}
 \usepackage{tikz}
+\usetikzlibrary{positioning}
 \usepackage{hyperref}
 \usetikzlibrary{shapes,arrows}
 \usetheme{CambridgeUS}
@@ -594,20 +595,7 @@
           prethodnog
   \end{itemize}
   \centering
-  \includegraphics[scale=0.3]{filetree_detail}
-%  \begin{tikzpicture}
-%    \node { / (root)}
-%        child { 
-%          node {usr} 
-%          child {
-%            node {local} 
-%            child { node {bin} }
-%          }
-%          child {node {sbin} }
-%        }
-%        child { node {home} }
-%    ;
-%    \end{tikzpicture}
+  \includegraphics[scale=0.3]{filetree-detail.jpg}
 \end{itemize}
 \end{frame}
 
@@ -676,7 +664,7 @@
 \begin{frame}[t]
 \frametitle{Posebni direktoriji (2)}
 \begin{itemize}
-  \item Koriste se za relativno ``adresiranje'' direktorija
+  \item Koriste se za relativno \emph{adresiranje} direktorija
   \item Ne mogu ići van korijenskog direktorija, tj.
   \begin{itemize}
     \item[] \texttt{/../../} je isto što i \texttt{/}
@@ -684,7 +672,7 @@
   \item Česta pogreška korisnika DOS-a
   \begin{itemize}
     \item Upisivanje \texttt{cd..} (bez razmaka)
-    \item Na Unixu to je posebna naredba (``.'' može biti sastavni dio 
+    \item Na Unixu to je posebna naredba (\emph{.} može biti sastavni dio 
           imena)
   \end{itemize}
 \end{itemize}
@@ -720,22 +708,36 @@
 \begin{itemize}
   \item Skripta je niz naredbi zapisan u tekstualnu datoteku, a za čije izvršavanje nije potreban compiler
   \item Inače bi korisnik morao unostit svaku naredbu zasebno u ljusku
-  \item Kratica za skriptu je .sh, te se pokreće naredbom \shell{bash <ime_skripte>}
+  \item Kratica za skriptu je .sh, te se pokreće naredbom \shell{bash <ime\_skripte>}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[t]
 \frametitle{Primjer skripte}
 \begin{itemize}
-  \item #!/bin/bash \\ mkdir radno \\ echo pozdrav_ekipa \\ ls-lh
+  \item \#!/bin/bash \\ mkdir radno \\ echo pozdrav\_ekipa \\ ls -lh
 \end{itemize}
+\end{frame}
+
+\section{Pregled naredbi}
+\begin{frame}[t]
+\frametitle{Pregled naredbi}
+\begin{tabular}{| l | c |} \hline
+  \shell{man <ime naredbe>} & opis određene naredbe \\ \hline
+  \shell{ls} & popis svih datoteka i direktorija \\ \hline
+  \shell{pwd} & trenutni (radni) direktorij \\ \hline
+  \shell {mkdir} & stvaranje novog direktorija \\ \hline
+  \shell{cd} & promjena trenutnog direktorija \\ \hline
+  \shell{bash <ime skripte>} & pokretanje skripte \\ \hline
+
+\end{tabular}
 \end{frame}
 
 \begin{frame}[t]
 \frametitle{Literatura}
 \begin{itemize}
   \item \url{http://www.troubleshooters.com/linux/info.htm}
-  \item \url{http://www.schweikhardt.net/man_page_howto.html#q3}
+  \item \url{http://www.schweikhardt.net/man_page_howto.html\#q3}
   \item \url{http://www.debian.org/doc/debian-policy/ch-docs.html}
   \item \url{http://www.unix.org/what_is_unix/history_timeline.html}
   \item \url{http://distrowatch.com/dwres.php?resource=major}
