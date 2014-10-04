@@ -1,59 +1,19 @@
-\documentclass{beamer}
-
-\usepackage[english]{babel}
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{listings}
-\usepackage{datetime}
-\usepackage{graphics}
-\usepackage{fancybox}
-\usepackage{color}
-\usepackage[normalem]{ulem}
-\usepackage{hyperref}
-\usetheme{CambridgeUS}
-\usecolortheme{seagull}
-% Changing of bullet foreground color not possible if {itemize item}[ball]
-\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
-\setbeamertemplate{itemize item}[triangle]
-\setbeamercolor{title}{fg=Purple}
-\setbeamercolor{frametitle}{fg=Purple}
-\setbeamercolor{itemize item}{fg=Purple}
-\setbeamercolor{section number projected}{bg=Purple,fg=white}
-\setbeamercolor{subsection number projected}{bg=Purple}
-
-\renewcommand{\dateseparator}{.}
-\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\usepackage[top=20mm]{geometry}
 \newcommand{\shell}[1]{\texttt{#1}}
-\title{Osnove korištenja operacijskog sustava Linux}
-\subtitle{01. Domaća Zadaća}
-\author[Antun Aleksa, Josip Žuljević]{Antun Aleksa, Josip Žuljević\\{\small Nositelj: dr. sc. Stjepan Groš}}
-\institute[FER]{Sveučilište u Zagrebu \\
-				Fakultet elektrotehnike i računarstva}
-				
-\date{\todayiso}
-
 \begin{document}
-    %\beamerdefaultoverlayspecification{<+->}
-{
-\setbeamertemplate{headline}[] % still there but empty
-\setbeamertemplate{footline}{}
-
-\begin{frame}
-\maketitle
-\end{frame}
-}
-
-\begin{frame}[t]
-\frametitle{Zadatak}
-\begin{itemize}
-  \item Zadatak u sklopu prvog predavanja OKOSL-a
-  \begin{itemize}
-    \item Pozicioniraj se u folder /Downloads
-    \item Napravite folder "zadatak"
-    \item U folderu "zadatak" jednom naredbom napravite foldere "jedan", "dva" i "tri"
-	\item U direktoriju "tri" napraviti još jedan direktorij pod nazivom "palac"
-	\item Ispišite trenutni direktorij
-	\item Ispišite sadržaj direktorija "zadatak" poredan po vremenu modificiranja
-  \end{itemize}
-\end{itemize}
-\end{frame}
+	\title{Domaća zadaća - 01}
+	\author{Lucija Petricioli, Dominik Barbarić}
+	\maketitle
+	Rješenje zadatka je potrebno upisati u \shell{.sh} datoteku. Jedna naredba - jedan redak.
+	\begin{itemize}
+		\item Pozicionirajte se u direktorij \shell{/tmp}.
+		\item Napravite direktorij OKOSL i bez mijenjanja trenutnog direktorija foldere siječanj,veljača...prosinac.
+		\item U direktoriju listopad napravite skriveni direktorij \shell{Prvo predavanje}.
+		\item Pozicionirajte se u matični direktorij korištenjem kratkog izraza za matični direktorij.
+		\item Pokretanjem naredbe iz trenutnog direktorija ispišite rekurzivno \textit{cijeli} sadržaj direktorija \shell{/tmp/OKOSL}.
+		\item Sortirajte ispis naredbe iz prethodne točke po vremenu zadnje promjene, tako da se prvo ispisuju \textit{najstarije}.
+	\end{itemize}
 \end{document}
