@@ -717,7 +717,7 @@
   \item Sintaksa datoteke je:
   \begin{itemize}
     \item[] \shell{head [-n <n>] <ime datoteke>}
-    \item Ako se ne navede opcija, ispisuje prvih 10 redaka, inaće ispisuje          prvih N redaka
+    \item Ako se ne navede opcija, ispisuje prvih 10 redaka, inaće ispisuje prvih N redaka
   \end{itemize}
   \item Ako je \shell{<n>} negativan, ispisuje sve osim zadnjih n redaka
 \end{itemize}
@@ -766,6 +766,28 @@
   \item Često korišteni su \shell{nano} i \shell{vim}
   \item Editor \shell{nano} je jednostavan za uporebu i najrašireniji na Linuxu
 \end{itemize}
+\end{frame}
+
+\section{Pregled naredbi}
+\begin{frame}[t]
+\frametitle{Pregled naredbi}
+\begin{tabular}{| l | c |} \hline
+  \shell{cp} & kopiranje datoteka/direktorija \\ \hline
+  \shell{mv} & preimenovanje i premještanje datoteka/direktorija \\ \hline
+  \shell{rm} & brisanje datoteka/direktorija \\ \hline
+  \shell{rmdir} & brisanje direktorija \\ \hline
+  \shell{df} & ispis zauzeća po particijama \\ \hline
+  \shell{du} & zauzeće prostora po direktorijima \\ \hline
+  \shell{touch} & stvaranje prazne datoteke \\ \hline
+  \shell{ln -s} & stvaranje simboličke poveznice \\ \hline
+  \shell{cat} & pregled sadržaja datoteke \\ \hline
+  \shell{stat} & detaljnje informacije o datoteci/direktoriju \\ \hline
+  \shell{file} & ispis tipa datoteke \\ \hline
+  \shell{head} & ispis prvih 10 redaka datoteke (\shell{[-n <n>]} = prvih n redaka) \\ \hline
+  \shell{tail} & ispis zadnjih 10 redaka datoteke (\shell{[-n <n>]} = zadnjih n redaka) \\ \hline
+  
+
+\end{tabular}
 \end{frame}
 
 \end{document}
