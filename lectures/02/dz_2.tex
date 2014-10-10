@@ -1,0 +1,25 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\newcommand{\shell}[1]{\texttt{#1}}
+\begin{document}
+	\title{Domaća zadaća - 02}
+	\author{Dominik Barbarić}
+	\maketitle
+	Rješenje zadatka je potrebno upisati u \shell{.sh} datoteku. Jedna naredba - jedan redak.
+	\begin{itemize}
+	\item[]
+		\item Stvorite simboličku poveznicu na datoteku \shell{/etc/passwd} i nazovite je \shell{korisnici}.
+		\item Odredite tip datoteke \shell{korisnici} korištenjem naredbe \shell{file}.
+		\item Naredbom \shell{wc} doznajte ukupan broj korisnika na sistemu.
+		\item Ispišite sve osim zadnjih 5 redova datoteke \shell{korisnici}. Koristite \shell{head} i \shell{tail} uz negativan broj redova.
+		\item Koristeći naredbu \shell{touch} datoteci \shell{korisnici} promijenite \emph{samo} modification time.
+		\item Naredbom \shell{stat} ispišite informacije o datoteci \shell{korisnici}.
+		\item[]
+		\item Naredbom \shell{df} provjerite koji je blok uređaj montiran na lokaciju \shell{/}.
+		\item Provjerite veličinu blok datoteke montirane na lokaciju \shell{/}.
+		\item[]
+		\item Saznajte ukupno diskovno zauzeće vašeg matičnog direktorija.
+	\end{itemize}
+\end{document}
