@@ -21,10 +21,11 @@ rm -r One/
 #Treci zadatak
 mkdir Jules
 mkdir Jules/{Rita,Lucy,Elenor,Desmond}
-mv Jules/Rita Jules/Lucy/
+cp -r Jules/Rita Jules/Lucy/
 touch Jules/Desmond/{Molly,Bill}
-ln -s Jules/Lucy Jules/Elenor/link
-rmdir Jules/Lucy
+#Symbolic linkove uvijek kreirajte navodeci apsolutne adrese u TARGET parametru:
+ln -s /home/korisnik/Jules/Lucy Jules/Elenor/link
+rm -r Jules/Lucy
 ls -l Jules/Elenor
 stat --format=%y Jules/Elenor/
 
@@ -32,8 +33,8 @@ stat --format=%y Jules/Elenor/
 stat --format=%x /etc/passwd
 mkdir Pennie
 du -s Pennie
-mkdir Pennie/{Sally,Jules}
-ln -s /usr/bin/ Pennie/link
+touch Pennie/{Sally,Jules}
+ln -s /usr/bin Pennie/link
 du -s Pennie
 du -sL Pennie
 rm -r Pennie
