@@ -3,7 +3,7 @@
 #Prvi zadatak
 mkdir Paul
 touch Paul/Ringo
-cp Ringo ~/Desktop
+cp Paul/Ringo ~/Desktop
 stat --format=%y Paul
 rm Paul/Ringo
 
