@@ -32,7 +32,7 @@
 
 \title{Osnove korištenja operacijskog sustava Linux}
 \subtitle{07. Pretraživanja, filtri i cjevovodi}
-\author[Goran Cetušić]{Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\author[Nino Nikola Stanušić i Goran Cetušić]{Nino Nikola Stanušić i Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
 \institute[FER]{Sveučilište u Zagrebu \\
 				Fakultet elektrotehnike i računarstva}
 				
@@ -68,25 +68,15 @@
   \begin{itemize}
     \item Ako ih nismo preusmjerili uz pomoć specijalnih operatora
   \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Opisnici izlaza i ulaza}
-\begin{itemize}
   \item Svi su predstavljeni kao datoteke
   \begin{itemize}
     \item Imaju svoje opisnike datoteka (engl. \emph{file descriptor})
     \item Označeni su brojevima 0, 1 i 2
   \end{itemize}
-  \item Zadatak
-  \begin{itemize}
-    \item Izlistajte podatke o datoteci \shell{/dev/stdin}
-    \item Na što pokazuje?
-    \item Koja je krajnja datoteka?
-  \end{itemize}
 \end{itemize}
 \end{frame}
+
+
 
 \begin{frame}[t]
 \frametitle{Primjer naredbe \shell{cat}}
@@ -138,7 +128,7 @@
 \frametitle{Preusmjeravanje u datoteku (1)}
 \begin{itemize}
   \item Kako bi preusmjerili izlaz neke naredbe u datoteku koristimo 
-        operator \shell{>}
+        operator \shell{">"}
   \begin{itemize}
     \item Pogledajmo razliku između izvršavanja sljedeće dvije naredbe:
     \begin{itemize}
@@ -162,7 +152,7 @@
   \begin{itemize}
     \item Koristit ćemo operator \shell{>>}
   \end{itemize}
-  \item Zadatak
+  \item Primjer
   \begin{itemize}
     \item Potrebno je u jednu datoteku dobiti ispis direktorija 
           \shell{/bin, /sbin, /usr/bin} i \shell{/usr/sbin}
@@ -173,6 +163,23 @@
   \end{itemize}
 \end{itemize}
 \end{frame}
+
+\begin{frame}[t]
+\frametitle{Preusmjeravanje u datoteku (3)}
+\begin{itemize}
+	\item Riješenje
+	\begin{itemize}
+	
+	\item[] \shell{\$ ls -l /tmp/}
+	\item[] \shell{\$ ls -l /bin/ >> /tmp/output}
+	\item[] \shell{\$ ls -l /sbin/ >> /tmp/output}
+	\item[] \shell{\$ ls -l /usr/bin/ >> /tmp/output}
+	\item[] \shell{\$ ls -l /usr/sbin/ >> /tmp/output}
+
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}[t]
 \frametitle{Preusmjeravanje iz datoteke}
@@ -220,7 +227,7 @@
   \item Primjer, kako bi vidjeli prvih pet linija ispisa direktorija
         \shell{/lib}, možemo napraviti sljedeće:
   \begin{itemize}
-    \item[] \shell{\$ ls -l /lib | head -5}
+    \item[] \shell{\$ ls -l /lib/ | head -5}
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -256,7 +263,8 @@
   \item Što je sa standardnim izlazom za greške?
   \item Pogledajmo ovu naredbu:
   \begin{itemize}
-    \item[] \shell{\$ ls -l /lib1 > /tmp/lib5}
+    \item[] \shell{\$ ls -l /lib1/}
+    \item[] \shell{\$ ls -l /lib1/ > /tmp/lib5}
   \end{itemize}
   \item Što bi se trebalo dogoditi?
   \item Što se dogodilo?
@@ -271,20 +279,20 @@
 \begin{itemize}
   \item Izlaz za greške možemo preusmjeriti operatorom \shell{2>}
   \begin{itemize}
-    \item[] \shell{\$ ls -l /lib1 2> /tmp/lib5}
+    \item[] \shell{\$ ls -l /lib1/ 2> /tmp/lib5}
   \end{itemize}
   \item Taj operator ne preusmjerava standardni izlaz
   \begin{itemize}
-    \item[] \shell{\$ ls -l /lib1 2> /tmp/lib5}
+    \item[] \shell{\$ ls -l /lib1/ 2> /tmp/lib5}
   \end{itemize}
   \vspace{1cm}
   \tikzstyle{plaintext}=[thick]
   \tikzstyle{block}=[rectangle,draw=black!50,fill=black!20,thick,
                      inner sep=0.5cm, inner ysep=4mm]
   \begin{tikzpicture}[auto, >=latex']
-    \node[block]      (a)               {ls -l /lib};
+    \node[block]      (a)               {ls -l /lib1/};
     \node[plaintext]  (b) [right= 2cm of a]  {zaslon};
-    \node[plaintext]  (c) [below=1cm of b]  {/temp/lib5};
+    \node[plaintext]  (c) [below=1cm of b]  {/tmp/lib5};
     \draw[->] (a) edge node {stdout} (b);
     \draw[->] (a)  |- node[near end] {stderr} (c);
   \end{tikzpicture}
@@ -293,10 +301,10 @@
 
 \begin{frame}[t]
 \frametitle{Standardni izlaz za greške (3)}
-\begin{itemize}
+\begin{itemize}%
   \item Pogledajmo ovu naredbu:
   \begin{itemize}
-    \item[] \shell{\$ ls -l /lib1 | head -5 >2 /tmp/lib5}
+    \item[] \shell{\$ ls -l /lib1/ | head -5 >2 /tmp/lib5}
   \end{itemize}
   \item Što bi se trebalo dogoditi?
   \item Što se dogodilo?
@@ -311,7 +319,7 @@
 \begin{itemize}
   \item Pokušajmo sada sljedeću varijantu
   \begin{itemize}
-    \item[] \shell{\$ ls -l /lib1 | head -5 2> /tmp/lib5}
+    \item[] \shell{\$ ls -l /lib1/ | head -5 2> /tmp/lib5}
   \end{itemize}
   \item Što bi se trebalo dogoditi?
   \item Što se dogodilo?
@@ -509,12 +517,8 @@
     \item[] \shell{sort [opcije] [<datoteka>]}
   \end{itemize}
   \item Ako se datoteka ne navede tada se sortiraju podaci koji pristižu sa
-        standardnog ulaza
+        standardnog ulaza. Izlazi se sa  \^{}D  nakon sto su uneseni svi elementi.
   \item Rezultat se ispisuje na standardni izlaz
-  \item DZ
-  \begin{itemize}
-    \item Pogledati opcije f,n,k
-  \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -541,10 +545,10 @@
 \frametitle{Uklanjanje duplih linija (2)}
 \begin{itemize}
   \item Linije moraju biti sortirane prije korištenja ove naredbe!
-  \item Primjer, provjerimo ima li duplih linija u datoteci
-        \shell{/usr/share/dict/words}
+  \item Primjer, provjerimo ima li duplih linija u jednoj od datoteka u direktoriju
+        \shell{/usr/share/dict/}
   \begin{itemize}
-    \item[] \shell{\$ uniq -d /usr/share/dict/words}
+    \item[] npr. \shell{\$ uniq -d /usr/share/dict/words}
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -589,12 +593,25 @@
   \begin{itemize}
     \item[] \shell{\$ cut -c2-5,10-12 /etc/passwd}
   \end{itemize}
-  \item Zadatak
+  \item Primjer
   \begin{itemize}
     \item Potrebno je generirati popis svih različitih vrijednosti koje se
           javljaju u zadnjem polju datoteke \shell{/etc/passwd}
     \item Koliko puta se svaka vrijednost ponavlja?
   \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Izdvajanje pojedinih polja linije (4)}
+\begin{itemize}
+  \item Riješenje
+  \begin{itemize}
+  	\item \shell{\$ cut -d ':' -f 7 /etc/passwd | uniq -c
+ }
+  \end{itemize}
+  
+  
 \end{itemize}
 \end{frame}
 
@@ -673,7 +690,7 @@
           datoteke/direktorije
     \item[] \shell{\$ find /etc -type d -o -size +1M -ls}
   \end{itemize}
-  \item DZ
+  \item Tko zeli znati vise
   \begin{itemize}
     \item Pogledati opcije naredbe \shell{find} za MAC vremena
   \end{itemize}
@@ -730,6 +747,47 @@
   \item Pokušati ju pronaći naredbom \shell{locate}
   \item Kojom naredbom se ažurira baza?
 \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{locate} (2)}
+\begin{itemize}
+  \item Primjer:
+  \begin{itemize}
+    \item Želimo pronaći sve datoteke \shell{passwd}
+    \item[] \shell{\$ locate passwd}
+  \end{itemize}
+  \item Zadatak
+  \begin{itemize}
+    \item Kreirati datoteku \shell{ovo\_je\_primjer} u matičnom direktoriju
+  \end{itemize}
+  \item Pokušati ju pronaći naredbom \shell{locate}
+  \item Kojom naredbom se ažurira baza?
+\end{itemize}
+\end{frame}
+
+
+
+\section{Pregled Naredbi}
+
+\begin{frame}[t]
+\frametitle{Pregled naredbi}
+\begin{tabular}{| l | c |} \hline
+  \shell{>} & preusmjeravanja u datoteku \\ \hline
+  \shell{>>} &  preusmjeravanje i nadodovanje\\ \hline
+  \shell{<} & preusmjeravanje iz datoteke \\ \hline
+  \shell{|} & cijevovod \\ \hline
+  \shell{wc} & brojanje znakova, rijeci i linija \\ \hline
+  \shell{grep} & pretrazivanje teksta \\ \hline
+  \shell{sort} & sortiranje \\ \hline
+  \shell{uniq} & uklanjnanje duplih linija \\ \hline
+  \shell{cut} & izdvajanje pojedinih linija \\ \hline
+  \shell{find} & pretrazivanje datoteka i direktorija \\ \hline
+  \shell{locate} & pretrazivanje datoteka i direktorija \\ \hline
+  \shell{whereis} & pronalazi izvorni kod naredbe \\ \hline
+  
+
+\end{tabular}
 \end{frame}
 
 \end{document}
