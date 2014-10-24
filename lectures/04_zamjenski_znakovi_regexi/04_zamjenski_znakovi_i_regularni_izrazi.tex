@@ -33,7 +33,7 @@
 
 \title{Osnove korištenja operacijskog sustava Linux}
 \subtitle{08. Zamjenski znakovi i regularni izrazi} 
-\author[Goran Cetušić]{Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\author[Dino Lukman i Goran Cetušić]{Dino Lukman i Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
 \institute[FER]{Sveučilište u Zagrebu \\
 				Fakultet elektrotehnike i računarstva}
 				
@@ -59,20 +59,8 @@
 \begin{frame}[t]
 \frametitle{Zamjenski znakovi (1)}
 \begin{itemize}
-  \item Kako biste izlistali sve datoteke koje započinju s b i nalaze se u
-        \shell{/bin} direktoriju?
-  \item Jedna mogućnost je izlistati sve, a potom prepisivati jedan po 
-        jedan
-  \begin{itemize}
-    \item Vrlo nespretno rješenje!
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Zamjenski znakovi (2)}
-\begin{itemize}
-  \item Možemo koristiti zamjenske znakove
+  \item engl. wildcards
+  \item Koriste se za brzo i efikasno pretraživanje i izvršavanje naredbi
   \begin{itemize}
     \item Osnovni zamjenski znakovi
     \begin{tabular}{c l}
@@ -80,7 +68,18 @@
       \shell{*}   & Predstavlja nula ili više znakova       \\
       \shell{[]}  & Grupa koja se tretira kao jedan znak
     \end{tabular}
-  \end{itemize}
+  \end{itemize}  
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zamjenski znakovi (2)}
+\begin{itemize}
+  \item Kako biste izlistali sve datoteke koje započinju s b i nalaze se u
+        \shell{/bin} direktoriju?
+  \item Jedna mogućnost je izlistati sve, a potom prepisivati jedan po 
+        jedan
+  \item Možemo koristiti zamjenske znakove  
 \end{itemize}
 \end{frame}
 
@@ -188,6 +187,18 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}[t]
+\frametitle{Korištenje zamjenskih znakova (7)}
+\begin{itemize}
+  \item Rješenja
+  \begin{itemize}
+    \item \shell{ls /bin/*ep}
+    \item \shell{ls -dl /proc/[0-9]}
+    \item \shell{ls -l /usr/share/man/man1/perl* | awk '{print \$5}' | sort -n}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
 \section{Isključenje značenja posebnih znakova}
 \begin{frame}[t]
 \frametitle{Isključenje značenja posebnih znakova}
@@ -207,7 +218,7 @@
 \end{itemize}
 \end{frame}
 
-\section{Korištenje regularnih izraza}
+\section{Regularni izrazi}
 \begin{frame}[t]
 \frametitle{Regularni izrazi (1)}
 \begin{itemize}
@@ -276,11 +287,10 @@
   \item Varijabla u C-u:
   \begin{itemize}
     \item[] [a-zA-Z]([a-zA-Z0-9])*
-  \end{itemize} 
+  \end{itemize}
 \end{itemize}
 \end{frame}
 
-\section{Korištenje regularnih izraza}
 \begin{frame}[t]
 \frametitle{Korištenje regularnih izraza}
 \begin{itemize}
@@ -380,7 +390,7 @@
   \item Sljedeći zadaci se odnose na traženje uzoraka u datoteci 
         \shell{/usr/share/dict/words}
   \begin{itemize}
-    \item Pronaći retke koji počinju sa ``osl''
+    \item Pronaći retke koji počinju sa ``ok''
     \item Koliko ima riječi u kojima se dva puta ponavlja niz ``ss''
   \end{itemize}
 \end{itemize}
@@ -397,11 +407,32 @@
 \end{frame}
 
 \begin{frame}[t]
+\frametitle{Rješenja (1)}
+\begin{itemize}
+  \item \shell{grep -E "\textasciicircum{}[0-9]+[a-Z][0-9]*\$|\textasciicircum{}[0-9]*[a-Z][0-9]+\$" /etc/inittab}
+  \item \shell{grep -E \textasciicircum{}ok /usr/share/dict/words}
+  \item \shell{grep -E .*ss.*ss.* /usr/share/dict/words | wc -l}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Rješenja (2)}
+\begin{itemize}
+  \item \shell{grep -E \textasciicircum{}[abc].[xyz]\$ /usr/share/dict/words | wc -l}
+  \item \shell{grep -E \textasciicircum{}a.*bu.*y\$ /usr/share/dict/words | wc -l}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
 \frametitle{Literatura}
 \begin{itemize}
-  \item[] \small
-          \url{http://tldp.org/LDP/Bash-Beginners-Guide/html/chap_04.html} 
-  \item[] \small\url{http://www.regular-expressions.info/conditional.html}
+  \item[] \small\url{http://www.rexegg.com/regex-quickstart.html}
+  \item[] \small\url{http://www.regexr.com}
+  \item[] \small\url{http://regexone.com}
+  \item[] \small\url{http://regex.learncodethehardway.org/book/}
+  \item[] \small\url{http://www.rexegg.com}
+  \item[] \small\url{http://www.regular-expressions.info/conditional.html} 
+  \item[] \small\url{http://tldp.org/LDP/Bash-Beginners-Guide/html/chap_04.html}
 \end{itemize}
 \end{frame}
 
