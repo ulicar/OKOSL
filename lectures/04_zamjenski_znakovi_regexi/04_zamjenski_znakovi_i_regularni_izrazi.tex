@@ -383,47 +383,6 @@
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Zadaci (1)}
-\begin{itemize}
-  \item Ispisati retke u datoteci \shell{/etc/inittab} koji imaju u sebi 
-        niz sačinjen od jednog slova i jednog ili više brojki
-  \item Sljedeći zadaci se odnose na traženje uzoraka u datoteci 
-        \shell{/usr/share/dict/words}
-  \begin{itemize}
-    \item Pronaći retke koji počinju sa ``ok''
-    \item Koliko ima riječi u kojima se dva puta ponavlja niz ``ss''
-  \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Zadaci (2)}
-\begin{itemize}
-  \item Koliko ima riječi od 3 slova koje počinju slovima a, b, c; 
-        završavaju sa x, y, z?
-  \item Koliko ima riječi koje počinju slovom ``a'', završavaju slovom 
-        ``y'', a bilo gdje između sadrže niz ``bu''?
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Rješenja (1)}
-\begin{itemize}
-  \item \shell{grep -E "\textasciicircum{}[0-9]+[a-Z][0-9]*\$|\textasciicircum{}[0-9]*[a-Z][0-9]+\$" /etc/inittab}
-  \item \shell{grep -E \textasciicircum{}ok /usr/share/dict/words}
-  \item \shell{grep -E .*ss.*ss.* /usr/share/dict/words | wc -l}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Rješenja (2)}
-\begin{itemize}
-  \item \shell{grep -E \textasciicircum{}[abc].[xyz]\$ /usr/share/dict/words | wc -l}
-  \item \shell{grep -E \textasciicircum{}a.*bu.*y\$ /usr/share/dict/words | wc -l}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
 \frametitle{Literatura}
 \begin{itemize}
   \item[] \small\url{http://www.rexegg.com/regex-quickstart.html}
