@@ -1,0 +1,36 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\newcommand{\shell}[1]{\texttt{#1}}
+\begin{document}
+	\title{Domaća zadaća - 04}
+	\author{Dominik Barbarić}
+	\maketitle
+	Rješenje zadatka je potrebno upisati u \shell{.sh} datoteku. Jedna točka - jedna naredba - jedan redak.\\
+	
+	\begin{itemize}
+	\item Sljedeće zadatke je potrebno riješiti koristeći zamjenske znakove (engl. \emph{wildcards}).
+	\begin{itemize}	
+		\item U direktoriju \shell{/usr/share} izlistajte direktorije koji započinju s \shell{gtk}
+		\item U direktoriju \shell{/usr/share/locale} izlistajte sve direktorije čija imena započinju s \shell{e}, a imaju ukupno dva znaka u imenu.
+	\end{itemize}
+	
+	\item Sljedeće zadatke je potrebno riješiti s datotekom \shell{/usr/share/dict/words} koristeći regularne izraze (engl. \emph{regular expressions}).
+	\begin{itemize}
+		\item Pronađite riječi koje sadrže znamenke (ako ih ima)
+		\item Pronađite riječi koje počinju sa slovom \emph{i}, a u sredini riječi sadrže veliko slovo.
+		\item Pronađite riječi koje ne sadrže samoglasnike \\ \emph{Napomena: Samoglasnici su aeiou. Samoglasnici iz drugih jezika (npr. ö) se ne ubrajaju.}
+		\item Pronađite riječi u kojemu se barem dva samoglasnika pojavljuju jedan za drugim (Npr. Requiem)
+		\item Prebrojite riječi koje završavaju na \emph{ening}. (Npr: happening, evening, ...)
+		\item Prebrojite riječi koje završavaju na \emph{'s}. (Npr: who's, 	will's, ...)
+		\item Prebrojite riječi koje završavaju na veliko slovo
+	\end{itemize}
+	
+	\item Sljedeće zadatke je potrebno rješiti s datotekom \shell{/usr/include/stdio.h} koristeći regularne izraze (engl. \emph{regular expressions}).
+	\begin{itemize}
+		\item Prebrojite redove koji su uvučeni (započinju prazninom ili tabulatorom).
+		\item Prebrojite koliko redova datoteke sadrži komentare. Komentari mogu biti jednoredni (počinju s //) ili višeredni (komentar započinje s /*, a svi ostali redovi započinju sa * ili */)
+	\end{itemize}
+	\end{itemize}
+\end{document}
