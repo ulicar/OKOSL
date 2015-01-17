@@ -206,22 +206,23 @@ int main(){
 \begin{frame}[t]
 	\frametitle{Signali}
 	\begin{itemize}
-		\item U UNIX operativnim sustavima svaka vrsta signala uz naziv ima i brojčanu oznaku
+		\item U UNIX sustavima svaka vrsta signala uz naziv ima i brojčanu oznaku
 	\end{itemize}
-	Primjeri signala \\
-		\begin{table}[h]
-			\rowcolors{1}{White}{LightGray}
-			\begin{tabular}{l l l}
-				\rowcolor{BlueViolet!20}Naziv signala & Kod & Značenje \\
-				SIGHUP & 1 & \emph{Hangup} - Ugašen terminal u kojem se \\ & & proces odvijao \\
-				SIGINT & 2 & \emph{Terminal interrupt} - Signal s terminala. \\ & & Aktivira se s CTRL+C \\
-				SIGTERM & 15 & \emph{Terminate} - Programsko gašenje procesa \\
-				SIGKILL & 9 & \emph{Kill} - Trenutačno gašenje procesa \\
-				SIGUSR1 & 30,10,16 & \emph{User defined 1} 
-			\end{tabular}
-		\end{table}
-	
-	Popis svih signala: \shell{man 7 signal}
+	\begin{table}[h]
+		\rowcolors{1}{White}{LightGray}
+		\begin{tabular}{l l l}
+			\rowcolor{BlueViolet!20}Naziv signala & Kod & Značenje \\
+			SIGHUP & 1 & \emph{Hangup} - Ugašen terminal u kojem se \\ & & proces odvijao \\
+			SIGINT & 2 & \emph{Terminal interrupt} - Signal s terminala. \\ & & Aktivira se s CTRL+C \\
+			SIGTERM & 15 & \emph{Terminate} - Programsko gašenje procesa \\
+			SIGKILL & 9 & \emph{Kill} - Trenutačno gašenje procesa \\
+			SIGUSR1 & 10 & \emph{User defined 1} 
+		\end{tabular}
+	\end{table}
+	\begin{itemize}
+		\item Popis svih signala: \shell{man 7 signal}
+		\item Signali su se kroz razne standardizacije mijenjali. Uočite u \shell{man} stranicama da je \shell{SIGUSR1} u ranijim sustavima imao 3 koda
+	\end{itemize}
 \end{frame}
 
 \subsection{Slanje signala}
