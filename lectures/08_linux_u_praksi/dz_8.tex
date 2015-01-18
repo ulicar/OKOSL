@@ -1,0 +1,23 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\usepackage{url}
+\newcommand{\shell}[1]{\texttt{#1}}
+\begin{document}
+	\pagenumbering{gobble}
+	\title{Domaća zadaća - 08}
+	\author{Dominik Barbarić}
+	\maketitle
+	Sve korake zadatka, osim 2., potrebno je izvesti u terminalu. Kao rješenje zadatka šaljete jednu \shell{.sh} datoteku koja potpuno automatizirano (bez upletanja korisnika, osim eventualnog upita za lozinku) izvodi sve korake osim 2. i 4.
+	
+	\begin{enumerate}
+		\item Koristeći sustav upravljanja paketima kojeg imate na vašoj distribuciji instalirajte \shell{git}\footnote{Više o git-u pogledajte na \url{http://en.wikipedia.org/wiki/Git_(software)}}.
+		\item Na web stranici \url{https://github.com/mtoyoda/sl} pronađite adresu git repozitorija.
+		\item Preuzmite izvorni kod programa \shell{sl}. Za preuzimanje koristite \shell{git clone}.
+		\item Proučite datoteke \shell{README} i \shell{LICENSE}. U njima se nalaze upute i uvjeti korištenja preuzetog koda. Osim tih datoteka često se dodaju i datoteke \shell{COPYING} (dodatni sadržaj licence) i \shell{INSTALL} (upute za instalaciju / korištenje Makefilea).
+		\item Proučite \shell{Makefile}. Dodajte target \shell{remove} koji briše izvršnu datoteku kompajliranu preko targeta \shell{sl}.
+		\item Korištenjem naredbe \shell{make} kompajlirajte program. Pokrenite ga.
+		\item Uklonite program korištenjem naredbe \shell{make}.
+	\end{enumerate}
+\end{document}
