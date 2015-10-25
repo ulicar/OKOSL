@@ -26,7 +26,7 @@
 
 \title{Osnove korištenja operacijskog sustava Linux}
 \subtitle{00. Organizacija vještine}
-\author[Tomislav Maričević]{Tomislav Maričević\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\author[Dominik Barbarić]{Dominik Barbarić\\{\small Nositelj: dr. sc. Stjepan Groš}}
 \institute[FER]{Sveučilište u Zagrebu \\
 				Fakultet elektrotehnike i računarstva}
 				
@@ -43,213 +43,117 @@
 \end{frame}
 }
 
-\begin{frame}
-\frametitle{Sadržaj}
-\tableofcontents
+\section{Cilj vještine}
+\begin{frame}[t]
+	\frametitle{Cilj vještine}
+	\begin{itemize}
+		\item Upoznati studente s radom u komandnolinijskom sučelju
+		\item Dati pregled mogućnosti Linuxa
+		\item Dobiti osjećaj za rješavanje problema koji nisu pokriveni vještinom
+		\item Definirati znanja potrebna za NKOSL
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Cilj vještine}
+	\begin{itemize}
+		\item Nije potrebno predznanje
+		\item Vještina je izborna
+		\begin{itemize}
+			\item Vještine se upisuju u ISVU van strukture studija i \textbf{ECTS bodovi ne ulaze} u zbrojeve za dom, plaćanje ili prijelaz na iduću godinu
+			\item Vještinu upisujete radi vlastitog interesa i želje za učenjem rada na Linuxu
+			\item Očekuje se angažiranost studenata, prijedlozi, komentari, kritike, \ldots
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{Sadržaj vještine}
+\begin{frame}[t]
+	\frametitle{Sadržaj vještine}
+	\begin{itemize}
+		\item Korištenje CLI
+		\item Skripte
+		\item Rad s datotekama i direktorijima
+		\item Pretraživanje, filtri, cjevovodi
+		\item Zamjenski znakovi i regularni izrazi
+		\item Procesi
+		\item Ljuske
+		\item Korisnici i grupe
+		\item Vlasništvo i dozvole
+		\item \ldots
+	\end{itemize}
 \end{frame}
 
 \section{Predavanja}
 \begin{frame}[t]
 \frametitle{Predavanja}
 \begin{itemize}
-	\item Svaka neradna subota, osim u tjednima ispita
-	\item A102 - 2 grupe
+	\item Svake subote osim vikendima prije ispitnih tjedana
+	\item 7 termina
+	\item A102 - 3 grupe
 	\begin{itemize}
-		\item (9)10-12 sati
-		\item 12-14(15) sati
+		\item 10-12 sati
+		\item 12-14 sati
+		\item 14-16 sati
 	\end{itemize}
-	\item Promjena grupe samo uz međusobni dogovor
+	\item Dva školska sata predavanja s vježbama i praktičnim radom
+	\item Predavanja i zadaci za vježbu se objavljuju na FERwebu
 \end{itemize}
 \end{frame}
 
+\section{Bodovanje}
 \begin{frame}[t]
-\frametitle{Predavanja (2)}
-\begin{itemize}
-	\item Format predavanja:
-	\begin{itemize}
-		\item 1. sat - kratko ponavljanje (5 min) + obrada novog gradiva
-		\item 2. sat - zadaci za vježbu i primjeri - praktični rad
-		\item eventualni 3. sat - usmeno odgovaranje labosa (popodnevnoj grupi je ovo prvi sat)
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Termini}
-\begin{itemize}
-	\item 4.10.
-	\begin{itemize}
-		\item Jutarnja grupa 10-12h
-		\item Popodnevna grupa 12-14h
-	\end{itemize}
-	\item 11.10.
-	\begin{itemize}
-		\item Jutarnja grupa 10-12h
-		\item Popodnevna grupa 12-14h
-		\item Zadan zadatak za 1. labos
-	\end{itemize}
-	\item 18.10.
-	\begin{itemize}
-		\item Jutarnja grupa 10-12h
-		\item Popodnevna grupa 12-14h
-	\end{itemize}
-	\item 25.10.
-	\begin{itemize}
-		\item Jutarnja grupa 10-12h
-		\item Popodnevna grupa 12-14h
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Termini (2)}
-\begin{itemize}
-	\item 8.11.
-	\begin{itemize}
-		\item Jutarnja grupa 9-12h: 11-12h usmeno odgovaranje prvog labosa
-		\item Popodnevna grupa 12-15h: 12-13h usmeno odgovaranje prvog labosa
-	\end{itemize}
-	\item 15.11.
-	\begin{itemize}
-		\item Jutarnja grupa 10-12h
-		\item Popodnevna grupa 12-14h
-		\item Eventualni nadoknadni termin za sve koji ne zadovolje na prvom ispitivanju prvog labosa
-		\item Zadan zadatak za 2. labos
-	\end{itemize}
-	\item 6.12.
-	\begin{itemize}
-		\item Jutarnja grupa 10-12h
-		\item Popodnevna grupa 12-14h
-	\end{itemize}
-	\item 10.1.
-	\begin{itemize}
-		\item Jutarnja grupa 10-12h
-		\item Popodnevna grupa 12-14h
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Termini (3)}
-\begin{itemize}
-	\item 17.1.
-	\begin{itemize}
-		\item Jutarnja grupa 9-12h: 11-12h usmeno odgovaranje drugog labosa
-		\item Popodnevna grupa 12-15h: 12-13h usmeno odgovaranje drugog labosa
-	\end{itemize}
-	\item 24.1.
-	\begin{itemize}
-		\item 10-12h
-		\item Eventualni nadoknadni termin za sve koji ne zadovolje na prvom ispitivanju drugog labosa
-		\item Ostali ne moraju dolaziti
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\section{Ocjenjivanje}
-\begin{frame}[t]
-\frametitle{Ocjenjivanje}
+\frametitle{Bodovanje}
 \begin{itemize}
 	\item Bodovi:
 	\begin{itemize}
-		\item Zadaće 8x5  = 40 bodova
-		\item Labosi 2x10 = 20 bodova
-		\item Vježbe 8x5  = 40 bodova
+		\item 7 domaćih zadaća x 5 bodova = 35 bodova
+		\item 3 laboratorijske vježbe x 10 bodova = 30 bodova
+		\item Prisustvo na predavanjima x 5 bodova = 35 bodova
 	\end{itemize}
-	\item Uvjeti za prolazak vještine:
+	\item Uvjeti za prolaz vještine:
 	\begin{itemize}
 		\item Sve zadaće uspješno predane
-		\item Oba labosa predana i uspješno odgovarana
-		\item 20 bodova na vježbama
+		\item Predani i odgovarani svi labosi
+		\item 20 bodova na prisustvu
 		\item Sve skupa \textbf{\textgreater 50} bodova
 	\end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Vježbe}
-\begin{itemize}
-	\item Rade se drugi sat predavanja
-	\item Praktični primjeri vezani za gradivo obrađeno prvi sat
-	\item Prisustvo i aktivnost se boduju s 5 bodova
-	\item Da bi se položila vještina, potrebno je biti prisutan na makar pola vježbi
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
 \frametitle{Domaće zadaće}
 \begin{itemize}
-	\item Zadaju se na dan predavanja - objavljene na FERwebu
-	\item Predaja do srijede u 23:59 putem maila
-	\item Zadaci su slični zadacima za vježbu obrađenima na predavanju
-	\item Za svaku zadaću dobiva se povratna informacija o bodovima, kvaliteti izrade i mogućim poboljšanjima
-	\item Potrebno je uspješno predati sve zadaće
+	\item Zadaju se na FERwebu poslije svakog predavanja
+	\item Predaja do srijede u 23:59
+	\item Način predaje bit će naknadno objavljen
+	\item Zadaci su slični zadacima za vježbu obrađenim na predavanju
+	\item Za svaku zadaću dobiva se povratna informacija od ispravljača
 \end{itemize}
 \end{frame}
 
 \begin{frame}[t]
 \frametitle{Laboratorijske vježbe}
 \begin{itemize}
-	\item Dvije u semestru
-	\item Zadaju se dosta rano (prije nego je obrađeno sve potrebno gradivo)
-	\item Malo teži zadaci gdje se traži razumijevanje i samostalno snalaženje
-	\item Odgovaraju se usmeno - za prolazak je potrebno uspješno odgovarati oba labosa
-	\item Eventualni nadoknadni termini - za one koji ne zadovolje na prvom terminu
-	\begin{itemize}
-		\item Detaljnije i strože ispitivanje - ako se ne zadovolji u ovom terminu, pada se vještina
-	\end{itemize}
+	\item Zadaju se nekoliko tjedana prije roka za predaju
+	\item Sadrže gradivo koje obuhvaća predavanja do roka predaje
+	\item U zadacima se traži razumijevanje i samostalno snalaženje
+	\item Labosi se predaju prema uputama i odgovaraju usmeno
 \end{itemize}
 \end{frame}
-
-\section{Cilj vještine}
-\begin{frame}[t]
-\frametitle{Cilj vještine (1)}
-\begin{itemize}
-	\item Dati pregled mogućnosti Linuxa
-	\item Priviknuti studente na rad u konzoli
-	\begin{itemize}
-		\item rad u konzoli bez osjećaja “neugode”
-	\end{itemize}
-	\item Udariti temelje na kojima se gradi daljnje znanje
-	\begin{itemize}
-		\item gdje tražiti problem, kako pronaći rješenje
-	\end{itemize}
-	\item Dobiti osjećaj za rješavanje onih problema koji nisu eksplicitno pokriveni u vještini
-	\item Definirati znanja potrebna za NKOSL :)
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Cilj vještine (2)}
-\begin{itemize}
-	\item Potrebno predznanje je minimalno
-	\item Vještina je opcionalna
-	\begin{itemize}
-		\item pretpostavlja se da vještinu slušaju studenti koji žele naučiti
-		\item očekuje se angažiranost studenata, prijedlozi, komentari, kritike (konstruktivne), \ldots
-	\end{itemize}
-	\item Iz istih razloga prepisivanje je strogo zabranjeno!
-\end{itemize}
-\end{frame}
-
 
 \section{Radna okolina}
 \begin{frame}[t]
 \frametitle{Radna okolina}
 \begin{itemize}
-	\item Predavanja se sastoje od teorije i primjera
-	\item Nema strogo definiranih pravila kako isprobavati primjere
+	\item Predavanja se sastoje od teorije, primjera i zadataka za vježbu
+	\item Studenti zadatke rješavaju samostalno koristeći
 	\begin{itemize}
-		\item Računala dostupna u laboratoriju 
-		\item Dopušteno (i poželjno) korištenje laptopa
-		\item Live distribucije na gore navedenom
-		\item \ldots
-	\end{itemize} 
-	\item Jedini uvjet je pokrenut Linux
-	\begin{itemize}
-		\item Ubuntu distribucija (preferirana, ali nije uvjet)
-		\item Gradivo vrijedi za svaki Linux/Unix (većinom, uvijek postoje iznimke)
+		\item vlastito računalo (poželjno)
+		\item računala dostupna na fakultetu
 	\end{itemize}
+	\item Studenti moraju doći s pripremljenom Linux distribucijom, preporučeno Debian, na vlastitom računalu ili s pripremljenim virtualnim strojem kojeg možete pokrenuti na fakultetskom računalu.
+	\item Možete koristiti i live distribucije
 \end{itemize}
 \end{frame}
 
@@ -257,15 +161,14 @@
 \begin{frame}[t]
 \frametitle{Literatura}
 \begin{itemize}
-	\item Nakon svakog predavanja na FERweb stranicama predmeta bit će objavljena osnovna i dodatna literatura
-	\item Koristite SVU literaturu koja vam je na raspolaganju!
+	\item Jedna od pogodnosti Linuxa je jaka zajednica
+	\item Nakon svakog predavanja na prezentaciji će biti objavljena dodatna literatura
+	\item Koristite svu literaturu koja vam je na raspolaganju!
 	\begin{itemize}
 		\item Knjige, članci, druga predavanja, stripovi, \ldots :)
 		\item Internet (najbolji izvor)
 		\item wiki, irc, forumi, google 
-		\item Jedna od pogodnosti Linuxa je jaka zajednica
 	\end{itemize}
-	\item Podijelite korisne informacije sa kolegama!
 \end{itemize}
 \end{frame}
 
