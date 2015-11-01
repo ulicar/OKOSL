@@ -1,0 +1,33 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\newcommand{\shell}[1]{\texttt{#1}}
+\begin{document}
+	\title{Laboratorijska vježba 2\\{\small Osnove korištenja operacijskog sustava Linux}\vspace{-2em}}
+	\maketitle
+	\subsection*{Zadatak 1}
+	Kreirati datoteku \shell{Top10} sadržaja:
+	\begin{verbatim}
+	Linux Mint 17.2
+	Ubuntu 15.10
+	Debian GNU/Linux 8.1
+	Mageia 5
+	Fedora 22
+	openSUSE 13.2
+	Arch Linux
+	CentOS 7.1-1503
+	PCLinuxOS 2014.12
+	Slackware Linux 14.1
+	FreeBSD
+	\end{verbatim}
+	Sve točke zadatka se odnose na rad s tom datotekom. Kreiranje datoteke i upisivanje podataka u nju nisu dio zadatka.
+	\begin{itemize}
+		\item Obrisati sve redove koji sadrže imena distribucija bez brojeva.
+		\item Brojeve verzija prebaciti na početak reda.
+		\item Sva slova staviti u lower case.
+		\item Zatim sve samoglasnike prebaciti u upper case.
+		\item Tako dobivenu datoteku sortirati po veličini broja na početku reda.
+		\item[] Napomena: \textit{Ne sortirati abecedno.}
+	\end{itemize}
+\end{document}
