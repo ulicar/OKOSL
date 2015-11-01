@@ -4,23 +4,34 @@
 \usepackage[top=20mm]{geometry}
 \newcommand{\shell}[1]{\texttt{#1}}
 \begin{document}
-	\title{Domaća zadaća - 02}
-	\author{Dominik Barbarić}
+	\title{Domaća zadaća - 02\vspace{-2em}}
 	\maketitle
-	Rješenje zadatka je potrebno upisati u \shell{.sh} datoteku. Jedna točka - jedna naredba - jedan redak.
+	Za svaki zadatak treba napisati bash skriptu s rješenjem zadatka. Jedna točka - jedna naredba - jedan redak. Skripta se mora izvršavati bez prekida osim u zadacima gdje su prekidi eksplicitno dozvoljeni.
+	\subsection*{Zadatak 1}
 	\begin{itemize}
-	\item[]
 		\item Stvorite simboličku poveznicu na datoteku \shell{/etc/passwd} i nazovite je \shell{korisnici}.
+		\item[] /etc/passwd je datoteka koja sadrži popis svih korisnika na računalu u formatu jedan redak - jedan korisnik.
 		\item Odredite tip datoteke \shell{korisnici} korištenjem naredbe \shell{file}.
+		\item Prethodnu naredbu ponovite korištenjem opcije -L
+	\end{itemize}
+	U komentaru skripte objasnite rezultate prethonih dviju naredbi. (Pomoć: man stranice)
+	\subsection*{Zadatak 2}
+	\begin{itemize}
 		\item Naredbom \shell{wc} doznajte ukupan broj korisnika na sistemu.
-		\item Ispišite sve osim zadnjih 5 redova datoteke \shell{korisnici}.
+		\item Ispišite sadržaj datoteke \shell{korisnici} bez zadnjih 5 redova.
 		\item Koristeći naredbu \shell{touch} datoteci \shell{korisnici} promijenite \emph{samo} modification time.
-		\item Naredbom \shell{stat} ispišite informacije o datoteci \shell{korisnici}.
-    \item Ispišite sadržaj /var/log/syslog datoteke \emph{uz pracenje} novih promjene u njoj.
+		\item Pokrenite naredbu koja ispisuje broj hard linkova za datoteku /etc/passwd.
+	\end{itemize}
+	U komentar odgovorite mijenja li se taj broj kreiranjem symbolic linkova kao u prvoj točki zadaće.
+	\subsection*{Zadatak 3}
+	\begin{itemize}
+		\item Ispišite sadržaj /var/log/syslog datoteke \emph{uz stalno praćenje} novih promjena u datoteci. Naredba smije zaustaviti izvršavanje cijele skripte sa zadaćom. U komentar napišite kako prekinuti ispis novih podataka.
+	\end{itemize}
+	\subsection*{Zadatak 4}
+	\begin{itemize}
 		\item Naredbom \shell{df} provjerite koji je blok uređaj montiran na lokaciju \shell{/}.
 		\item Provjerite veličinu blok datoteke montirane na lokaciju \shell{/}.
 		\item Saznajte ukupno diskovno zauzeće vašeg matičnog direktorija.
-    \item Ispisite datoteke vece od 2MB iz vašeg matičnog direktorija. 
+		\item Ispišite datoteke vece od 2MB iz vašeg matičnog direktorija. 
 	\end{itemize}
-  Za one koji žele znati više: Napišite bash skriptu čita nešto sa standardnog ulaza i ispisuje na standardni izlaz. Nad pročitanim nemora raditi izmjene.
 \end{document}
