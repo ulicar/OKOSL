@@ -233,10 +233,16 @@
   \end{itemize}
   \item Način povezivanja programa je upotrebom operatora \shell{|} (engl. 
         \emph{pipe})
-  \item Primjer, kako bi vidjeli prvih pet linija ispisa direktorija
-        \shell{/lib}, možemo napraviti sljedeće:
+  \item[]
+  \item Primjer
   \begin{itemize}
+  	\item Ispisati prvih pet linija ispisa direktorija \shell{/lib}
     \item[] \shell{\$ ls -l /lib/ | head -5}
+  \end{itemize}
+  \item Primjer
+  \begin{itemize}
+  	\item Ispisati sadržaj direktorija /usr/share u \textit{pageru}
+  	\item[] \shell{\$ ls -l /usr/share | less}
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -380,6 +386,26 @@
 	\item[] \shell{wget -O - http://ftp.hr.debian.org/README 2> err.txt > out.txt}
 	\item[] \shell{wget -O - http://ftp.hr.debian.org/README 2>\&1 > both.txt}
 	\item[] \shell{wget -O - http://ftp.hr.debian.org/README \&> both.txt} }
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naprednije preusmjeravanje (3)}
+\shell{tee}
+\begin{itemize}
+	\item Naredba preusmjerava \shell{stdin} na \shell{stdout} i zadanu datoteku
+	\item \shell{tee --append}
+	\begin{itemize}
+		\item Nadopisuje na trenutni sadržaj datoteke
+	\end{itemize}
+\end{itemize}
+\begin{itemize}
+	\item Primjer
+	\begin{itemize}
+		\item \shell{ls -l /usr/share | tee lista.txt}
+		\item \shell{ls -l /usr/share | tee -}
+		\item[] {\footnotesize Rezultira dvostrukim ispisom sadržaja direktorija}
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
