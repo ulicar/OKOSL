@@ -190,17 +190,14 @@
         to možemo obaviti na sljedeći način:
   \begin{itemize}
     \item[] \shell{\$ cat < /etc/passwd}
+    \item[] {\small Kod ove naredbe efekt je isti kao i bez korištenja \shell{<}}
   \end{itemize}
-  \item Međutim, navedeni primjer nije dobar
-  \begin{itemize}
-    \item Naredba \shell{cat} ionako koristi stdin ili joj možemo dati ime
-          datoteke pa je preusmjeravanje višak
-  \end{itemize}
+	\item \shell{<} je korisniji kod naredbi koje rade isključivo sa \shell{stdin} ulazom
 \end{itemize}
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Preusmjeravanje ulaza i izlaza}
+\frametitle{Preusmjeravanje ulaza i izlaza (1)}
 \begin{itemize}
   \item Moguće je istovremeno preusmjeravanje izlaza i ulaza
   \item Primjer kopiranja datoteke \shell{/etc/passwd} u 
@@ -211,6 +208,18 @@
   \end{itemize}
   \item Nije bitan redoslijed operatora preusmjeravanja
 \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Preusmjeravanje ulaza i izlaza (2)}
+	\begin{itemize}
+		\item Vrlo često programi primaju putanju do ulazne ili izlazne datoteke kroz opcije
+		\item Oznaka \shell{-} u tom kontekstu predstavlja \shell{stdin} ili \shell{stdout}
+	\end{itemize}
+	\begin{itemize}
+		\item Primjer
+		\item[] \shell{wget -O - http://ftp.hr.debian.org/README}
+	\end{itemize}
 \end{frame}
   
 \begin{frame}[t]
@@ -304,6 +313,37 @@
 \begin{itemize}%
   \item Pogledajmo ovu naredbu:
   \begin{itemize}
+    \item[] \shell{\$ ls -l /lib1/ | head -5 2> /tmp/lib5}
+  \end{itemize}
+  \item Što bi se trebalo dogoditi?
+  \item Što se dogodilo?
+  \begin{itemize}
+    \item Zašto?
+    \item Kako biste osigurali spremanje svih ispisanih grešaka u datoteku?
+  \end{itemize}
+  \vspace{1cm}
+  \tikzstyle{plaintext}=[thick]
+  \tikzstyle{block}=[rectangle,draw=black!50,fill=black!20,thick,
+  inner sep=0.5cm, inner ysep=4mm]
+  \begin{tikzpicture}[auto, >=latex',node distance=3cm]
+  \node[block]                 (a)               {ls -l /lib};
+  \coordinate[right=2cm of a]  (b) {};
+  \node[block]  (c) [right of=b]  {head -5};
+  \node[plaintext]  (d) [right of=c]  {zaslon};
+  \coordinate [below=1cm of c] (fit below) {};
+  \draw[->] (a) -- node {stdout} (b);
+  \draw[->] (b) -- node {stdin} (c);
+  \draw[->] (c) -- node {} (d);
+  \draw[->] (a) |- (fit below) -| (d);
+  \end{tikzpicture}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Standardni izlaz za greške (4)}
+\begin{itemize}
+  \item Pokušajmo sada sljedeće
+  \begin{itemize}
     \item[] \shell{\$ ls -l /lib1/ | head -5 >2 /tmp/lib5}
   \end{itemize}
   \item Što bi se trebalo dogoditi?
@@ -315,48 +355,18 @@
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Standardni izlaz za greške (4)}
-\begin{itemize}
-  \item Pokušajmo sada sljedeću varijantu
-  \begin{itemize}
-    \item[] \shell{\$ ls -l /lib1/ | head -5 2> /tmp/lib5}
-  \end{itemize}
-  \item Što bi se trebalo dogoditi?
-  \item Što se dogodilo?
-  \begin{itemize}
-    \item Zašto?
-  \end{itemize}
-  \vspace{1cm}
-  \tikzstyle{plaintext}=[thick]
-  \tikzstyle{block}=[rectangle,draw=black!50,fill=black!20,thick,
-                     inner sep=0.5cm, inner ysep=4mm]
-  \begin{tikzpicture}[auto, >=latex',node distance=3cm]
-    \node[block]                 (a)               {ls -l /lib};
-    \coordinate[right=2cm of a]  (b) {};
-    \node[block]  (c) [right of=b]  {head -5};
-    \node[plaintext]  (d) [right of=c]  {zaslon};
-    \coordinate [below=1cm of c] (fit below) {};
-    \draw[->] (a) -- node {stdout} (b); 
-    \draw[->] (b) -- node {stdin} (c);
-    \draw[->] (c) -- node {} (d);
-    \draw[->] (a) |- (fit below) -| (d);
-  \end{tikzpicture}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
 \frametitle{Naprednije preusmjeravanje (1)}
 \begin{itemize}
-  \item Sve se temelji na konceptu deskriptora datoteka (engl. 
-        \emph{file handler})
+  \item Zajedničko preusmjeravanje stdout i stderr
+  \item[] \shell{\$ ls \&> /dev/null}
+  \item[ili] \shell{\$ ls >\& /dev/null}
+  \item Preusmjeravanje stderr na stdin
+  \item[] \shell{\$ ls 2>\&1}
+\end{itemize}
+\begin{itemize}
+  \item Ljuska nudi vrlo napredne mogućnosti preusmjeravanja
   \begin{itemize}
-    \item stdin, deskriptor 0
-    \item stdout, desktripor 1
-    \item stderr, deskriptor 2
-  \end{itemize}
-  \item Programi pišu u odgovarajuće deskriptore
-  \begin{itemize}
-    \item OS uvijek bira najniži slobodni deskriptor
+    \item Proučiti man stranicu :)
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -364,17 +374,54 @@
 \begin{frame}[t]
 \frametitle{Naprednije preusmjeravanje (2)}
 \begin{itemize}
-  \item Primjeri
-  \begin{itemize}
-    \item Zajedničko preusmjeravanje stdout i stderr
-    \item[] \shell{\$ ls \&> /dev/null}
-    \item Preusmjeravanje stderr na stdin
-    \item[] \shell{\$ ls 2>\&1}
-  \end{itemize}
-  \item Ljuska nudi vrlo napredne mogućnosti preusmjeravanja
-  \begin{itemize}
-    \item Proučiti man stranicu :)
-  \end{itemize}
+	\item Primjeri s \shell{wget} {\footnotesize
+	\item[] \shell{wget -O - http://ftp.hr.debian.org/README > out.txt}
+	\item[] \shell{wget -O - http://ftp.hr.debian.org/README 2> err.txt}
+	\item[] \shell{wget -O - http://ftp.hr.debian.org/README 2> err.txt > out.txt}
+	\item[] \shell{wget -O - http://ftp.hr.debian.org/README 2>\&1 > both.txt}
+	\item[] \shell{wget -O - http://ftp.hr.debian.org/README \&> both.txt} }
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Here document (1)}
+\begin{itemize}
+	\item Koncept koji se vrlo često koristi u skriptama
+	\item Dio skriptnog koda koji se tretira kao zasebna datoteka
+	\item Omogućuje navođenja sadržaja cijelih datoteka \textit{inline} u skripti
+\end{itemize}
+\begin{itemize}
+\item[] \begin{verbatim}
+cat << EOF
+Nova datoteka
+linija 2
+...
+linija n
+EOF
+\end{verbatim}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Here document (2)}
+\begin{itemize}
+	\item Preusmjeravanje u datoteku
+	\item[] \begin{verbatim}
+	cat > file.txt << EOF
+	Here doc
+	EOF
+	\end{verbatim}
+	\item[ili] \begin{verbatim}
+	cat << EOF > file.txt
+	Here doc
+	EOF
+	\end{verbatim}
+\end{itemize}
+\begin{itemize}
+	\item Na sličan način funkcioniraju i \textit{here strings}
+	\item[] \begin{verbatim}
+	cat <<< 'Text string'
+	\end{verbatim}
 \end{itemize}
 \end{frame}
 
@@ -433,9 +480,18 @@
 \begin{frame}[t]
 \frametitle{Brojanje znakova, riječi i linija (3)}
 \begin{itemize}
-  \item Zadaci
+  \item Zadatak 1
   \begin{itemize}
-    \item Koliko linija ima u datoteci \shell{/usr/include/stdio.h}
+	\item Prebrojite linije u datoteci \shell{/usr/include/stdio.h} koristeći
+	\begin{itemize}
+		\item[a)] naredbu \shell{wc} i navođenjem datoteke izravno
+		\item[b)] operator preusmjeravanja \shell{stdin}
+	\end{itemize}
+	\item Razmislite i prokomentirajte rezultat
+  \end{itemize}
+  \item[]
+  \item Zadatak 2
+  \begin{itemize}
     \item Koliko datoteka i direktorija ima u direktoriju \shell{/usr/bin},
           a koliko ih je u \shell{/usr/include}?
   \end{itemize}
@@ -593,25 +649,13 @@
   \begin{itemize}
     \item[] \shell{\$ cut -c2-5,10-12 /etc/passwd}
   \end{itemize}
-  \item Primjer
+  \item[]
+  \item Zadatak
   \begin{itemize}
     \item Potrebno je generirati popis svih različitih vrijednosti koje se
           javljaju u zadnjem polju datoteke \shell{/etc/passwd}
     \item Koliko puta se svaka vrijednost ponavlja?
   \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Izdvajanje pojedinih polja linije (4)}
-\begin{itemize}
-  \item Riješenje
-  \begin{itemize}
-  	\item \shell{\$ cut -d ':' -f 7 /etc/passwd | uniq -c
- }
-  \end{itemize}
-  
-  
 \end{itemize}
 \end{frame}
 
@@ -690,7 +734,8 @@
           datoteke/direktorije
     \item[] \shell{\$ find /etc -type d -o -size +1M -ls}
   \end{itemize}
-  \item Tko zeli znati vise
+  \item[]
+  \item[] \shell{man find}
   \begin{itemize}
     \item Pogledati opcije naredbe \shell{find} za MAC vremena
   \end{itemize}
@@ -735,17 +780,19 @@
 \begin{frame}[t]
 \frametitle{Naredba \shell{locate} (2)}
 \begin{itemize}
-  \item Primjer:
+  \item Primjer
   \begin{itemize}
     \item Želimo pronaći sve datoteke \shell{passwd}
     \item[] \shell{\$ locate passwd}
   \end{itemize}
+  \item[]
   \item Zadatak
   \begin{itemize}
-    \item Kreirati datoteku \shell{ovo\_je\_primjer} u matičnom direktoriju
+      \item Kreirati datoteku \shell{ovo\_je\_primjer} u matičnom direktoriju
+	  \item Pokušati je pronaći naredbom \shell{locate}
+	  \item Što se dogodilo?
+	  \item Kako ispraviti problem?
   \end{itemize}
-  \item Pokušati ju pronaći naredbom \shell{locate}
-  \item Kojom naredbom se ažurira baza?
 \end{itemize}
 \end{frame}
 

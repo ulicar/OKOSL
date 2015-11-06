@@ -1,0 +1,38 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\newcommand{\shell}[1]{\texttt{#1}}
+\begin{document}
+	\title{Domaća zadaća - 02\vspace{-2em}}
+	\maketitle
+	Za svaki zadatak treba napisati bash skriptu s rješenjem zadatka. Jedna točka - jedna naredba - jedan redak. Skripta se mora izvršavati bez prekida osim u zadacima gdje su prekidi eksplicitno dozvoljeni.
+	\subsection*{Zadatak 1}
+	\begin{itemize}
+		\item Stvorite simboličku poveznicu na datoteku \shell{/etc/passwd} i nazovite je \shell{korisnici}.\\
+		 Napomena: \textit{\shell{/etc/passwd} je datoteka koja sadrži popis svih korisnika na računalu u formatu jedan redak - jedan korisnik.}
+		\item Odredite tip datoteke \shell{korisnici} korištenjem naredbe \shell{file}.
+		\item Prethodnu naredbu ponovite korištenjem opcije -L
+	\end{itemize}
+	U komentaru skripte objasnite rezultate prethodnih dviju naredbi. (Pomoć: man stranice)
+	\subsection*{Zadatak 2}
+	\begin{itemize}
+		\item Naredbom \shell{wc} doznajte ukupan broj korisnika na sustavu.\\
+		\textit{Vidi napomenu iz prvog zadatka.}
+		\item Korištenjem poveznice \shell{korisnici} ispišite sadržaj datoteke \shell{/etc/passwd} bez zadnjih 5 redova.
+		\item Koristeći naredbu \shell{touch} datoteci \shell{korisnici} promijenite \emph{samo} modification time. Ne smijete koristiti root ovlasti (sudo).
+		\item Pokrenite naredbu koja ispisuje broj linkova za datoteku \shell{/etc/passwd}.
+	\end{itemize}
+	U komentar odgovorite mijenja li se taj broj kreiranjem symbolic linkova kao u prvom zadatku. Zašto?
+	\subsection*{Zadatak 3}
+	\begin{itemize}
+		\item Ispišite sadržaj /var/log/syslog datoteke \emph{uz stalno praćenje} novih promjena u datoteci. Naredba smije prekinuti izvršavanje skripte. U komentar napišite kako prekinuti pokrenutu naredbu.
+	\end{itemize}
+	\subsection*{Zadatak 4}
+	\begin{itemize}
+		\item Naredbom \shell{df} provjerite koji je blok uređaj montiran na lokaciju \shell{/}.
+		\item Provjerite veličinu blok datoteke montirane na lokaciju \shell{/}.
+		\item Saznajte ukupno diskovno zauzeće vašeg matičnog direktorija.
+		\item Izlistajte iz vašeg matičnog direktorija i svih poddirektorija datoteke veće od 2 MB. 
+	\end{itemize}
+\end{document}
