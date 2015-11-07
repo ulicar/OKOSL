@@ -384,7 +384,6 @@
 	\item[] \shell{wget -O - http://ftp.hr.debian.org/README > out.txt}
 	\item[] \shell{wget -O - http://ftp.hr.debian.org/README 2> err.txt}
 	\item[] \shell{wget -O - http://ftp.hr.debian.org/README 2> err.txt > out.txt}
-	\item[] \shell{wget -O - http://ftp.hr.debian.org/README 2>\&1 > both.txt}
 	\item[] \shell{wget -O - http://ftp.hr.debian.org/README \&> both.txt} }
 \end{itemize}
 \end{frame}
@@ -404,7 +403,7 @@
 	\begin{itemize}
 		\item \shell{ls -l /usr/share | tee lista.txt}
 		\item \shell{ls -l /usr/share | tee -}
-		\item[] {\footnotesize Rezultira dvostrukim ispisom sadržaja direktorija}
+		\item[] {\footnotesize \shell{tee} osigurava da se ispis ne dogodi više puta}
 	\end{itemize}
 \end{itemize}
 \end{frame}
