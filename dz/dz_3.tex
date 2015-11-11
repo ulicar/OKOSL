@@ -6,30 +6,34 @@
 \begin{document}
   \title{Domaća zadaća - 03\vspace{-2em}}
   \maketitle
-  Za svaki zadatak treba napisati bash skriptu s rješenjem zadatka. Jedna točka - jedna naredba - jedan redak. Skripta se mora izvršavati bez prekida osim u zadacima gdje su prekidi eksplicitno dozvoljeni.
+  Za svaki zadatak treba napisati bash skriptu s rješenjem zadatka. Jedna točka - jedna naredba - jedan redak. Datoteke nastale kao rezultat izvršavanja skripti nije potrebno predavati s rješenjima. Skripte se moraju izvršavati bez prekida.
   \subsection*{Zadatak 1}
   \begin{itemize}
-    \item Stvorite datoteku koja sadrzi vas jmbag u prvom retku koristeci echo naredbu i preusmjeravanje. Datoteku nazovite personal_info.dat
-    \item Pomocu cat naredbe i here document dodajte vase ime u redak ispod vaseg jmbaga.
+    \item Stvorite datoteku koja u prvom redu sadrži vaš JMBAG koristeći naredbu \texttt{echo} i preusmjeravanje. Datoteku nazovite \texttt{personal\_info.dat}
+    \item Pomoću naredbe \texttt{cat} i here dokumenta dodajte vaše ime i prezime u redak ispod JMBAG-a.
   \end{itemize}
   \subsection*{Zadatak 2}
-  \begin{itemize}
-    \item Koliki je rezultat naredbe \shell{echo 12345 | wc -c}? Zasto?
-  \end{itemize}
+  Koliki je rezultat naredbe \shell{echo 12345 | wc -c}? Zašto?
   \subsection*{Zadatak 3}
   \begin{itemize}
-      Napomena: Za sve tocke ovog zadatka iskoristite datoteku: korisnici.dat. Datoteke koje nastaju kao proizvod 1. zadatka nije potrebno stavljati u git.
-      Svaki redak u datoteci prvi.dat ima format <broj retka>:<ime>:<id korisnika>
-    \item Sortirajte datoteku po broju retka i rezultat zapisite u korisnici.sortirano.dat
-    \item Ispisite sva jedinstvena (imena koja se ponavljaju maksimalno jednom) u datoteku jedistveni_korisnici.dat
-    \item Ispisite samo imena koja se ponavljaju (jedno ime po duplikatu je dovoljno) u datoteku nejedinstveni_korisnici.dat
+    \item[] Za sve točke ovog zadatka iskoristite datoteku \texttt{korisnici.dat}. Imena u datoteci nisu case-sensitive. Svaki redak datoteke ima format
+    \item[] \texttt{<broj retka>:<ime>:<id korisnika>}
+    \item Sortirajte datoteku po broju retka i rezultat zapišite u \texttt{korisnici.sortirano.dat}
+    \item Ispišite sva jedinstvena imena (koja se ne ponavljaju) u datoteku\\\texttt{jedistveni\_korisnici.dat}
+    \item Imena koja se ponavljaju više puta zapišite u datoteku\\\texttt{nejedinstveni\_korisnici.dat}
   \end{itemize}
   \subsection*{Zadatak 4}
   \begin{itemize}
-    \item Prebrojite sve rijeci koje sadrze znak \&  u datoteci /usr/share/dict
+  	\item Prebrojite koliko riječi iz datoteke \texttt{/usr/share/dict} sadrži znak \texttt{\&}
+  	\item U datoteku \texttt{yous.dat} izdvojite sve riječi iz datoteke \texttt{/usr/share/dict} koje sadrže tekst \texttt{you}
+  	\item Prebrojite koliko je takvih riječi
+  	\item Udvostručite sadržaj datoteke \texttt{yous.dat}
   \end{itemize}
   \subsection*{Zadatak 5}
+  Locirajte datoteku \texttt{jedinstveni\_korisnici.dat} stvorenu u zadatku 3 koristeći, redom, naredbe
   \begin{itemize}
-    \item Locirajte datoteku jedinstveni_korisnici.dat (stvorenu u zadatku 3) koristeci naredbe find, locate i grep.   
+    \item \texttt{find}
+    \item \texttt{locate}
+    \item \texttt{ls}
   \end{itemize}
 \end{document}

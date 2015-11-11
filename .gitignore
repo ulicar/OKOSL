@@ -5,5 +5,8 @@ lectures/*/*
 !lectures/*/*.sh
 labs/*
 !labs/*.tex
+dz/*
+!dz/*.tex
+!dz/*.dat
 issues*
 .sync/*
