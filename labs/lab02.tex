@@ -2,18 +2,35 @@
 \usepackage[croatian]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[top=20mm]{geometry}
-\newcommand{\shell}[1]{\texttt{#1}}
+\usepackage{enumitem} 
+\newcommand{\shell}[1]{\texttt{\textbf{#1}}}
+\renewcommand*{\familydefault}{\sfdefault}
+\renewcommand*{\sfdefault}{lmss}
 \begin{document}
 	\title{Laboratorijska vježba 2\\{\small Osnove korištenja operacijskog sustava Linux}\vspace{-2em}}
 	\maketitle
+	Za svaki zadatak potrebno je napisati jednu bash skriptu osim ako nije drugačije navedeno u tekstu zadatka. Kako biste lakše demonstrirali rješenja preporučamo da nakon svakog ključnog koraka u zadatku prikažete rezultate izvršavanja skripte. U tomu vam mogu pomoći sljedeće naredbe:
+	\begin{description}[leftmargin=!,labelwidth=4em,itemsep=0em]
+		\item[\shell{clear}] Čisti sadržaj terminala
+		\item[\shell{read -p}] Čita podatak s tipkovnice; Zaustavlja izvođenje skripte
+		\item[\shell{less}] Pager
+	\end{description}
+	
 	\subsection*{Zadatak 1}
-	Sljedeće zadatke je potrebno rješiti s datotekom \shell{/usr/include/stdio.h} koristeći regularne izraze (engl. \emph{regular expressions}).
+	Sljedeće zadatke je potrebno rješiti s datotekom \shell{/usr/include/stdio.h} koristeći regularne izraze (engl. \textit{regular expressions}).
 	\begin{itemize}
-		\item Prebrojite redove koji su uvučeni
+		\item Prebrojite redove koji su uvučeni.
 		\item Prebrojite koliko u datoteci postoji komentara i blokova s komentarima.
 	\end{itemize}
+	
 	\subsection*{Zadatak 2}
-	Korištenjem \emph{here document} sintakse kreirati datoteku \shell{Top10} sadržaja:
+	\begin{itemize}
+		\item Ispisati sve datoteke čiji sadržaj počinje slovom \shell{c} iza kojeg slijede 2 slova, točka i barem jedno slovo iza točke \\ \textit{Primjer: \shell{cba.d} }
+		\item Ispisati sve datoteke koje ne sadrže slova od \shell{a} do \shell{k}, ali imaju barem jednu znamenku.
+	\end{itemize}
+	
+	\subsection*{Zadatak 3}
+	Korištenjem \textit{here document} sintakse kreirati datoteku \shell{Top10} sadržaja:
 	\begin{verbatim}
 	Linux Mint 17.2
 	Ubuntu 15.10
@@ -31,41 +48,22 @@
 	\begin{itemize}
 		\item Obrisati sve redove koji sadrže imena distribucija bez brojeva.
 		\item Brojeve verzija prebaciti na početak reda.
-		\item Sva slova staviti u lower case.
-		\item Zatim sve samoglasnike prebaciti u upper case.
-		\item Tako dobivenu datoteku sortirati \textbf{po veličini broja} na početku reda.
+		\item Sva slova promijeniti u mala.
+		\item Zatim sve samoglasnike prebaciti u velika slova.
+		\item Sortirati datoteku po numeričkoj vrijednosti brojeva na početku retka.
 	\end{itemize}
-  
-	\subsection*{Zadatak 2}
-	Sve točke zadatka se odnose na rad s datotekama s vaseg cijelog sustava. Vase rjesenje mora funkcionirati bez obzira na postojanje pojedinih datoteka. Datoteke stvorene nisu dio rjesenja.
-	\begin{itemize}
-    \item Pronaci sve Python datoteke u sustavu te ispisati nazive funkcija iz njih. (Iskljucivo nazive funkcija)
-		\item Pronaci sve C datoteke u sustavu te ispisati sve pretprocesorske naredbe iz njih.
-    \item Pronaci sve datoteke u sustavu koje sadrze niz \textfb{include} i redak u kojem se on nalazi.
-	\end{itemize}
-
-	\subsection*{Zadatak 3}
-	\begin{itemize}
-    \item Ispisati sve datoteke koje pocinju slovom \texbf{c}, imaju 3 slova prije tocke, te barem jedno slovo nakon tocke. 
-    \item Ispisati sve datoteke koje ne sadrze slova \texbf{a} do \text{k}, ali imaju barem 1 znamenku.
-	\end{itemize}
+	Ispišite sadržaj datoteke prije i poslije obrade.
   
 	\subsection*{Zadatak 4}
 	\begin{itemize}
-    \item Promijeniti nazive datoteka koje imaju oblik PNG-07092015 (PNG dan mjesec godina) u 7_9_2015.png
+		\item Pronaći sve Python datoteke na sustavu. Ispisati nazive svih funkcija iz njih.
+		\item Pronaći sve C datoteke u sustavu. Ispisati sve pretprocesorske naredbe iz njih.
+		\item Pronaći sve datoteke u sustavu koje sadrže niz \shell{include}. Ispisati broj retka u kojemu se nalazi pronađeni niz.
 	\end{itemize}
-
+  
 	\subsection*{Zadatak 5}
-  Koristeci log datoteku rijesite slijedece zadatke.
 	\begin{itemize}
-    \item Ispisati HTTP statuse i broj pojavljivanja, sortirano po broju pojavljivanja.
-    \item Ispisati ukupni broj prenesenih bajtova.
-	\end{itemize}
-
-  \subsection*{Zadatak 6}
-	\begin{itemize}
-    \item Sto oznacuje slovo \textbf{s} na lokaciji vlasnikove \textbf{executable} dozvole? \textit{-rwsr-xr-x 2 root root 32K May 22  2015 /usr/bin/su}
-    \item Sto oznacuje dozvola \textbf{x} na direktoriju?
+    \item Datotekama koje imaju naziv oblika \shell{PNG-DDMMYYYY} (dan, mjesec, godina) promijeniti naziv u \shell{DD\_MM\_YYYY.png} \\ \textit{Primjer: \shell{PNG-07092015} $\longrightarrow$ \shell{07\_09\_2015.png}}
 	\end{itemize}
 
 \end{document}
