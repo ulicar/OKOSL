@@ -7,27 +7,32 @@
 	\title{Laboratorijska vježba 2\\{\small Osnove korištenja operacijskog sustava Linux}\vspace{-2em}}
 	\maketitle
 	\subsection*{Zadatak 1}
-	Kreirati datoteku \shell{Top10} sadržaja:
+	Sljedeće zadatke je potrebno rješiti s datotekom \shell{/usr/include/stdio.h} koristeći regularne izraze (engl. \emph{regular expressions}).
+	\begin{itemize}
+		\item Prebrojite redove koji su uvučeni
+		\item Prebrojite koliko u datoteci postoji komentara i blokova s komentarima.
+	\end{itemize}
+	\subsection*{Zadatak 2}
+	Korištenjem \emph{here document} sintakse kreirati datoteku \shell{Top10} sadržaja:
 	\begin{verbatim}
 	Linux Mint 17.2
 	Ubuntu 15.10
-	Debian GNU/Linux 8.1
+	Debian GNU/Linux 8.2
 	Mageia 5
-	Fedora 22
-	openSUSE 13.2
+	Fedora 23
+	openSUSE Leap 42.1
 	Arch Linux
-	CentOS 7.1-1503
+	CentOS 7.2-1511
 	PCLinuxOS 2014.12
 	Slackware Linux 14.1
 	FreeBSD
 	\end{verbatim}
-	Sve točke zadatka se odnose na rad s tom datotekom. Kreiranje datoteke i upisivanje podataka u nju nisu dio zadatka.
+	Nad datotekom je potrebno izvršiti sljedeće zadatke:
 	\begin{itemize}
 		\item Obrisati sve redove koji sadrže imena distribucija bez brojeva.
 		\item Brojeve verzija prebaciti na početak reda.
 		\item Sva slova staviti u lower case.
 		\item Zatim sve samoglasnike prebaciti u upper case.
-		\item Tako dobivenu datoteku sortirati po veličini broja na početku reda.
-		\item[] Napomena: \textit{Ne sortirati abecedno.}
+		\item Tako dobivenu datoteku sortirati \textbf{po veličini broja} na početku reda.
 	\end{itemize}
 \end{document}
