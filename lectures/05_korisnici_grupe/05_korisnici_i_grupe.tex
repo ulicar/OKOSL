@@ -12,6 +12,7 @@
 \usepackage{tikz}
 \usepackage{verbatim}
 \usepackage{multirow}
+\usepackage{fancyvrb}
 \usetikzlibrary{shapes,arrows}
 \usetheme{CambridgeUS}
 \usecolortheme{seagull}
@@ -229,7 +230,7 @@
 \end{frame}
 
 \begin{frame}[t]
-\frametitle{Root (1)} 
+\frametitle{root} 
 \begin{itemize}
   \item Operacijski sustav korisnike identificira preko jedinstvenog identifikatora
   \begin{itemize}
@@ -242,23 +243,31 @@
     \item[] \bf{root} \hspace{2em} UID=0
   \end{itemize}
 \end{itemize}
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Root (2)} 
 \begin{itemize}
-	\item DIO OVOGA GORE
-  \item Bitno pravilo sigurnosti i opreza
+  \item root može sve
   \begin{itemize}
     \item Nije preporučljivo ulogiravati se i/ili raditi kao root!!!
     \item Raditi kao običan korisnik pa tek kad je nužno prebaciti se na 
           root korisnika
   \end{itemize}
-  \item Sve ostale korisnike sustav ne tretira posebno ni na koji način
-  \item root može sve!!
-  \item Za privremeno dobivanje administrativnih ovlasti koristi se naredba (prefiks) \shell{sudo}
-  \item DODAJ
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{sudo}
+\begin{itemize}
+  \item Za privremeno dobivanje administrativnih ovlasti koristi se naredba (prefiks) \shell{sudo}
+  \item sudo mogu izvršiti svi korisnici prema dozvolama definiranima u datoteci
+  \item[] {\small\shell{/etc/sudoers}}
+\end{itemize}
+\vfill
+\footnotesize
+\begin{Verbatim}
+dino     ALL = (ALL) ALL
+dominik  marvin,magrathea = (ALL) root
+josip    marvin = /usr/bin/passwd [[:alpha:][:digit]]*,
+                  !/usr/bin/passwd dino
+\end{Verbatim}
 \end{frame}
 
 \begin{frame}[t]
