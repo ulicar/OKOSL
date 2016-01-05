@@ -259,6 +259,7 @@
   \item Za privremeno dobivanje administrativnih ovlasti koristi se naredba (prefiks) \shell{sudo}
   \item sudo mogu izvršiti svi korisnici prema dozvolama definiranima u datoteci
   \item[] {\small\shell{/etc/sudoers}}
+  \item Uređivanje naredbom \shell{visudo}
 \end{itemize}
 \vfill
 \footnotesize
@@ -267,6 +268,7 @@ dino     ALL = (ALL) ALL
 dominik  marvin,magrathea = (ALL) root
 josip    marvin = /usr/bin/passwd [[:alpha:][:digit]]*,
                   !/usr/bin/passwd dino
+%kset    ALL = NOPASSWD: /sbin/umount /media/cdrom0
 \end{Verbatim}
 \end{frame}
 
