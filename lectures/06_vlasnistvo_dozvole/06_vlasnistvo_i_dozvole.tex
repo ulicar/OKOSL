@@ -283,9 +283,9 @@ Skripta je pokrenuta
 	\item[] Nakon izvršavanja datoteke proces ostaje u memoriji
 \end{itemize}
 \begin{itemize}
-	\item Simbolički se označava s \shell{t} na mjestu \shell{x} dozvole za \textit{others} korisnike
-	\item[] {\footnotesize \shell{-rwxr--r-t 1 pero users 0 Jan  4 23:21 datoteka.txt} }
-	\item Ako \textit{others} ujedno ima i \shell{x} dozvolu tada se sticky bit označava s velikim \shell{T}
+	\item Simbolički se označava s velikim \shell{T} na mjestu \shell{x} dozvole za \textit{others} korisnike
+	\item[] {\footnotesize \shell{-rwxr--r-T 1 pero users 0 Jan  4 23:21 datoteka.txt} }
+	\item Ako \textit{others} ujedno ima i \shell{x} dozvolu tada se sticky bit označava s malim \shell{t}
 \end{itemize}
 \end{frame}
 
@@ -307,13 +307,37 @@ Skripta je pokrenuta
 	\frametitle{Posebne dozvole (3)}
 	\framesubtitle{SUID i SGID}
 \begin{itemize}
-	\item Simbolički se označava sa \shell{s} na mjestu \shell{x} dozvole za određenu grupu korisnika
-	\item[] {\footnotesize \shell{-rwsr--r-x 1 pero users 0 Jan  4 23:21 datoteka.txt} \hfill SUID }
-	\item[] {\footnotesize \shell{-rw-r-sr-x 1 pero users 0 Jan  4 23:21 datoteka.txt} \hfill SGID }
+	\item Simbolički se označava s velikim \shell{S} na mjestu \shell{x} dozvole za određenu grupu korisnika
+	\item[] {\footnotesize \shell{-rwSr--r-x 1 pero users 0 Jan  4 23:21 datoteka.txt} \hfill SUID }
+	\item[] {\footnotesize \shell{-rw-r-Sr-x 1 pero users 0 Jan  4 23:21 datoteka.txt} \hfill SGID }
 \end{itemize}
 \begin{itemize}
 	\item Primijetite da SUID, odnosno SGID ne impliciraju \shell{x} dozvolu vlasnicima datoteke. U gornjem primjeru samo \textit{others} imaju pravo izvršiti datoteku i u tom trenutku će isti dobiti prava vlasnika.
-	\item Ako vlasnik, \textit{user} ili \textit{group} ujedno ima i \shell{x} dozvolu tada se posebni bitovi označavaju s velikim \shell{S}
+	\item Ako vlasnik, \textit{user} ili \textit{group} ujedno ima i \shell{x} dozvolu tada se posebni bitovi označavaju s malim \shell{s}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Posebne dozvole (4)}
+	\framesubtitle{Promjena dozvola}
+\begin{itemize}
+	\item Posebne dozvole se također mijenjaju naredbom \shell{chmod}
+	\item Ispred uobičajene tri znamenke dodaje se još jedna čiji bitovi odgovaraju posebnim dozvolama
+	\begin{itemize}
+		\item \textbf{Prvi bit} - SUID
+		\item \textbf{Drugi bit} - SGID
+		\item \textbf{Treći bit} - Sticky bit
+	\end{itemize}
+\end{itemize}
+\begin{itemize}
+	\item \textbf{Primjer 8}
+	\begin{itemize}
+		\item[] \shell{\$ chmod 5754 file1}
+		\item[] \shell{\$ ls -l file1}
+		\item[] \shell{-rwsr-xr-T 1 pero users 0 Jan  4 23:23 file1}
+		\item \vspace{1em} Alternativno:
+		\item[] \shell{\$ chmod u=rwxs,g=rx,o=rt file1}
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -358,7 +382,7 @@ Skripta je pokrenuta
   
 \section{Promjena vlasnika}
 \begin{frame}[t]
-\frametitle{Promjena vlasnika (1)}
+\frametitle{Promjena vlasnika}
 \begin{itemize}
   \item Promjena vlasnika objekta obavlja se naredbom \shell{chown}
   \begin{itemize}
