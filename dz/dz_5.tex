@@ -5,30 +5,23 @@
 \newcommand{\shell}[1]{\texttt{#1}}
 \begin{document}
 	\title{Domaća zadaća - 05}
-	\author{Dominik Barbarić}
+	\author{Dino Lukman}
 	\maketitle
-	Rješenja napišite u \shell{sh} skriptu. Jedna točka zadatka se može rješiti s više redova i naredbi u skripti. Ukoliko se traži odgovor na pitanje ili se zadatak ne rješava naredbom, već nekom radnjom na računalu (npr. kombinacijom tipki), rješenje upisujete kao komentar u skripti.\\
-	\emph{Primjer:} \shell{\# Prekidamo izvođenje kombinacijom CTRL+C}\\
-	
+	Za svaki zadatak treba napisati bash skriptu s rješenjem zadatka. Jedna točka zadatka se može rješiti s više redova i naredbi u skripti. \\
+
 	Zadatak 1
-		\begin{itemize}
-			\item Pokrenite naredbu \shell{dd if=/dev/urandom of=/dev/null}
-			\item[] Naredba kopira neograničenu količinu nasumičnih podataka.
-			\item Postavite proces u pozadinu.
-			\item Pošaljite signal \shell{SIGUSR1}
-			\item Što je ispisano? Što se dogodilo s procesom \shell{dd} nakon signala \shell{SIGUSR1} i u kojem je stanju? \\ \emph{Odgovor napišite kao komentar u sh skripti.}
+   	\begin{itemize}
+			\item Kreirajte datoteku imenovanu kao korisnik koji trenutačno koristi terminal. 
+      \item U datoteku spremite osnovne podatke o korisniku (ime, home direktorij i ljuska) te podatak u kojim se grupama nalazi.
 		\end{itemize}
-		
 	Zadatak 2
 		\begin{itemize}
-			\item Pokrenite \shell{nano} u pozadini.
-			\item Pošaljite \shell{SIGKILL} procesu koristeći JID kao parametar.
-			\item Jeste li prethodnu naredbu mogli pokrenuti iz drugog terminala? Objasnite.
-		\end{itemize}
-	
-	Zadatak 3
-		\begin{itemize}
-			\item Ispišite stablo svih procesa u sustavu
-			\item Koji su sve procesi roditeljski procesu koji je ispisao stablo u prethodnom dijelu zadatka? Navedite sve procese do korijena stabla.
+			\item Kreirajte korisnika \shell{okosl} s lozinkom \shell{okosl}.
+			\item Kreirajte grupu \shell{linux} i dodajte novo kreiranog korisnika u grupu.
+			\item Kreirajte direktorij \shell{/tmp/tmp\_etc} i u njega kopirajte sadržaj direktorija \shell{/etc}. Sljedeće tri točke će se odnositi na taj direktorij.
+			\item Korisnicima u grupi \shell{linux} dozvolite modificiranje svih datoteka u direktoriju i poddirektorijima s ekstenzijom \shell{.conf}.
+      \item Korisnicima u grupi \shell{linux} i svim ostalim korisnicima zabranite otvaranje poddirektorija.
+      \item Kreirajte poddirektorij \shell{world\_writable} i dozvolite svima zapisivanje u direktorij. Dozvole postavite tako da svaka nova datoteka u tom poddirektoriju ima dozvolu pisanja za sve korisnike.
+      \item Zabranite korisniku \shell{okosl} mogućnost prijave na sustav
 		\end{itemize}
 \end{document}
