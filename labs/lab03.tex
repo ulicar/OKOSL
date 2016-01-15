@@ -1,0 +1,51 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\usepackage{enumitem} 
+\newcommand{\shell}[1]{\texttt{\textbf{#1}}}
+\renewcommand*{\familydefault}{\sfdefault}
+\renewcommand*{\sfdefault}{lmss}
+\begin{document}
+	\title{Laboratorijska vježba 3\\{\small Osnove korištenja operacijskog sustava Linux}\vspace{-2em}}
+	\maketitle
+	Za svaki zadatak potrebno je napisati jednu bash skriptu, a za lakše rješavanje zadataka možete korisititi bilo koju linux utility ili skirpit koju sami napišete. Kako biste lakše demonstrirali rješenja preporučamo da nakon svakog ključnog koraka u zadatku prikažete rezultate izvršavanja skripte. U tomu vam mogu pomoći sljedeće naredbe:
+	\begin{description}[leftmargin=!,labelwidth=4em,itemsep=0em]
+		\item[\shell{clear}] Čisti sadržaj terminala
+		\item[\shell{read -p}] Čita podatak s tipkovnice; Zaustavlja izvođenje skripte
+		\item[\shell{less}] Pager
+	\end{description}
+	
+  \subsection*{Zadatak 1}
+  Napisati skriptu koja prima 2 parametra preko standardnog ulaza. Prvi paramater je putanja do datoteke, a drugi je pozitivan broj (N).
+  Skripta treba ispisati sadržaj datoteke N puta na standardni izlaz. Skriptu nazovite \shell{enlarge.sh}. Primjer pozivanja skripte je \shell{echo myfile.dat 3 | ./enlarge.sh}
+
+	\subsection*{Zadatak 2}
+  Za rjesavanje zadatka koristite datoteke \shell{lab3-input01.txt} i \shell{lab3-input02.txt}.
+	\begin{itemize}
+    \item U prvoj datoteci nalaze id i naziv (id:naziv), a drugoj id i veličina (id:veličina). Vaš zadatak je napisati skriptu \shell{merge.sh} koja će stvoriti treću datoteku sadržaja id:naziv:veličina.
+	\end{itemize}
+	
+	\subsection*{Zadatak 3}
+  Za rjesavanje zadatka koristite datoteke \shell{lab3-input03.txt} i \shell{lab3-output03.txt}.
+	\begin{itemize}
+		\item Napisati skriptu koja ce na standardni ulaz primiti lab3-input03.txt datoteku, a na standardni izlaz ispisati lab03-output03 datoteku.
+	\end{itemize}
+	
+	\subsection*{Zadatak 4}
+	\begin{itemize}
+		\item Stvoriti direktorij /home/studenti, kreirati grupu studenti i omoguciti joj ekluzivna prava pisanja i citanja nad direktorijem.
+    \item Napisati skriptu koja će stvarati korisnike na vašem sustavu i pritom im stvarati \shell{home} unutar studenti direktorija, kao idodati ih u grupu studenti. 
+	\end{itemize}
+  
+	\subsection*{Zadatak 5}
+  Simulirajte obradu velike datoteke vlastitom skriptom. (Npr. cat big\_file.dat | ./slow\_script.sh).
+	\begin{itemize}
+    \item Nakon pokretanja procesa, postavite process u pozadinu (background). Kako ste to napravili?
+    \item Pošaljite procesu signal SIGSTOP. Kako ste to napravili? Koji ste process zaustavili (čitanje ili obradu)? Što je bolje?
+    \item Nastavite izvodenje procesa. Kako ste to napravili?
+    \item Kada ugasite terminal u kojem je pokrenuta skripta (u pozadini), sto se dogodi s procesom? Zašto?
+    \item Kako biste pokrenuli process i ugasili terminal, a da skripta nastavi izvodenje? (Dovoljan je jedan način)
+	\end{itemize}
+
+\end{document}
