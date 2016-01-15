@@ -1,0 +1,408 @@
+\documentclass[table,usenames,dvipsnames]{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage{courier}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage{multirow}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes,arrows,positioning}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+% Changing of bullet foreground color not possible if {itemize item}[ball]
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+\definecolor{LightGray}{gray}{0.9}
+
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{06. Vlasništvo i dozvole}
+\author[Dominik Barbarić]{Dominik Barbarić\\{\small Nositelj: doc. dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+    %\beamerdefaultoverlayspecification{<+->}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}
+\frametitle{Sadržaj}
+\tableofcontents
+\end{frame}
+
+\section{Dozvole}
+\begin{frame}[t]
+\frametitle{Dozvole (1)}
+\begin{itemize}
+	\item Naredba \shell{ls -l} ispisuje informacije o vlasnicima i dozvolama objekta
+	{\small \item[] \shell{\$ ls -l datoteka.txt}
+	\item[] \shell{-\textbf{rw-r--r-- 1 pero users} 0 Jan  4 23:19 datoteka.txt}}
+	\vfill
+    \item Objekt je vlasništvo korisnika i grupe
+    \begin{itemize}
+		\item Drugo polje označava vlasnika - korisnika \hfill (\shell{pero}) \hfill \,
+		\item Treće polje označava vlasnika - grupu \hfill (\shell{users}) \hfill \,
+    \end{itemize}
+    \item Prvo polje u prvom bitu sadrži oznaku tipa datoteke, a ostalih 9 bitova se nazivaju \textbf{mode} objekta
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Dozvole (2)}
+\begin{itemize}
+  \item \textbf{mode} definira dozvoljene operacije na svakom objektu
+  \vspace{1em}
+  \item Devet bitova dijele se u tri grupe od koji svaka čini jedan troznamenkasti binarni broj
+  \item Svaki troznamenkasti binarni broj se može prikazati jednom oktalnom znamenkom
+\end{itemize}
+\begin{itemize}
+  \item Svaka oktalna znamenka modea predstavlja skup dozvola koje su dodijeljene sljedećim korisnicima objekta i to:
+  \begin{itemize}
+	\item Prva oktalna znamenka definira prava za vlasnika - korisnika \hfill \textbf{user}
+    \item Druga oktalna znamenka definira prava za vlasnika - grupu \hfill \textbf{group}
+    \item Treća oktalna znamenka definira prava za sve ostale \hfill \textbf{others}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Dozvole (3)}
+\begin{itemize}
+  \item Značenja pojedinih bitova svake znamenke
+    \begin{tabular}{l l}
+     r & \textbf{read} - Dozvoljeno čitanje \\
+     w & \textbf{write} - Dozvoljeno pisanje \\
+     x & \textbf{execute} - Dozvoljeno izvršavanje / pretraživanje direktorija
+    \end{tabular}
+      \item Svaki pojedini bit može biti u stanju
+      \begin{itemize}
+      	\item \textbf{uključen} - operacija dozvoljena
+      	\item \textbf{isključen} - operacija zabranjena
+      \end{itemize}
+\end{itemize}
+\vfill
+\begin{itemize}
+  \item \textbf{Primjer 1}
+  \begin{itemize}
+    \item[] \shell{rwxr-xr-x} = $111101101_2$ = $755_8$
+    \item[] \hspace{1em} \begin{tabular}{l c c c}
+    	& \textbf{r} & \textbf{w} & \textbf{x}\\
+    	\textbf{user} & + & + & +\\
+    	\textbf{group} & + & - & +\\
+    	\textbf{others} & + & - & +
+    \end{tabular}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Dozvole (4)}
+\begin{itemize}
+	\item \textbf{Primjer 2}
+	\begin{itemize}
+	    \item[] \shell{rw-r--r--} = $644$
+	    \item[] \hspace{1em} \begin{tabular}{l c c c}
+	    	& \textbf{r} & \textbf{w} & \textbf{x}\\
+	    	\textbf{user} & + & + & -\\
+	    	\textbf{group} & + & - & -\\
+	    	\textbf{others} & + & - & -
+	    \end{tabular}
+	\end{itemize}
+\end{itemize}
+\vfill
+\begin{itemize}
+	\item \textbf{Primjer 3}
+	\begin{itemize}
+	    \item[] \shell{r--r--r--} = $444$
+	    \item[] \hspace{1em} \begin{tabular}{l c c c}
+	    	& \textbf{r} & \textbf{w} & \textbf{x}\\
+	    	\textbf{user} & + & - & -\\
+	    	\textbf{group} & + & - & -\\
+	    	\textbf{others} & + & - & -
+	    \end{tabular}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Promjena dozvola (1)}
+\begin{itemize}
+  \item Promjena modea obavlja se naredbom \shell{chmod}
+  \begin{itemize}
+    \item[] \shell{chmod <mode> <objekt>}
+  \end{itemize}
+  \item Mode se može zadati oktalno i simbolički
+  \item Moguće jer rekurzivno mijenjati prava
+  \begin{itemize}
+    \item[] \shell{chmod -R <mode> <objekt>}
+  \end{itemize}
+  \vfill
+   	\item Vlasnik datoteke može bez obzira na trenutni mod
+   	\begin{itemize}
+		\item promijeniti mode
+   		\item obrisati datoteku
+   	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Promjena dozvola (2)}
+\begin{itemize}
+  \item \textbf{Primjer 4}
+  \begin{itemize}
+    \item[] \shell{chmod ugo=rwx file1}
+    \item[] \hspace{1em} \begin{tabular}{l c c c}
+    	& \textbf{r} & \textbf{w} & \textbf{x}\\
+    	\textbf{user} & + & + & +\\
+    	\textbf{group} & + & + & +\\
+    	\textbf{others} & + & + & +
+    \end{tabular}
+    \item \vspace{1em} Alternativno:
+    \item[] \shell{chmod a=rwx file1}
+    \item[] \shell{chmod 777 file1}
+  \end{itemize}
+\end{itemize}
+\begin{itemize}
+	\item \textbf{Primjer 5}
+    \begin{itemize}
+	    \item[] \shell{chmod u=rwx,go=rx file1 file2}
+	    \item[ili] \shell{chmod 755 file1 file2}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]
+	\frametitle{Promjena dozvola (3)}
+\begin{itemize}
+	\item \textbf{Primjer 6}
+	\begin{itemize}
+	    \item[] \shell{chmod g+w file1 file2 file3}
+	    \item[] \hspace{1em} \begin{tabular}{l c c c}
+    	& \textbf{r} & \textbf{w} & \textbf{x}\\
+    	\textbf{user} & $\ast$ & $\ast$ & $\ast$\\
+    	\textbf{group} & $\ast$ & + & $\ast$\\
+    	\textbf{others} & $\ast$ & $\ast$ & $\ast$
+		\end{tabular}
+    \end{itemize}
+	\item \textbf{Primjer 7}
+	\begin{itemize}
+	    \item[] \shell{chmod -x file1} 
+	    \item[ili] \shell{chmod a-x file1}
+	    \item[] \hspace{1em} \begin{tabular}{l c c c}
+	        	& \textbf{r} & \textbf{w} & \textbf{x}\\
+	        	\textbf{user} & $\ast$ & $\ast$ & -\\
+	        	\textbf{group} & $\ast$ & $\ast$ & -\\
+	        	\textbf{others} & $\ast$ & $\ast$ & -
+	        \end{tabular}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\defverbatim[colored]\makeset{
+	\begin{lstlisting}[language=bash, basicstyle=\footnotesize\ttfamily, showstringspaces=false, keywordstyle=\color{blue}]
+#!/bin/bash
+echo "Skripta je pokrenuta"
+	\end{lstlisting}
+}
+
+\begin{frame}[fragile]
+\frametitle{Izvršavanje datoteka}
+\begin{itemize}
+	\item Svaka datoteka na UNIX sustavu može biti izvršna (\textit{executable})
+	\item Skripta se, tako, može izvršiti korištenjem zadanog interpretora
+\end{itemize}
+\begin{itemize}
+	\item Postavljanjem \shell{x} dozvole svaka se datoteka može izvršiti izravnim pozivanjem
+\end{itemize}
+\vfill
+\begin{block}{/home/linux/skripta.sh \hfill mode 755}
+	\makeset
+\end{block}
+\vfill
+\begin{Verbatim}[fontsize=\footnotesize]
+~$ /home/linux/skripta.sh
+Skripta je pokrenuta
+~$ ./skripta.sh
+Skripta je pokrenuta
+\end{Verbatim}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Promjena dozvola (4)}
+\begin{itemize}
+	\item Naredba \shell{chmod} može prihvatiti poseban argument prilikom simboličkog zadavanja modea
+\end{itemize}
+\begin{itemize}
+	\item[] \shell{X} (Capital X)
+	 \begin{itemize}
+	 	\item Direktorijima postavlja \shell{x} dozvolu
+	 	\item Ostalim datotekama ne mijenja mod
+	 	\item Omogućuje listanje direktorija bez dodavanja dozvole za izvršavanje datoteka
+	 	\item Koristan prilikom rekurzivne promjene modea:
+	 	\item[] \hspace{1em} \shell{chmod -R a+X dir1}
+	 \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Posebne dozvole}
+\begin{frame}[t]
+	\frametitle{Posebne dozvole (1)}
+	\framesubtitle{Sticky bit}
+\textbf{Sticky bit} / Text mode
+\begin{itemize}
+	\item \textbf{Kod direktorija}
+	\item[] Dozvoljava brisanje direktorija \textbf{samo} vlasniku i root korisniku
+	\item \textbf{Kod datoteka}
+	\item[] Nakon izvršavanja datoteke proces ostaje u memoriji
+\end{itemize}
+\begin{itemize}
+	\item Simbolički se označava s velikim \shell{T} na mjestu \shell{x} dozvole za \textit{others} korisnike
+	\item[] {\footnotesize \shell{-rwxr--r-T 1 pero users 0 Jan  4 23:21 datoteka.txt} }
+	\item Ako \textit{others} ujedno ima i \shell{x} dozvolu tada se sticky bit označava s malim \shell{t}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Posebne dozvole (2)}
+	\framesubtitle{SUID i SGID}
+\begin{itemize}
+	\item Za razumijeti preostala dva posebna bita potrebno je shvatiti što se događa s dozvolama korisnika koji pokreće izvršnu datoteku
+	\item Svaki proces se pokreće s UID i GID primarne grupe korisnika koji ga je pozvao. Pokrenuti proces ima sve ovlasti tog korisnika
+\end{itemize}
+\vfill
+\textbf{Set user ID (SUID)} i \textbf{Set group ID (SGID)}
+\begin{itemize}
+	\item Postavljanjem ovih bitova u mode datoteke proces koji pokreće datoteku dobiva dozvole \textbf{vlasnika - korisnika} (SUID bit), odnosno \textbf{vlasnika - grupe} (SGID) izvršne datoteke
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Posebne dozvole (3)}
+	\framesubtitle{SUID i SGID}
+\begin{itemize}
+	\item Simbolički se označava s velikim \shell{S} na mjestu \shell{x} dozvole za određenu grupu korisnika
+	\item[] {\footnotesize \shell{-rwSr--r-x 1 pero users 0 Jan  4 23:21 datoteka.txt} \hfill SUID }
+	\item[] {\footnotesize \shell{-rw-r-Sr-x 1 pero users 0 Jan  4 23:21 datoteka.txt} \hfill SGID }
+\end{itemize}
+\begin{itemize}
+	\item Primijetite da SUID, odnosno SGID ne impliciraju \shell{x} dozvolu vlasnicima datoteke. U gornjem primjeru samo \textit{others} imaju pravo izvršiti datoteku i u tom trenutku će isti dobiti prava vlasnika.
+	\item Ako vlasnik, \textit{user} ili \textit{group} ujedno ima i \shell{x} dozvolu tada se posebni bitovi označavaju s malim \shell{s}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Posebne dozvole (4)}
+	\framesubtitle{Promjena dozvola}
+\begin{itemize}
+	\item Posebne dozvole se također mijenjaju naredbom \shell{chmod}
+	\item Ispred uobičajene tri znamenke dodaje se još jedna čiji bitovi odgovaraju posebnim dozvolama
+	\begin{itemize}
+		\item \textbf{Prvi bit} - SUID
+		\item \textbf{Drugi bit} - SGID
+		\item \textbf{Treći bit} - Sticky bit
+	\end{itemize}
+\end{itemize}
+\begin{itemize}
+	\item \textbf{Primjer 8}
+	\begin{itemize}
+		\item[] \shell{\$ chmod 5754 file1}
+		\item[] \shell{\$ ls -l file1}
+		\item[] \shell{-rwsr-xr-T 1 pero users 0 Jan  4 23:23 file1}
+		\item \vspace{1em} Alternativno:
+		\item[] \shell{\$ chmod u=rwxs,g=rx,o=rt file1}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Zadani mode}
+\begin{frame}[t]
+\frametitle{Zadani mode (1)}
+\begin{itemize}
+	\item Kreiranjem novog objekta on poprima zadani mode
+	\item Definira ga trenutni filesystem i procesi koji kreiraju objekt
+\end{itemize}
+\begin{itemize}
+	\item Primjenom \textbf{umask} mogu se ograničiti dozvole koje postavljaju nadređeni procesi
+	\item umask ima isti format kao i mode, no s različitim značenjem bitova
+	\begin{itemize}
+		\item \textbf{1} - Isključuje dozvolu na poziciji bita
+		\item \textbf{0} - Ne mijenja dozvolu koju je postavio nadležni proces
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Zadani mode (2)}
+\begin{itemize}
+	\item Naredbom \shell{umask} se mijenja trenutni umask
+	\begin{itemize}
+		\item \textbf{Bez argumenata} - ispisuje trenutnu vrijednost u oktalnom obliku
+		\item \textbf{Argument -S} - ispisuje trenutnu vrijednost u simboličkom obliku
+		\item \textbf{Argument 4 oktalne znamenke} - mijenja vrijednost umaska
+		\item[] \hspace{1em} Prva oktalna znamenka je za specijalne modove
+	\end{itemize}
+\end{itemize}
+\begin{itemize}
+	\item U datoteci s popisom montiranih datotečnih sustava, \shell{/etc/fstab} se mogu navesti tri vrste maski
+	\begin{itemize}
+		\item \textbf{umask} - Odnosi se na sve vrste datoteka
+		\item \textbf{fmask} - Odnosi se na sve regularne datoteke
+		\item \textbf{dmask} - Odnosi se na sve direktorije
+	\end{itemize}
+	\item Ove vrste maski se mogu navesti i prilikom korištenja naredbe \shell{mount}
+\end{itemize}
+\end{frame}
+  
+\section{Promjena vlasnika}
+\begin{frame}[t]
+\frametitle{Promjena vlasnika}
+\begin{itemize}
+  \item Promjena vlasnika objekta obavlja se naredbom \shell{chown}
+  \begin{itemize}
+    \item[] \shell{chown <korisnik> <objekt>}
+  \end{itemize}
+	\item Promjena grupe objekta obavlja se naredbom \shell{chgrp}
+	\begin{itemize}
+		\item[] \shell{chgrp <grupa> <objekt>}
+		\item[ili] \shell{chown :<grupa> <objekt>}
+	\end{itemize}
+\end{itemize}
+\vfill
+\begin{itemize}
+  \item Moguće je istovremeno promijeniti korisnika i grupu
+  \begin{itemize}
+    \item[] \shell{\$ chown <korisnik>:<grupa> <objekt>}
+    \item[] \vspace{1em} \shell{\$ chown <korisnik>: <objekt>}
+	\item[] Postavlja korisnika i grupu koja odgovara primarnoj grupi korisnika
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\end{document}
