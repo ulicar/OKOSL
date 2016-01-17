@@ -9,7 +9,7 @@
 \begin{document}
 	\title{Laboratorijska vježba 3\\{\small Osnove korištenja operacijskog sustava Linux}\vspace{-2em}}
 	\maketitle
-	Za svaki zadatak potrebno je napisati jednu bash skriptu, a za lakše rješavanje zadataka možete korisititi bilo koju linux utility ili skirpit koju sami napišete. Kako biste lakše demonstrirali rješenja preporučamo da nakon svakog ključnog koraka u zadatku prikažete rezultate izvršavanja skripte. U tomu vam mogu pomoći sljedeće naredbe:
+	Za svaki zadatak potrebno je napisati jednu bash skriptu, a za lakše rješavanje zadataka možete korisititi bilo koju linux utility ili skirptu koju sami napišete. Kako biste lakše demonstrirali rješenja preporučamo da nakon svakog ključnog koraka u zadatku prikažete rezultate izvršavanja skripte. U tomu vam mogu pomoći sljedeće naredbe:
 	\begin{description}[leftmargin=!,labelwidth=4em,itemsep=0em]
 		\item[\shell{clear}] Čisti sadržaj terminala
 		\item[\shell{read -p}] Čita podatak s tipkovnice; Zaustavlja izvođenje skripte
@@ -29,13 +29,14 @@
 	\subsection*{Zadatak 3}
   Za rjesavanje zadatka koristite datoteke \shell{lab3-input03.dat i \shell{lab3-output03.dat}.
 	\begin{itemize}
-		\item Napisati skriptu koja ce na standardni ulaz primiti lab3-input03.txt datoteku, a na standardni izlaz ispisati lab03-output03 datoteku.
+    \item Napisati skriptu koja ce na standardni ulaz primiti datoteku, te napraviti izmjene nad njome. Svaki redak datoteke jet tipa ključ:vrijednost. Datoteka je nesortirana, i parovi ključ:vrijednost javljaju se nekoliko puta. Zadatak je izmijeniti ulaz tako da se ključ pojavljuje samo jednom, a sve vrijednosti za taj ključ su u istom redu, odvojene zarezom. Primjer ulaza i izlaza su datoteke input03 i output03. 
 	\end{itemize}
 	
 	\subsection*{Zadatak 4}
 	\begin{itemize}
-		\item Stvoriti direktorij /home/studenti, kreirati grupu studenti i omoguciti joj ekluzivna prava pisanja i citanja nad direktorijem.
-    \item Napisati skriptu koja će stvarati korisnike na vašem sustavu i pritom im stvarati \shell{home} unutar studenti direktorija, kao idodati ih u grupu studenti. 
+		\item Stvoriti direktorij /home/studenti, kreirati grupu studenti i omoguciti joj ekluzivna prava pisanja i čitanja nad direktorijem.
+    \item Napisati skriptu koja će stvarati korisnike na vašem sustavu i pritom im stvarati \shell{home} unutar studenti direktorija, kao i dodati ih u grupu studenti. 
+    \item Osim dodavanj u grupu potrebno je urediti template za \shell{home} direktorij (skel folder). Direktoriji koji svaki student treba imatu su: Documents, Github i Shared. Direktorij Shared neka bude simbolički link na direktorij \shell{/home/public}. Dozvole nad public direktorijem nek budu ista kao i od \shell{/tmp} foldera
 	\end{itemize}
   
 	\subsection*{Zadatak 5}
