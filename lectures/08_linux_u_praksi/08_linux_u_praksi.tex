@@ -300,11 +300,19 @@
 \end{frame}
 
 \begin{frame}[t]
-	\frametitle{Terminal multiplexor}
+	\frametitle{Terminal multiplexer}
 	\begin{itemize}
-    \item Olaksavaju duge (eng. long running) zadatke
+		\item Tekstualni window manager
+		\item Multipleksira više virtualnih terminala
+	    \item Olakšavaju duge (eng. long running) zadatke
+	    \item Aktivni i nakon prekida veze sa serverom (npr. kod prekida SSH veze)
+	\end{itemize}
+	\vfill
+	\textit{GNU screen}
+	\begin{itemize}
 		\item Attach / Detach terminal sessions
-		\item screen -S mySessionName, screen -r \$ID, C-a C-d, \ldots
+		\item[] \shell{screen -S mySessionName}
+		\item[] \shell{screen -r \$ID}
 	\end{itemize}
 \end{frame}
 
