@@ -1,0 +1,69 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\usepackage{enumitem} 
+\newcommand{\shell}[1]{\texttt{\textbf{#1}}}
+\renewcommand*{\familydefault}{\sfdefault}
+\renewcommand*{\sfdefault}{lmss}
+\begin{document}
+	\title{Laboratorijska vježba 2\\{\small Osnove korištenja operacijskog sustava Linux}\vspace{-2em}}
+	\maketitle
+	Za svaki zadatak potrebno je napisati jednu bash skriptu. Kako biste lakše demonstrirali rješenja preporučamo da nakon svakog ključnog koraka u zadatku prikažete rezultate izvršavanja skripte. U tomu vam mogu pomoći sljedeće naredbe:
+	\begin{description}[leftmargin=!,labelwidth=4em,itemsep=0em]
+		\item[\shell{clear}] Čisti sadržaj terminala
+		\item[\shell{read -p}] Čita podatak s tipkovnice; Zaustavlja izvođenje skripte
+		\item[\shell{less}] Pager
+	\end{description}
+	
+	\subsection*{Zadatak 1}
+	Sljedeće zadatke je potrebno rješiti s datotekom \shell{/usr/include/stdio.h} koristeći regularne izraze (engl. \textit{regular expressions}).
+	\begin{itemize}
+		\item Prebrojite redove koji su uvučeni.
+		\item Prebrojite koliko u datoteci postoji komentara i blokova s komentarima.
+	\end{itemize}
+	
+	\subsection*{Zadatak 2}
+	\begin{itemize}
+		\item Ispisati sve datoteke čiji sadržaj počinje slovom \shell{c} iza kojeg slijede 2 slova, točka i barem jedno slovo iza točke \\ \textit{Primjer: \shell{cba.d} }
+		\item Ispisati sve datoteke koje ne sadrže slova od \shell{a} do \shell{k}, ali imaju barem jednu znamenku.
+	\end{itemize}
+	
+	\subsection*{Zadatak 3}
+	Korištenjem \textit{here document} sintakse kreirati datoteku \shell{Top10} sadržaja:
+	\begin{verbatim}
+	Linux Mint 17.2
+	Ubuntu 15.10
+	Debian GNU/Linux 8.2
+	Mageia 5
+	Fedora 23
+	openSUSE Leap 42.1
+	Arch Linux
+	CentOS 7.2-1511
+	PCLinuxOS 2014.12
+	Slackware Linux 14.1
+	FreeBSD
+	\end{verbatim}
+	Nad datotekom je potrebno izvršiti sljedeće zadatke:
+	\begin{itemize}
+		\item Obrisati sve redove koji sadrže imena distribucija bez brojeva.
+		\item Brojeve verzija prebaciti na početak reda.
+		\item Sva slova promijeniti u mala.
+		\item Zatim sve samoglasnike prebaciti u velika slova.
+		\item Sortirati datoteku po numeričkoj vrijednosti brojeva na početku retka.
+	\end{itemize}
+	Ispišite sadržaj datoteke prije i poslije obrade.
+  
+	\subsection*{Zadatak 4}
+	\begin{itemize}
+		\item Pronaći sve Python datoteke na sustavu. Ispisati nazive svih funkcija iz njih.
+		\item Pronaći sve C datoteke u sustavu. Ispisati sve pretprocesorske naredbe iz njih.
+		\item Pronaći sve datoteke u sustavu koje sadrže niz \shell{include}. Ispisati broj retka u kojemu se nalazi pronađeni niz.
+	\end{itemize}
+  
+	\subsection*{Zadatak 5}
+	\begin{itemize}
+    \item Datotekama koje imaju naziv oblika \shell{PNG-DDMMYYYY} (dan, mjesec, godina) promijeniti naziv u \shell{DD\_MM\_YYYY.png} \\ \textit{Primjer: \shell{PNG-07092015} $\longrightarrow$ \shell{07\_09\_2015.png}}
+	\end{itemize}
+
+\end{document}

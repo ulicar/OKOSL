@@ -1,0 +1,32 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\newcommand{\shell}[1]{\texttt{#1}}
+\begin{document}
+  \title{Domaća zadaća - 01}
+  \maketitle
+  Rješenje zadatka je potrebno upisati u \shell{.sh} datoteku. Jedna naredba - jedan redak.
+  \begin{itemize}
+    \item Koristeći naredbu echo ispisati vlastiti JMBAG u crvenoj boji.
+    \item Ispisati sadržaj datoteke \shell{.bashrc} iz vašeg \shell{home} direktorija.
+    \item Pozicionirajte se u direktorij \shell{/tmp}.
+    \item Napravite direktorij OKOSL i bez mijenjanja trenutnog direktorija, unutar OKOSL direkorija stvorite direktorije siječanj,veljača...prosinac.
+    \item U direktoriju listopad napravite skriveni direktorij \shell{Prvo predavanje}.
+    \item Pozicionirajte se u matični direktorij korištenjem kratkog izraza za matični direktorij.
+    \item Pokretanjem naredbe iz trenutnog direktorija ispišite rekurzivno \textit{cijeli} sadržaj direktorija \shell{/tmp/OKOSL}.
+    \item Sortirajte ispis naredbe iz prethodne točke po vremenu zadnje promjene, tako da se prvo ispisuju \textit{najstarije}.
+    \item Ispišite nesortirani sadržaj vašeg /home direktorija.
+    \item Ispišite informacije o instaliranom paketu \textbf{nano} korištenjem package managera.
+    \item Instalirajte \shell{git} paket.
+  \end{itemize}
+  Tko želi znati više: (Nije obavezno predavati)
+  \begin{itemize}
+    \item Slijedeće zadatke pokušajte napraviti u \shell{vi} ili \shell{vim} editoru iz terminala.
+    \item Personalizirati terminal (HINT: PS1 variabla u .bashrc datoteci).
+    \item Napraviti alias (.bash\_aliases datoteka) \shell{up} koji odgovara naredbi \shell{cd ..}
+    \item Ispišite brojeve od 0 do 31. (Hint bracket expansion)
+    \item Stvorite par privatnih i javnih RSA ključeva. (Hint: keygen)
+    \item Napravite novu git granu \textbf{dz01-additions} i u nju postavite datoteke s rješenjima iz prethodnih zadataka. 
+  \end{itemize}
+\end{document}

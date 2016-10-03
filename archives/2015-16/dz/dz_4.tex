@@ -1,0 +1,39 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=15mm]{geometry}
+\pagenumbering{gobble}
+\newcommand{\shell}[1]{\texttt{#1}}
+\begin{document}
+	\title{Domaća zadaća - 04\vspace{-2em}}
+	\maketitle
+	Za svaki zadatak treba napisati bash skriptu s rješenjem zadatka. Za svaku točku je dozvoljeno koristiti samo jednu naredbu.
+	
+	\subsection*{Zadatak 1}
+	Sljedeće zadatke je potrebno riješiti koristeći zamjenske znakove (engl. \emph{wildcards})
+	\begin{itemize}	
+		\item Ispišite sve direktorije u \shell{/usr/share} čiji naziv započinje s \shell{gtk}
+		\item Ispišite sve direktorije u \shell{/usr/share} koji u nazivu sadrže barem dvije znamenke
+	\end{itemize}
+	
+	\subsection*{Zadatak 2}
+	Sljedeće zadatke je potrebno riješiti s datotekom \shell{/usr/share/dict/words} koristeći regularne izraze (engl. \emph{regular expressions}).
+	\begin{itemize}
+		\item Pronađite riječi koje sadrže znamenke (ako ih ima)
+		\item Pronađite riječi koje počinju sa slovom \shell{i}, a u sredini riječi sadrže veliko slovo.
+		\item Pronađite riječi koje ne sadrže samoglasnike \\ \emph{Napomena: Samoglasnici su aeiou. Samoglasnici iz drugih jezika (npr. ö) se ne ubrajaju.}
+		\item Pronađite riječi u kojima se barem dva samoglasnika pojavljuju jedan za drugim
+		\item Prebrojite riječi koje završavaju na \shell{ening}
+		\item Prebrojite riječi koje završavaju na \shell{'s}
+		\item Prebrojite riječi koje završavaju na veliko slovo
+	\end{itemize}
+	
+	\subsection*{Zadatak 3}
+	Sljedeće zadatke je potrebno riješiti s datotekom \shell{/usr/share/dict/words} koristeći regularne izraze (engl. \emph{regular expressions}).
+	\begin{itemize}
+		\item Svim riječima koje završavaju na \shell{'s} uklonite znak \shell{'}
+		\item Svako pojavljivanje niza \shell{word} prenesite na početak riječi u kojoj se niz nalazi
+		\item Svim riječima koje počinju na veliko slovo prvo slovo promijenite u malo, a posljednje promijenite u veliko. \\ \emph{Primjer: \shell{Iowa} $\longrightarrow$ \shell{iowA}}
+	\end{itemize}
+	
+\end{document}

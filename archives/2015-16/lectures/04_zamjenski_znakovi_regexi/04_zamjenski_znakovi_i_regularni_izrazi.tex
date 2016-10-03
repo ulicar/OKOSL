@@ -1,0 +1,391 @@
+\documentclass[table,usenames,dvipsnames]{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage{varwidth}
+\usetikzlibrary{shapes,arrows}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+% Changing of bullet foreground color not possible if {itemize item}[ball]
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+\newcommand{\MyCBox}[1]{%
+  \fcolorbox{black}{gray!30}{\begin{varwidth}{\dimexpr\linewidth-2\fboxsep}#1
+\end{varwidth}}}
+\definecolor{LightGray}{gray}{0.9}
+
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{08. Zamjenski znakovi i regularni izrazi} 
+\author[Dino Lukman i Goran Cetušić]{Dino Lukman i Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+    %\beamerdefaultoverlayspecification{<+->}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}
+\frametitle{Sadržaj}
+\tableofcontents
+\end{frame}
+
+\section{Zamjenski znakovi}
+\begin{frame}[t]
+\frametitle{Zamjenski znakovi}
+\begin{itemize}
+  \item engl. wildcards
+  \item Koriste se za brzo i efikasno pretraživanje i izvršavanje naredbi
+\end{itemize}
+\begin{itemize}
+	\item Mogu se koristiti kod svih naredbi koje 
+	prihvaćaju datoteke ili direktorije kao argument!
+	\begin{itemize}
+		\item Ljuska \textbf{prije} pokretanja naredbi uklanja zamjenske znakove, pronalazi sve datoteke koje odgovaraju izrazu i postavlja ih umjesto zamjenskog izraza kao da su direktno uneseni
+		\item Potom pokreće naredbu koja ne dobiva nikakve informacije o zamjenskim znakovima!
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zamjenski znakovi}
+\begin{itemize}
+	\item[] \textbf{Osnovni zamjenski znakovi}
+	\item[] \begin{tabular}{c l}
+		\shell{?}   & Odgovara točno jednom znaku\\
+		\shell{*}   & Odgovara bilo kojem broju znakova (ili nijednom)\\
+		\shell{[xyz]}  & Odgovara točno jednom znaku iz skupa xyz
+	\end{tabular}
+\end{itemize}
+\vfill
+\begin{itemize}
+	\item \textbf{Primjer 1}
+	\item[] Izlistajte sve datoteke čiji naziv počinje s b i nalaze se u \shell{/bin} direktoriju
+	\begin{itemize}
+		\item[] \shell{\$ ls -l /bin/b*}
+	\end{itemize}
+\end{itemize}
+\vfill
+\begin{itemize}
+	\item \textbf{Primjer 2}
+	\item[] Izlistati sve naredbe u \shell{/bin} direktoriju koje se sastoje od točno dva znaka
+	\begin{itemize}
+		\item[] \shell{\$ ls -l /bin/??}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zamjenski znakovi}
+\begin{itemize}
+	\item \textbf{Primjer 3}
+	\item[] Izlistati sve datoteke u \shell{/bin} direktoriju koje završavaju slovom \shell{d}
+  \begin{itemize}
+    \item[] \shell{\$ ls -l /bin/*d}
+  \end{itemize}
+\end{itemize}
+\vfill
+\begin{itemize}
+	\item \textbf{Primjer 4}
+	\item[] Ispisati sve datoteke u \shell{/bin} direktoriju koje započinju s a, b ili c
+  \begin{itemize}
+    \item Jedna mogućnost
+    \item[] \shell{\$ ls -l /bin/a* /bin/b* /bin/c*}
+    \item Kraće
+    \item[] \shell{\$ ls -l /bin/[abc]*}
+  \end{itemize}
+\end{itemize}
+\vfill
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zamjenski znakovi}
+\begin{itemize}
+	\item \textbf{Primjer 5}
+	\item[] Izlistati sve datoteke u \shell{/bin} direktoriju koje u sebi 
+        sadrže barem jednu znamenku
+  \begin{itemize}
+    \item[] \shell{\$ ls -l /bin/*[0123456789]*}
+    \item Efikasnije: Zadavanjem \textbf{raspona znakova}
+    \item[] \shell{\$ ls -l /bin/*[0-9]*}
+  \end{itemize}
+\end{itemize}
+\vfill
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zamjenski znakovi}
+\framesubtitle{Invertiranje skupa}
+\begin{itemize}
+  \item Korištenjem znaka \textasciicircum{} moguće je invertirati skup 
+        znakova u zagradi 
+\end{itemize}
+\vfill
+\begin{itemize}
+\item \textbf{Primjer 6}
+  \item[] Izlistati sve datoteke u direktoriju \shell{/usr/bin} koje ne 
+        započinju sa malim slovom abecede
+  \begin{itemize}
+    \item[] \shell{\$ ls -l /usr/bin/[\textasciicircum{}a-z]*}
+  \end{itemize}
+\end{itemize}
+\vfill
+\begin{itemize}
+  \item Ako znakove \textasciicircum{} i \shell{-} trebamo koristiti kao dio traženog skupa znakova tada \textasciicircum{} ne smije biti naveden na prvom mjestu u grupi, a \shell{-} mora biti naveden kao prvi ili zadnji znak
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zamjenski znakovi}
+\framesubtitle{Isključenje značenja posebnih znakova}
+\begin{itemize}
+  \item Ponekad ne želimo posebno značenje zamjenskih znakova
+  \begin{itemize}
+    \item Što ako baš imamo datoteku koja se zove \shell{*} ?
+    \item U tom slučaju upotrebljavamo navodnike ili znak 
+          \shell{\char`\\}
+  \end{itemize}
+\end{itemize}
+\small
+  \begin{itemize}
+    \item[] \shell{\$ ls -l "/bin/b*"}
+    \item[] \shell{\$ ls -l /bin/b\char`\\{}*}
+  \end{itemize}
+\end{frame}
+
+\section{Regularni izrazi}
+\begin{frame}[t]
+\frametitle{Regularni izrazi}
+\begin{itemize}
+  \item \textbf{Primjer}
+  \item[] Izlistati sve datoteke u \shell{/usr/bin} direktoriju koje započinju s ab, bi ili ci
+  \begin{itemize}
+	  \item Vrlo teško sa zamjenskim znakovima
+  \end{itemize}
+\end{itemize}
+\vfill
+\textbf{Regularni izrazi}
+  \begin{itemize}
+    \item Korištenje znakova i operatora te pravila regularnih izraza za 
+          obradu teksta, pretragu, leksičku analizu, \ldots
+    \item Moćno i kompleksno proširenje zamjenskih znakova
+  \end{itemize}
+\vfill
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Regularni izrazi}
+\framesubtitle{Sintaksa}
+\textbf{Definiranje traženog niza}
+\begin{table}[h]
+\rowcolors{1}{White}{LightGray}
+\begin{tabular}{c l}
+  \shell{x} & Znak \shell{x}\\
+  \textasciicircum{} & Početak reda \\
+  \shell{\$} & Kraj reda \\
+  \shell{.} & Bilo koji znak \\
+  \shell{[xy]} & Bilo koji znak u setu \\
+  \shell{[\textasciicircum{}xy]} &  Invertirani set - Bilo koji znak koji nije u setu \\
+  \textbackslash{}\shell{[} & Znak \shell{[} se interpretira kao traženi simbol, \\
+  & a ne kao dio sintakse regularnog izraza \\
+  \shell{|} & ILI operator \\
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Regularni izrazi}
+\framesubtitle{Sintaksa}
+\textbf{Modifikator broja pojavljivanja niza}
+\begin{table}[h]
+\rowcolors{1}{White}{LightGray}
+\begin{tabular}{c l}
+  \shell{x*} & Izraz x se pojavljuje bilo koji broj puta ili nijednom\\
+  \shell{x+} & Izraz x se pojavljuje najmanje jednom \\
+  \shell{x?} & Izraz x se pojavljuje točno jednom ili nijednom \\
+  \shell{x\{n\}} & Izraz x se pojavljuje točno n puta \\
+  \shell{x\{n,m\}} & Izraz x se pojavljuje $n \le i \le m$ puta
+\end{tabular}
+\end{table}
+\end{frame}
+  
+\begin{frame}[t]
+\frametitle{Regularni izrazi}
+\begin{itemize}
+  \item \textbf{Primjer 1}
+  \item[] Regularan izraz koji će zamjenjivati niz znakova \shell{foo} koji se nalazi na početku nekog retka datoteke
+  \begin{itemize}
+    \item[] \shell{\textasciicircum{}foo}
+  \end{itemize}
+  \item[]
+  \item[] Regularan izraz koji će zamjenjivati niz znakova \emph{sigh}
+        koji se nalazi na kraju nekog retka datoteke
+  \begin{itemize}
+    \item[] \shell{sigh\$}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Regularni izrazi}
+\begin{itemize}
+  \item \textbf{Primjer 2}
+  \item[] Linija koja ne završava sa slovom A 
+  \begin{itemize}
+    \item[] \shell{.*[\textasciicircum{}aA]}
+  \end{itemize}
+  \item[] Cijeli broj
+  \begin{itemize}
+    \item[] \shell{[0-9]+}
+  \end{itemize}
+  \item[] Varijabla u C-u
+  \begin{itemize}
+    \item[] \shell{[a-zA-Z]([a-zA-Z0-9])*}
+  \end{itemize}
+\end{itemize}
+\vfill
+\begin{itemize}
+  \item \textbf{Primjer 3}
+  \item[] Linija koja završava s tekstovima \shell{conf} ili \shell{log}
+  \begin{itemize}
+  	\item[] \shell{.*[conf|log]\$}
+  \end{itemize}
+  \item[] Linija u kojoj postoji troznamenkasti ili četveroznamenkasti broj
+  \begin{itemize}
+  	\item[] \shell{.*[0-9]\{3,4\}.*}
+  \end{itemize}
+\end{itemize}
+\vfill
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Regularni izrazi}
+\begin{itemize}
+	\item Prethodnim tablicama opisan je \textbf{prošireni regex}
+	\item \textbf{Osnovni regex} ne sadrži modifikatore broja pojavljivanja niza niti operator ILI
+\end{itemize}
+\begin{itemize}
+  \item Regularne izraze prihvaća mnoštvo programa
+  \item Mi ćemo se pozabaviti naredbom \shell{grep}
+  \begin{tabular}{l l}
+    grep  &  Koristi osnovni regex\\
+    egrep &  Koristi prošireni regex
+  \end{tabular}
+\end{itemize}
+\end{frame}
+  
+\begin{frame}[t]
+\frametitle{Regularni izrazi}
+\begin{columns}[c]
+\column{0.7\textwidth}
+\begin{itemize}
+  \item Pretpostavite kako je niz znakova s desne strane upisan u datoteku 
+        \shell{regular}
+  \item Odredite koji izlaz će dati sljedeći niz naredbi
+  \begin{itemize}
+    \item[] \shell{egrep a.e regular}
+    \item[] \shell{egrep a.+e regular}
+    \item[] \shell{egrep ab*e regular}
+    \item[] \shell{egrep "(ab|cd)e" regular}
+    \item[] \shell{egrep "(a|c).+e\$" regular}
+  \end{itemize}
+\end{itemize} 
+\column{0.3\textwidth}
+  \centering
+  \MyCBox{abe \\ abbe \\ cde \\ 45a678 \\ ae \\ cababb \\ 12345} 
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Regularni izrazi}
+\framesubtitle{Sintaksa}
+\textbf{Klase znakova}
+\begin{itemize}
+  \item \shell{[:alnum:]} znakovi abecede ili brojevi. A-Za-z0-9
+  \item \shell{[:alpha:]} znakovi abecede. A-Za-z 
+  \item \shell{[:blank:]} praznina ili tabularni znak
+  \item \shell{[:cntrl:]} kontrolni znakovi
+  \item \shell{[:digit:]} brojevi. 0-9
+  \item \shell{[:lower:]} mala slova abecede. a-z
+  \item \shell{[:upper:]} velika slova abecede. A-Z
+  \item \shell{[:space:]} praznina
+  \item \shell{[:print:]} znakovi koji mogu biti ispisani. Podrazumijeva 
+        znakove u ASCII rasponu 32 – 126 uključujući prazan znak.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Regularni izrazi}
+\begin{itemize}
+\item \textbf{Primjer 4}
+\item[] Izlistajte linije iz datoteke \shell{file.txt} koje sadrže samo brojeve
+\begin{itemize}
+	\item Prvi način
+	\item[] \shell{\$ grep [0-9]* file.txt}
+	\item Drugi način
+	\item[] \shell{\$ grep [[:digit:]]* file.txt}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Regularni izrazi}
+\framesubtitle{Sintaksa}
+\textbf{Označeni podizraz}
+\begin{itemize}
+	\item Omogućuje korištenje nađenog izraza u daljnjem radu neke naredbe
+	\item Izraz se označava zatvaranjem kriterija u () zagrade
+	\item Nađeni izraz se koristi pozivanjem \shell{$\backslash$1} u naredbi, gdje je \shell{1} redni broj označenog podizraza
+\end{itemize}
+\vfill
+\begin{itemize}
+\item \textbf{Primjer 5}
+\item[] Naredba \shell{sed} za filtriranje i obradu teksta
+\small \begin{verbatim}$ sed -r "s/^Tekst ([[:digit:]])\. reda$/Promijenili 
+smo \1. red/" file.txt\end{verbatim}
+\end{itemize}
+\vfill
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{Literatura}
+\begin{itemize}
+	\item[] \shell{man 7 regex}
+	\item[] \shell{man grep}
+	\item[]
+  \item[] \small\url{http://www.regexr.com}
+  \item[] \small\url{http://regexone.com}
+  \item[] \small\url{http://regex.learncodethehardway.org/book/}
+  \item[] \small\url{http://www.rexegg.com}
+  \item[] \small\url{http://www.regular-expressions.info/conditional.html} 
+  \item[] \small\url{http://tldp.org/LDP/Bash-Beginners-Guide/html/chap_04.html}
+\end{itemize}
+\end{frame}
+
+\end{document}

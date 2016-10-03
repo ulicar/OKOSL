@@ -1,0 +1,105 @@
+\documentclass{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+% Changing of bullet foreground color not possible if {itemize item}[ball]
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{01. Zadaci za vježbu}
+\author[Antun Aleksa, Josip Žuljević]{Antun Aleksa, Josip Žuljević\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+    %\beamerdefaultoverlayspecification{<+->}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}[t]
+\frametitle{Zadatak 1}
+\begin{itemize}
+  \item Prvi zadatak:
+  \begin{itemize}
+    \item Pozicioniraj se na Desktop
+    \item Pozicioniraj se u \shell{/tmp}
+    \item Napravite direktorij \shell{music} \emph{na radnoj površini} iz trenutne pozicije (bez korištenja \shell{cd}) i u njemu novi direktorij \shell{moja\_zika}
+	\item Pozicioniraj se u \shell{music}
+	\item Ispišite trenutni sadržaj tog direktorija
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zadatak 2}
+\begin{itemize}
+  \item Drugi zadatak:
+  \begin{itemize}
+    \item Pozicioniraj se na desktop
+    \item Napravi direktorije "a", "b", "c" (jednom naredbom)
+    \item U direktoriju "a" napravi direktorij "aa"
+	\item Pozicioniraj se u direktorij "aa"
+	\item Ispišite trenutni položaj
+	\item Vratite se u direktorij "a" (korištenjem izraza za roditeljski direktorij)
+	\item Ispišite trenutni položaj
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zadatak 3}
+\begin{itemize}
+	\item Treći zadatak
+	\begin{itemize}
+		\item Pozicionirajte se u matični direktorij
+		\item Napravite \emph{skriveni} direktorij \shell{OKOSL}
+		\item Napravite još dva direktorija u njemu
+		\item Pozicionirajte se u \shell{/tmp}
+		\item Ne mijenjajući trenutni direktorij ispišite sadržaj novih foldera
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{Zadatak 4}
+\begin{itemize}
+	\item Četvrti zadatak
+	\begin{itemize}
+		\item Otvorite \shell{man} stranice za \shell{ls}
+		\item Pronađite opciju koja ispisuje sadržaj svih poddirektorija
+		\item Ispišite sadržaje svih direktorija unutar \shell{/home}
+		\item Ispišite sadržaje svih direktorija \emph{uključujući i skrivene} unutar \shell{/home}
+		\item Odredite veličinu datoteke \shell{/sbin/wpa\_supplicant} \emph{u megabajtima}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\end{document}

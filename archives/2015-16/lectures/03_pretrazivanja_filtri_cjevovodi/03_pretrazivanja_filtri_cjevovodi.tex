@@ -1,0 +1,847 @@
+% sredit sadrzaj - ovo ne lici ni na sto
+% pogreske - slajd preusmjeravanje u datoteku - ide u /tmp/test
+% nezgodno ispisuje \ u \shell{}, mozda verbatim
+
+\documentclass{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usetikzlibrary{shapes,arrows,positioning}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+% Changing of bullet foreground color not possible if {itemize item}[ball]
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{07. Pretraživanja, filtri i cjevovodi}
+\author[Nino Nikola Stanušić i Goran Cetušić]{Nino Nikola Stanušić i Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+    %\beamerdefaultoverlayspecification{<+->}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}
+\frametitle{Sadržaj}
+\tableofcontents
+\end{frame}
+
+\section{Pojam standardnog izlaza i ulaza}
+\begin{frame}[t]
+\frametitle{Pojam standardnog izlaza i ulaza}
+\begin{itemize}
+  \item Svaki program na Linuxu ima definirane sljedeće ulaze i izlaze
+  \begin{itemize}
+    \item Standardni ulaz (stdin)
+    \item Standardni izlaz (stdout)
+    \item Standardni izlaz za greške (stderr)
+  \end{itemize}
+  \item Svi ti ulazi i izlazi su vezani na terminal
+  \begin{itemize}
+    \item Ako ih nismo preusmjerili uz pomoć specijalnih operatora
+  \end{itemize}
+  \item Svi su predstavljeni kao datoteke
+  \begin{itemize}
+    \item Imaju svoje opisnike datoteka (engl. \emph{file descriptor})
+    \item Označeni su brojevima 0, 1 i 2
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[t]
+\frametitle{Primjer naredbe \shell{cat}}
+\begin{itemize}
+  \item Grafička ilustracija izlaza i ulaza
+  \vspace{1cm}
+  \tikzstyle{plaintext}=[thick]
+  \tikzstyle{block}=[rectangle,draw=black!50,fill=black!20,thick]
+  \begin{tikzpicture}[auto, >=latex',node distance=4.5cm]
+    \node[plaintext]  (a)               {tipkovnica};
+    \node[block]      (b) [right of=a,inner sep=1cm,inner ysep=4mm]  {cat};
+    \node[plaintext]  (c) [right of=b]  {zaslon};
+    \draw[->] (a) edge node {stdin} (b);
+    \draw[->] (b) edge node {stdout} (c);
+  \end{tikzpicture}
+  \vspace{1cm}
+  \item Naredba \shell{cat} je filter!
+  \begin{itemize}
+    \item Preuzima nešto na ulazu
+    \item Filtrira preuzete podatke
+    \item Proslijeđuje rezultat na standardni izlaz
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Filtri}
+\begin{frame}[t]
+\frametitle{Filtri}
+\begin{itemize}
+  \item Približna definicija filtara bi mogla biti
+  \begin{itemize}
+    \footnotesize
+    \item[] Svaki program koji ulazne podatke čita sa standardnog ulaza, 
+            obrađuje ih na odgovarajući način te rezulat obrade 
+            proslijeđuje na standarni izlaz
+    \normalsize
+  \end{itemize}
+  \item Moguće je vrlo složeno kombiniranje filtara uz pomoć odgovarajućih
+        operatora
+  \begin{itemize}
+    \item Ostaje pitanje, zbog čega standardni izlaz za greške?
+    \item Služi kako bi smo mogli uočiti greške u podacima
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Preusmjeravanje}
+\begin{frame}[t]
+\frametitle{Preusmjeravanje u datoteku (1)}
+\begin{itemize}
+  \item Kako bi preusmjerili izlaz neke naredbe u datoteku koristimo 
+        operator \shell{">"}
+  \begin{itemize}
+    \item Pogledajmo razliku između izvršavanja sljedeće dvije naredbe:
+    \begin{itemize}
+      \item[] \shell{\$ ls -l /}
+      \item[] \shell{\$ ls -l / > /tmp/test}
+    \end{itemize}
+  \end{itemize}
+  \item Zaključak
+  \begin{itemize}
+    \item Druga varijanta naredbe preusmjerava izlaz u datoteku 
+          \shell{/tmp/test} 
+    \item Što ako datoteka već postoji?
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Preusmjeravanje u datoteku (2)}
+\begin{itemize}
+  \item Što ako želimo dodati sadržaj u datoteku?
+  \begin{itemize}
+    \item Koristit ćemo operator \shell{>>}
+  \end{itemize}
+  \item Primjer
+  \begin{itemize}
+    \item Potrebno je u jednu datoteku dobiti ispis direktorija 
+          \shell{/bin, /sbin, /usr/bin} i \shell{/usr/sbin}
+    \begin{itemize} 
+      \item Napomena: za svaki direktorij mora se posebno pozivati 
+              naredba \shell{ls}!
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Preusmjeravanje u datoteku (3)}
+\begin{itemize}
+	\item Riješenje
+	\begin{itemize}
+	
+	\item[] \shell{\$ ls -l /tmp/}
+	\item[] \shell{\$ ls -l /bin/ >> /tmp/output}
+	\item[] \shell{\$ ls -l /sbin/ >> /tmp/output}
+	\item[] \shell{\$ ls -l /usr/bin/ >> /tmp/output}
+	\item[] \shell{\$ ls -l /usr/sbin/ >> /tmp/output}
+
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{Preusmjeravanje iz datoteke}
+\begin{itemize}
+  \item Ako želimo sadržaj neke datoteke preusmjeriti u neki program, 
+        koristimo operator \shell{<}
+  \item Recimo, želimo li pogledati sadržaj datoteke \shell{/etc/passwd},
+        to možemo obaviti na sljedeći način:
+  \begin{itemize}
+    \item[] \shell{\$ cat < /etc/passwd}
+    \item[] {\small Kod ove naredbe efekt je isti kao i bez korištenja \shell{<}}
+  \end{itemize}
+	\item \shell{<} je korisniji kod naredbi koje rade isključivo sa \shell{stdin} ulazom
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Preusmjeravanje ulaza i izlaza (1)}
+\begin{itemize}
+  \item Moguće je istovremeno preusmjeravanje izlaza i ulaza
+  \item Primjer kopiranja datoteke \shell{/etc/passwd} u 
+        \shell{/tmp/passwd} uz pomoć naredbe \shell{cat}
+  \begin{itemize}
+    \item[] \shell{\$ cat < /etc/passwd > /tmp/passwd}
+    \item[] \shell{\$ cat > /tmp/passwd < /etc/passwd}
+  \end{itemize}
+  \item Nije bitan redoslijed operatora preusmjeravanja
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Preusmjeravanje ulaza i izlaza (2)}
+	\begin{itemize}
+		\item Vrlo često programi primaju putanju do ulazne ili izlazne datoteke kroz opcije
+		\item Oznaka \shell{-} u tom kontekstu predstavlja \shell{stdin} ili \shell{stdout}
+	\end{itemize}
+	\begin{itemize}
+		\item Primjer
+		\item[] \shell{wget -O - http://ftp.hr.debian.org/README}
+	\end{itemize}
+\end{frame}
+  
+\begin{frame}[t]
+\frametitle{Preusmjeravanje između programa (1)}
+\begin{itemize}
+  \item Do sada smo isključivo obavljali preusmjeravanje iz i u datoteku
+  \begin{itemize}
+    \item Ograničena funkcionalnost
+    \item Loša efikasnost, ako podatke između programa prebacujemo preko 
+          datoteka
+  \end{itemize}
+  \item Način povezivanja programa je upotrebom operatora \shell{|} (engl. 
+        \emph{pipe})
+  \item[]
+  \item Primjer
+  \begin{itemize}
+  	\item Ispisati prvih pet linija ispisa direktorija \shell{/lib}
+    \item[] \shell{\$ ls -l /lib/ | head -5}
+  \end{itemize}
+  \item Primjer
+  \begin{itemize}
+  	\item Ispisati sadržaj direktorija /usr/share u \textit{pageru}
+  	\item[] \shell{\$ ls -l /usr/share | less}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Preusmjeravanje između programa (2)}
+\begin{itemize}
+  \item Efektivno, postigli smo sljedeće
+  \vspace{1cm}
+  \tikzstyle{plaintext}=[thick]
+  \tikzstyle{block}=[rectangle,draw=black!50,fill=black!20,thick,
+                     inner sep=0.5cm, inner ysep=4mm]
+  \begin{tikzpicture}[auto, >=latex',node distance=3cm]
+    \node[block]      (a)               {ls -l /lib};
+    \coordinate[right=2cm of a]  (b)  {};
+    \node[block]  (c) [right of=b]  {head -5};
+    \node[plaintext]  (d) [right of=c]  {zaslon};
+    \draw[->] (a) -- node {stdout} (b);
+    \draw[->] (b) -- node {stdin} (c);
+    \draw[->] (c) -- node {} (d);
+  \end{tikzpicture}
+  \vspace{1cm}
+  \item Zadatak
+  \begin{itemize}
+    \item Odredite koji je 10. zapis u datoteci \shell{/etc/group}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Standardni izlaz za greške (1)}
+\begin{itemize}
+  \item Što je sa standardnim izlazom za greške?
+  \item Pogledajmo ovu naredbu:
+  \begin{itemize}
+    \item[] \shell{\$ ls -l /lib1/}
+    \item[] \shell{\$ ls -l /lib1/ > /tmp/lib5}
+  \end{itemize}
+  \item Što bi se trebalo dogoditi?
+  \item Što se dogodilo?
+  \begin{itemize}
+    \item Zašto?
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Standardni izlaz za greške (2)}
+\begin{itemize}
+  \item Izlaz za greške možemo preusmjeriti operatorom \shell{2>}
+  \begin{itemize}
+    \item[] \shell{\$ ls -l /lib1/ 2> /tmp/lib5}
+  \end{itemize}
+  \item Taj operator ne preusmjerava standardni izlaz
+  \begin{itemize}
+    \item[] \shell{\$ ls -l /lib1/ 2> /tmp/lib5}
+  \end{itemize}
+  \vspace{1cm}
+  \tikzstyle{plaintext}=[thick]
+  \tikzstyle{block}=[rectangle,draw=black!50,fill=black!20,thick,
+                     inner sep=0.5cm, inner ysep=4mm]
+  \begin{tikzpicture}[auto, >=latex']
+    \node[block]      (a)               {ls -l /lib1/};
+    \node[plaintext]  (b) [right= 2cm of a]  {zaslon};
+    \node[plaintext]  (c) [below=1cm of b]  {/tmp/lib5};
+    \draw[->] (a) edge node {stdout} (b);
+    \draw[->] (a)  |- node[near end] {stderr} (c);
+  \end{tikzpicture}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Standardni izlaz za greške (3)}
+\begin{itemize}%
+  \item Pogledajmo ovu naredbu:
+  \begin{itemize}
+    \item[] \shell{\$ ls -l /lib1/ | head -5 2> /tmp/lib5}
+  \end{itemize}
+  \item Što bi se trebalo dogoditi?
+  \item Što se dogodilo?
+  \begin{itemize}
+    \item Zašto?
+    \item Kako biste osigurali spremanje svih ispisanih grešaka u datoteku?
+  \end{itemize}
+  \vspace{1cm}
+  \tikzstyle{plaintext}=[thick]
+  \tikzstyle{block}=[rectangle,draw=black!50,fill=black!20,thick,
+  inner sep=0.5cm, inner ysep=4mm]
+  \begin{tikzpicture}[auto, >=latex',node distance=3cm]
+  \node[block]                 (a)               {ls -l /lib};
+  \coordinate[right=2cm of a]  (b) {};
+  \node[block]  (c) [right of=b]  {head -5};
+  \node[plaintext]  (d) [right of=c]  {zaslon};
+  \coordinate [below=1cm of c] (fit below) {};
+  \draw[->] (a) -- node {stdout} (b);
+  \draw[->] (b) -- node {stdin} (c);
+  \draw[->] (c) -- node {} (d);
+  \draw[->] (a) |- (fit below) -| (d);
+  \end{tikzpicture}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Standardni izlaz za greške (4)}
+\begin{itemize}
+  \item Pokušajmo sada sljedeće
+  \begin{itemize}
+    \item[] \shell{\$ ls -l /lib1/ | head -5 >2 /tmp/lib5}
+  \end{itemize}
+  \item Što bi se trebalo dogoditi?
+  \item Što se dogodilo?
+  \begin{itemize}
+    \item Zašto?
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naprednije preusmjeravanje (1)}
+\begin{itemize}
+  \item Zajedničko preusmjeravanje stdout i stderr
+  \item[] \shell{\$ ls \&> /dev/null}
+  \item[ili] \shell{\$ ls >\& /dev/null}
+  \item Preusmjeravanje stderr na stdin
+  \item[] \shell{\$ ls 2>\&1}
+\end{itemize}
+\begin{itemize}
+  \item Ljuska nudi vrlo napredne mogućnosti preusmjeravanja
+  \begin{itemize}
+    \item Proučiti man stranicu :)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naprednije preusmjeravanje (2)}
+\begin{itemize}
+	\item Primjeri s \shell{wget} {\footnotesize
+	\item[] \shell{wget -O - http://ftp.hr.debian.org/README > out.txt}
+	\item[] \shell{wget -O - http://ftp.hr.debian.org/README 2> err.txt}
+	\item[] \shell{wget -O - http://ftp.hr.debian.org/README 2> err.txt > out.txt}
+	\item[] \shell{wget -O - http://ftp.hr.debian.org/README \&> both.txt} }
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naprednije preusmjeravanje (3)}
+\shell{tee}
+\begin{itemize}
+	\item Naredba preusmjerava \shell{stdin} na \shell{stdout} i zadanu datoteku
+	\item \shell{tee --append}
+	\begin{itemize}
+		\item Nadopisuje na trenutni sadržaj datoteke
+	\end{itemize}
+\end{itemize}
+\begin{itemize}
+	\item Primjer
+	\begin{itemize}
+		\item \shell{ls -l /usr/share | tee lista.txt}
+		\item \shell{ls -l /usr/share | tee -}
+		\item[] {\footnotesize Ovisno o distribuciji, naredba rezultira ili dvostrukim  ili jednostrukim ispisom.}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Here document (1)}
+\begin{itemize}
+	\item Koncept koji se vrlo često koristi u skriptama
+	\item Dio skriptnog koda koji se tretira kao zasebna datoteka
+	\item Omogućuje navođenja sadržaja cijelih datoteka \textit{inline} u skripti
+\end{itemize}
+\begin{itemize}
+\item[] \begin{verbatim}
+cat << EOF
+Nova datoteka
+linija 2
+...
+linija n
+EOF
+\end{verbatim}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Here document (2)}
+\begin{itemize}
+	\item Preusmjeravanje u datoteku
+	\item[] \begin{verbatim}
+	cat > file.txt << EOF
+	Here doc
+	EOF
+	\end{verbatim}
+	\item[ili] \begin{verbatim}
+	cat << EOF > file.txt
+	Here doc
+	EOF
+	\end{verbatim}
+\end{itemize}
+\begin{itemize}
+	\item Na sličan način funkcioniraju i \textit{here strings}
+	\item[] \begin{verbatim}
+	cat <<< 'Text string'
+	\end{verbatim}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Uvjetno izvođenje naredbi}
+\begin{itemize}
+  \item Naredbe se mogu ulančavati tako da se njihovo izvršavanje uvjetuje
+  \begin{itemize}
+    \item[] \shell{\$ true \&\& echo 1}
+  \end{itemize}
+  \item drugi niz naredbi izvršava se samo ako je naredba (naredbe) ispred
+        operatora znakova \&\& vratila izlazni status "0"
+  \item Primjeri
+  \begin{itemize}
+    \item[] \shell{\$ false \&\& echo 1}
+    \item[] \shell{\$ false || echo 1}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Često korištene filter naredbe}
+\subsection{Brojanje znakova, riječi i linija}
+\begin{frame}[t]
+\frametitle{Brojanje znakova, riječi i linija (1)}
+\begin{itemize}
+  \item Za prebrojavanje znakova, riječi i linija u tekstu koristimo 
+        naredbu \shell{wc} (engl. \emph{word count})
+  \item Broji riječi, linije i znakove u datoteci ili na standardnom ulaz 
+  \item Primjer, broj znakova, riječi i linija u datoteci 
+        \shell{/etc/passwd}
+  \begin{itemize}
+    \item[] \shell{\$ wc /etc/passwd}
+  \end{itemize}
+  \item U ispisu prvo je broj linija, potom riječi i na kraju broj znakova
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Brojanje znakova, riječi i linija (2)}
+\begin{itemize}
+  \item Opća sintaksa naredbe je
+  \begin{itemize}
+    \item[] \shell{wc [opcije] [<datoteka>]}
+  \end{itemize}
+  \item Opcije su
+  \begin{itemize}
+    \item[] \shell{-w} broji samo riječi
+    \item[] \shell{-l} broji samo linije
+    \item[] \shell{-c} broji samo znakove
+  \end{itemize}
+  \item Ako se ne navede datoteka, tada se brojanje obavlja u podacima koji
+        pristižu na standardni ulaz, a izlaz je uvijek stdout
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Brojanje znakova, riječi i linija (3)}
+\begin{itemize}
+  \item Zadatak 1
+  \begin{itemize}
+	\item Prebrojite linije u datoteci \shell{/usr/include/stdio.h} koristeći
+	\begin{itemize}
+		\item[a)] naredbu \shell{wc} i navođenjem datoteke izravno
+		\item[b)] operator preusmjeravanja \shell{stdin}
+	\end{itemize}
+	\item Razmislite i prokomentirajte rezultat
+  \end{itemize}
+  \item[]
+  \item Zadatak 2
+  \begin{itemize}
+    \item Koliko datoteka i direktorija ima u direktoriju \shell{/usr/bin},
+          a koliko ih je u \shell{/usr/include}?
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{Pretraživanje tekstualnog sadržaja}
+\begin{frame}[t]
+\frametitle{Pretraživanje teksta (1)}
+\begin{itemize}
+  \item Za pretraživanje tekstualnih datoteka koristi se naredba 
+        \shell{grep}
+  \begin{itemize}
+    \item Traži uzorak u datoteci ili u podacima sa standardnog ulaza
+    \item Ispisuje na zaslon liniju u kojoj je uzorak pronađen
+  \end{itemize}
+  \item Mnoštvo opcija koje omogućavaju promjenu ponašanja
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Pretraživanje teksta (2)}
+\begin{itemize}
+  \item Primjer upotrebe
+  \begin{itemize}
+    \item Tražimo niz “root” u datoteci \shell{/etc/passwd}
+    \item[] \shell{\$ grep root /etc/passwd}
+  \end{itemize}
+  \item U općem slučaju, naredba ima sintaksu
+  \begin{itemize}
+    \item[] \shell{grep [opcije] traženi\_uzorak [<datoteka>]}
+  \end{itemize}
+  \item Neke često korištene opcije
+  \begin{itemize}
+    \item \shell{-v} ispisuje sve linije gdje se ne pojavljuje zadani 
+          uzorak
+    \item \shell{-i} pretraživanje bez razlike u malim i velikim slovima
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Pretraživanje teksta (3)}
+\begin{itemize}
+  \item Zadaci
+  \begin{itemize}
+    \item Pronaći svoje korisničko ime u datoteci \shell{/etc/passwd}
+    \item Potražiti konstantu SEEK\_SET u datoteci 
+          \shell{/usr/include/stdio.h}
+    \item Pronaći sve datoteke u \shell{/usr/lib} koje sadrže X11 u svom 
+          nazivu
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{Sortiranje tekstualnog sadržaja}
+\begin{frame}[t]
+\frametitle{Sortiranje tekstualnih linija (1)}
+\begin{itemize}
+  \item Za sortiranje tekstualnih i numeričkih podataka koristimo naredbu 
+        \shell{sort}
+  \item Primjeri
+  \begin{itemize}
+    \item Sortirajmo datoteku \shell{/usr/include/stdio.h}
+    \item[] \shell{\$ sort /usr/include/stdio.h}
+    \item Sortirajmo sve linije iz \shell{/usr/include/stdio.h} koje sadrže
+          riječ \#define
+    \item[] \shell{\$ grep \textbackslash{}\#define /usr/include/stdio.h | 
+                   sort}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Sortiranje tekstualnih linija (2)}
+\begin{itemize}
+  \item Sintaksa naredbe sort je
+  \begin{itemize}
+    \item[] \shell{sort [opcije] [<datoteka>]}
+  \end{itemize}
+  \item Ako se datoteka ne navede tada se sortiraju podaci koji pristižu sa
+        standardnog ulaza. Izlazi se sa  \^{}D  nakon sto su uneseni svi elementi.
+  \item Rezultat se ispisuje na standardni izlaz
+\end{itemize}
+\end{frame}
+
+\subsection{Uklanjanje duplih linija}
+\begin{frame}[t]
+\frametitle{Uklanjanje duplih linija (1)}
+\begin{itemize}
+  \item Za traženje i manipulaciju duplim linijama koristi se naredba 
+        \shell{uniq}
+  \begin{itemize}
+    \item Sintaksa naredbe je
+    \item[] \shell{uniq [opcije] [<datoteka>]}
+  \end{itemize}
+  \item Češće korištene opcije su
+  \begin{itemize}
+    \item[] \shell{-u} Ispisuje linije koje se ne ponavljaju  
+    \item[] \shell{-d} Ispisuje linije koje se ponavljaju barem jednom
+    \item[] \shell{-c} Ispisuje za svaku liniju koliko puta se ponavlja
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Uklanjanje duplih linija (2)}
+\begin{itemize}
+  \item Linije moraju biti sortirane prije korištenja ove naredbe!
+  \item Primjer, provjerimo ima li duplih linija u jednoj od datoteka u direktoriju
+        \shell{/usr/share/dict/}
+  \begin{itemize}
+    \item[] npr. \shell{\$ uniq -d /usr/share/dict/words}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{Izdvajanje pojedinih polja linije}
+\begin{frame}[t]
+\frametitle{Izdvajanje pojedinih polja linije (1)}
+\begin{itemize}
+  \item Za izdvajanje pojedinih polja u liniji koristimo naredbu 
+        \shell{cut}
+  \item Podrazumijevani znak za razdvajanje polja je razmak
+  \begin{itemize}
+    \item Primjer datoteke s poljima \shell{/etc/passwd}
+    \item Primjer, ispis korisničkih imena na sustavu
+    \item[] \shell{\$ cut -f1 -d: /etc/passwd}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Izdvajanje pojedinih polja linije (2)}
+\begin{itemize}
+  \item Sintaksa naredbe je sljedeća
+  \begin{itemize}
+    \item[] \shell{cut [opcije] [<datoteka>]}
+  \end{itemize}
+  \item Neke češće korištene opcije su
+  \begin{itemize}
+    \item[] \shell{-d} definira znak koji razgraničava polja
+    \item[] \shell{-f} definira polja koja je potrebno propustiti na izlaz
+    \item[] \shell{-c} ispisuje po kolonama
+  \end{itemize}
+  \item Ako nije navedena datoteka tada se obrada obavlja na podacima sa 
+        standardnog ulaza
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Izdvajanje pojedinih polja linije (3)}
+\begin{itemize}
+  \item Primjer izrezivanja po kolonama
+  \begin{itemize}
+    \item[] \shell{\$ cut -c2-5,10-12 /etc/passwd}
+  \end{itemize}
+  \item[]
+  \item Zadatak
+  \begin{itemize}
+    \item Potrebno je generirati popis svih različitih vrijednosti koje se
+          javljaju u zadnjem polju datoteke \shell{/etc/passwd}
+    \item Koliko puta se svaka vrijednost ponavlja?
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Pretraživanje datotečnog sustava}
+\begin{frame}[t]
+\frametitle{Pretraživanje datotečnog sustava (1)}
+\begin{itemize}
+  \item Za pretraživanje datoteka i direktorija koristimo naredbu 
+        \shell{find}
+  \begin{itemize}
+    \item Vrlo kompleksna naredba s nizom mogućnosti
+  \end{itemize}
+  \item Sintaksa naredbe je
+  \begin{itemize}
+    \item[] \shell{find [opcije] [<direktoriji>] <uvjeti>}
+  \end{itemize}
+  \item \shell{<direktoriji>} je popis direktorija koje je potrebno 
+        pretražiti
+  \item \shell{<uvjeti>} definiraju uvjete pretraživanja
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Pretraživanje datotečnog sustava (2)}
+\begin{itemize}
+  \item Primjeri nekih češće korištenih uvjeta
+  \begin{tabular}{l l}
+    \shell{-name <ime>} & Traži datoteku sa zadanim imenom  \\
+    \shell{-type <tip>} & Traži datoteku zadanog tipa       \\
+    \shell{-size <tip>} & Traži datoteku zadane veličine    \\
+    \shell{-print}      & Ispisuje ime zadane datoteke
+  \end{tabular}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Pretraživanje datotečnog sustava (3)}
+\begin{itemize}
+  \item Primjeri
+  \begin{itemize}
+    \item pronađimo datoteku \shell{passwd} u direktoriju \shell{/etc}
+    \item[] \shell{\$ find /etc -name passwd}
+    \item pronađimo sve datoteke u \shell{/etc} veće od 1M
+    \item[] \shell{\$ find /etc -size +1M}
+    \item pronađimo sve datoteke u \shell{/etc} manje od 1k
+    \item[] \shell{\$ find /etc -size -1k}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Pretraživanje datotečnog sustava (4)}
+\begin{itemize}
+  \item Primjeri
+  \begin{itemize}
+    \item pronađimo sve direktorije u \shell{/etc} direktoriju
+    \item[] \shell{\$ find /etc -type d}
+    \item pronađimo sve datoteke u \shell{/etc} direktoriju
+    \item[] \shell{\$ find /etc -type f}
+    \item pronađimo sve datoteke direktorije veće od 10k
+    \item[] \shell{\$ find /etc -type d -a -size +10k}
+    \item Operator \shell{-a} se podrazumijeva
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Pretraživanje datotečnog sustava (5)}
+\begin{itemize}
+  \item Primjeri
+  \begin{itemize}
+    \item pronađimo sve direktorije i datoteke veće od 1M u \shell{/etc} 
+          direktoriju
+    \item[] \shell{\$ find /etc -type d -o -size +1M}
+    \item isto kao i prethodni primjer, ali izlistava pronađene 
+          datoteke/direktorije
+    \item[] \shell{\$ find /etc -type d -o -size +1M -ls}
+  \end{itemize}
+  \item[]
+  \item[] \shell{man find}
+  \begin{itemize}
+    \item Pogledati opcije naredbe \shell{find} za MAC vremena
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{whereis}}
+\begin{itemize}
+  \item Pronalazi gdje se nalazi izvorni kod naredbe, binarni zapis ili 
+        stranica priručnika
+  \item Sintaksa
+  \begin{itemize}
+    \item \shell{whereis [<opcije>] <datoteka>}
+  \end{itemize}
+  \item Neke od opcija su
+  \begin{itemize}
+    \item[] \shell{-b} traži binarne zapise
+    \item[] \shell{-m} traži stranice priručnika
+    \item[] \shell{-s} traži izvorni kod
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{locate} (1)}
+\begin{itemize}
+  \item Traži datoteku koja u svojem imenu sadrži zadani uzorak -- 
+        preporučeno je njeno korištenje umjesto naredbe \shell{find}
+  \begin{itemize}
+    \item Manje opterećuje disk i brža je
+    \item Koristi internu bazu podataka za pretragu
+  \end{itemize}
+  \item Sintaksa naredbe
+  \begin{itemize}
+    \item[] \shell{\$ locate [<opcije>] <uzorak>}
+  \end{itemize}
+  \item Korisna opcija je \shell{-i} za ignoriranje razlika u slovima
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{locate} (2)}
+\begin{itemize}
+  \item Primjer
+  \begin{itemize}
+    \item Želimo pronaći sve datoteke \shell{passwd}
+    \item[] \shell{\$ locate passwd}
+  \end{itemize}
+  \item[]
+  \item Zadatak
+  \begin{itemize}
+      \item Kreirati datoteku \shell{ovo\_je\_primjer} u matičnom direktoriju
+	  \item Pokušati je pronaći naredbom \shell{locate}
+	  \item Što se dogodilo?
+	  \item Kako ispraviti problem?
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\section{Pregled Naredbi}
+
+\begin{frame}[t]
+\frametitle{Pregled naredbi}
+\begin{tabular}{| l | c |} \hline
+  \shell{>} & preusmjeravanja u datoteku \\ \hline
+  \shell{>>} &  preusmjeravanje i nadodovanje\\ \hline
+  \shell{<} & preusmjeravanje iz datoteke \\ \hline
+  \shell{|} & cijevovod \\ \hline
+  \shell{wc} & brojanje znakova, rijeci i linija \\ \hline
+  \shell{grep} & pretrazivanje teksta \\ \hline
+  \shell{sort} & sortiranje \\ \hline
+  \shell{uniq} & uklanjnanje duplih linija \\ \hline
+  \shell{cut} & izdvajanje pojedinih linija \\ \hline
+  \shell{find} & pretrazivanje datoteka i direktorija \\ \hline
+  \shell{locate} & pretrazivanje datoteka i direktorija \\ \hline
+  \shell{whereis} & pronalazi izvorni kod naredbe \\ \hline
+  
+
+\end{tabular}
+\end{frame}
+
+\end{document}

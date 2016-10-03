@@ -1,0 +1,37 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\newcommand{\shell}[1]{\texttt{#1}}
+\begin{document}
+	\title{Laboratorijska vježba 1\\{\small Osnove korištenja operacijskog sustava Linux}\vspace{-2em}}
+	\maketitle
+	\noindent Za svaki zadatak i podzadatke a) i b) je potrebno napisati po jednu bash skriptu.
+	\subsection*{Zadatak 1}
+	\begin{itemize}
+		\item Stvorite direktorij \shell{LAB1} i premjestite se u njega.
+		\item Stvorite novi direktorij \shell{source} i u njemu prazan file \shell{empty}.
+		\item U direktorij \shell{source} kopirajte sadržaj direktorija \shell{/boot} i direktorija \shell{/etc}.\\
+		Napomena: \textit{Koristite jednu naredbu.}
+		\item Ispišite zauzeće direktorija \shell{source} koristeći SI prefikse (potencije broja 10) mjernih jedinica.
+		\item U direktoriju \shell{LAB1} stvorite simboličku poveznicu \shell{target} na direktorij \shell{source}.
+		\item Premjestite se u direktorij \shell{target} bez dereferenciranja poveznice i ispišite adresu trenutnog direktorija. Pokažite da ispis adrese trenutnog direktorija daje \shell{LAB1/target}.
+		\item Vratite se u direktorij \shell{LAB1} i premjestite se u direktorij \shell{target} koristeći dereferenciranje poveznice. Pokažite da ispis adrese trenutnog direktorija daje \shell{LAB1/source}.
+		\item Koristeći poveznicu \shell{target} odredite veličinu direktorija \shell{source}.
+		\item Koristeći naredbu \shell{touch} stvorite praznu datoteku \shell{source/novi} i postavite joj vrijeme izmjene (mtime) tako da bude isto kao i datoteci \shell{source/empty}. Koristite jednu naredbu.
+		\item Izbrišite sve stvorene direktorije i datoteke u direktoriju \shell{LAB1} koristeći jednu naredbu.
+		\item Izbrišite prazan direktorij \shell{LAB1} koristeći naredbu za brisanje praznog direktorija.
+	\end{itemize} 
+	\subsection*{Zadatak 2}
+	\begin{itemize}
+		\item[a)] Napišite bash skriptu koja čita tekst sa standardnog ulaza i ispisuje ga na standardni izlaz. Nad pročitanim podacima ne treba raditi izmjene.
+		\item[b)] Koristeći mogućnosti datoteka u Linuxu ostvarite tekstualnu komunikaciju između dva korisnika na istom računalu. Pretpostavite da svaki korisnik može imati dva terminala stalno otvorena. Poruke poslane od jednog korisnika moraju odmah biti prikazane drugom korisniku.\\
+		U implementaciji smijete koristiti najviše dvije datoteke. Rješenje mora biti jedna ili dvije bash skripte koje pripremaju i pokreću komunikaciju. U komentarima skripata objasnite postupak slanja i primanja poruka.
+	\end{itemize}
+	\subsection*{Zadatak 3}
+	\begin{itemize}
+		\item Iz direktorija \shell{/var/log} i njegovih poddirektorija izlistajte sve datoteke koje imaju ekstenzije \shell{.log} ili \shell{.dat}. Ispis mora prikazati apsolutnu putanju datoteka. Ispis preusmjerite u datoteku \shell{/tmp/tmp\_ispis}.
+		\item Pokrenite naredbu \shell{calendar -f /usr/share/calendar/calendar.lotr -A 365}. Pronađite sve retke u kojima se spominje \textit{Gandalf} te ispišite taj redak, jedan redak prije pronađenog i jedan redak poslije pronađenog. Na primjer, ako se tekst \textit{Gandalf} pojavljuje u 10. retku datoteke potrebno je ispisati 9., 10. i 11. redak.
+		\item Modificirajte ispis iz prethodne točke tako da prikazuje samo redove u kojima se tekst \textit{Gandalf} pojavljuje na kraju retka. Nadopišite ove redove na kraj datoteke \shell{/tmp/tmp\_ispis}.
+	\end{itemize}
+\end{document}

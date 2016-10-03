@@ -1,0 +1,498 @@
+\documentclass[table,usenames,dvipsnames] {beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage{courier}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage{multirow}
+\usepackage{fancyvrb}
+\usetikzlibrary{shapes,arrows}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+% Changing of bullet foreground color not possible if {itemize item}[ball]
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{05. Korisnici i dozvole}
+\author[Lucija Petricioli, Josip Žuljević]{Lucija Petricioli, Josip Žuljević\\{\small Nositelj: doc. dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+    %\beamerdefaultoverlayspecification{<+->}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}
+\frametitle{Sadržaj}
+\tableofcontents
+\end{frame}
+
+\section{Terminal i višekorisnički sustav}
+\begin{frame}[t]
+\frametitle{Osnovni pojmovi (1)}
+\begin{itemize}
+  \item Linux je višekorisnički operacijski sustav
+  \item Uloga višekorisničkog rada u OS-u
+  \begin{itemize}
+    \item Zaštita privatnosti
+    \item Specifične postavke i podaci
+    \item Sprečavanje zlouporabe
+    \item Pravedna raspodjela resursa
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Osnovni pojmovi (2)}
+\begin{itemize}
+	\item Terminal -- U/I naprava za komunikaciju korisnika s računalom
+	\item Nekada fizički uređaj, danas programski emulatori
+	\item Omogćuju korisniku prikaz \textit{ljuske} - Npr. \shell{bash}
+	\begin{itemize} {\small
+		\item O Ljuskama detaljnije u idućem predavanju
+	} \end{itemize}
+  \item Prijava na sustav
+  \begin{itemize}
+  	\item Prijava lozinkom ili drugim vjerodajnicama
+  	\item Odmah po prijavi na sustav korisnik je smješten u svoj matični direktorij
+  \end{itemize}
+  \item Odjava sa sustava
+  \begin{itemize}
+  	\item Iz bash ljuske ostvaruje se naredbom \shell{logout}, \shell{exit} ili kombinacijom CTRL+D
+  	\item Terminal otvara upit za prijavu novog korisnika
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Osnovni pojmovi (3)}
+  \begin{itemize}
+  	\item Terminali su predstavljeni datotekama uređaja:
+    \item[] \shell{tty0, tty1, tty2, \ldots}
+    \begin{itemize}
+    	\item Terminalima upravlja upravljački program - \shell{getty}
+    	\item Kod modernih - virtualnih - terminala korisnik može s istog mjesta koristiti više terminala
+	  \item Između terminala se prebacuje sa Ctrl+Alt+F1\ldots F7
+    \end{itemize}
+    \item[] \shell{pts/N}
+    \begin{itemize}
+      \item Označavaju pseudoterminale - programski emulirane
+      \item[] Npr. \shell{gnome-terminal}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Baza korisnika}
+\begin{frame}[t]
+	\frametitle{Baza passwd (1)} 
+	\begin{itemize}
+		\item Temeljna datoteka s korisnicima je \shell{/etc/passwd}
+		\begin{itemize} 
+			\item Povezuje korisničko ime i UID
+			\item Nekada je u njoj bila i lozinka
+			\item Vrlo loše sa sigurnosne strane - ne može se zabraniti njeno čitanje jer mnoštvo aplikacija ovisi o podacima u toj datoteci
+		\end{itemize}
+		\item Sadrži jedan zapis po liniji oblika
+		\begin{itemize} {\footnotesize
+			\item[] \hspace{-2em} Korisničko ime:Lozinka:UID:GID (primarna grupa):Info:Matični direktorij:Korisnička ljuska
+			\item[] \shell{root:x:0:0:root:/root:/bin/bash}
+		} \end{itemize}
+		\item Uređivanje naredbom \shell{vipw}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Baza passwd (2)}
+	\begin{itemize}
+		\item[] Mnogi korisnici navedeni u passwd datoteci ne moraju biti interaktivni korisnici. Neke korisnike koriste servisi koji ne trebaju izravno logiranje u ljusku.
+	\end{itemize}
+	\begin{itemize}
+		\item Matični direktorij korisnika ne mora biti zadan ako se ne radi o interaktivnom korisniku
+		\item Ljuska određuje koji se program koristi prilikom prijave korisnika
+		\begin{itemize}
+	 		\item[] \shell{/bin/bash} - Moguća vrijednost za interaktivnog korisnika
+			\item[] \shell{/bin/false} - Moguća vrijednost za korisnika bez mogućnosti prijave na sustav
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Baza shadow}
+	\begin{itemize}
+		\item Ako u passwd bazi na mjestu lozinke stoji \shell{x} tada se sigurnosni podaci o korisniku nalaze u datoteci \shell{/etc/shadow}
+		\begin{itemize}
+			\item Sadrži kriptirane lozinke, te dodatne podatke o njihovom trajanju
+			\item Čitljiva je isključivo root korisniku
+		\end{itemize}
+	\end{itemize}
+	\begin{itemize}
+		\item Sadrži jedan zapis po liniji oblika
+		\begin{itemize} {\footnotesize
+			\item[] \hspace*{-3em} Korisničko ime:Lozinka:Polja s dodatnim podacima
+			\item[] \shell{root:T3RqrzxU1MAH3F3wtuQu/:13284:0:99999:7:::}
+		} \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{who}}
+\begin{itemize}
+  \item Naredba može prikazati podatke o korisniku
+  \item Primjer ispisa
+  \begin{itemize}
+    \item[] \shell{\$ who}
+    \begin{table}[h]
+    \begin{flushleft}
+    \shell{
+    \begin{tabular}{l l l l l}
+      cetko & tty7 & 2010-11-11 & 12:01 & (:0)  \\
+      cetko & pts/0 & 2010-11-11 & 17:08 & (:0) \\
+      cetko & pts/1 & 2010-11-11 & 17:08 & (:0) \\ 
+      cetko & pts/2 & 2010-11-11 & 17:12 & (:0)  
+    \end{tabular} }
+    \end{flushleft}
+    \end{table}
+  \end{itemize}
+  \item Poseban oblik naredbe \shell{who} je \shell{who am i}
+  \begin{itemize}
+    \item Ispisuje tko je trenutni korisnik na trenutnom terminalu
+  \end{itemize}
+  \item Varijanta te naredbe je \shell{whoami}
+  \begin{itemize}
+    \item Ispisuje samo korisničko ime
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{finger}}
+\begin{itemize}
+  \item Drugi način prikaza trenutno aktivnih korisnika
+  \item Prikazuje trenutno logirane korisnike, ili prikazuje 
+          detaljnije podatke o nekom korisniku
+\end{itemize}
+\begin{itemize}
+   \item Prikazuje dodatne podatke
+   \begin{itemize}
+   	\item Iz \shell{Info} polja u passwd bazi
+   	\item Čita ih iz datoteka \shell{.project} i \shell{.plan} u matičnom direktoriju
+   \end{itemize}
+   \item Ako joj zadamo parametar pretražuje korisnika
+   \begin{itemize}
+   	\item Pretraživanje se obavlja po korisničkom imenu i pravom imenu
+   \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Naredba \shell{w}}
+\begin{itemize}
+  \item Primjer ispisa
+    \begin{table}[h]\footnotesize
+    \begin{flushleft}
+    \shell{
+    \begin{tabular}{l l l l l l l l}
+      USER & TTY & FROM & LOGIN@ & IDLE & JCPU & PCPU & WHAT  \\
+      cetko & tty7 & :0 & 12:01 & 5:32m & 3:45 & 9.67s & awesome \\
+      cetko & pts/0 & :0 & 17:29 & 3:21 & 0.33s & 0.33s & bash \\
+      cetko & pts/1 & :0 & 7:31 & 1:06 & 0.33s & 0.33s & bash \\
+      cetko & pts/5 & :0 & 17:23 & 0.00s & 0.32s & 0.00s & w
+    \end{tabular} }
+    \end{flushleft}
+    \end{table}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{root} 
+\begin{itemize}
+  \item Operacijski sustav korisnike identificira preko jedinstvenog identifikatora
+  \begin{itemize}
+	  \item[] \textbf{UID (User ID)}
+  \end{itemize}
+\end{itemize}
+\begin{itemize}
+  \item Jedan korisnik se posebno tretira 
+  \begin{itemize}
+    \item[] \bf{root} \hspace{2em} UID=0
+  \end{itemize}
+\end{itemize}
+\begin{itemize}
+  \item root može sve
+  \begin{itemize}
+    \item Nije preporučljivo ulogiravati se i/ili raditi kao root!!!
+    \item Raditi kao običan korisnik pa tek kad je nužno prebaciti se na 
+          root korisnika
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{sudo}
+\begin{itemize}
+  \item Za privremeno dobivanje administrativnih ovlasti koristi se naredba (prefiks) \shell{sudo}
+  \item sudo mogu izvršiti svi korisnici prema dozvolama definiranima u datoteci
+  \item[] {\small\shell{/etc/sudoers}}
+  \item Uređivanje naredbom \shell{visudo}
+\end{itemize}
+\vfill
+\footnotesize
+\begin{Verbatim}
+dino     ALL = (ALL) ALL
+dominik  marvin,magrathea = (ALL) root
+josip    marvin = /usr/bin/passwd [[:alpha:][:digit]]*,
+                  !/usr/bin/passwd dino
+%kset    ALL = NOPASSWD: /sbin/umount /media/cdrom0
+\end{Verbatim}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Mijenjanje korisnika} 
+\begin{itemize}
+  \item Vrlo bitna naredba \shell{su} (engl. \emph{switch user})
+  \item Dva bitna oblika naredbe
+  \begin{itemize}
+    \item \shell{su <korisnicko ime>}
+    \item \shell{su - <korisnicko ime>}
+  \end{itemize}
+  \item Bez argumenata mijenja korisnika u root
+\end{itemize}
+\end{frame}
+
+\section{Grupe}
+\begin{frame}[t]
+\frametitle{Grupe (1)}
+\begin{itemize}
+  \item Korisnici se grupiraju u korisničke grupe
+  \begin{itemize}
+  	\item Administracija korisnika
+  	\item Dijeljenje podataka
+  	\item Zajedničke dozvole
+  \end{itemize}
+  \item Svaki korisnik ima
+  \begin{itemize}
+    \item[] \textbf{Primarnu grupu}
+    \begin{itemize}
+      \item Zapisana u datoteci \shell{etc/passwd} 
+    \end{itemize}
+    \item[] \textbf{Sekundarne grupe}
+    \begin{itemize}
+      \item  Sve grupe kojima korisnik pripada
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Grupe (2)}
+	\begin{itemize}
+		\item Slično kao i za korisnike za grupe se koristi groups baza u datoteci \shell{/etc/group}
+		\item Sadrži jedan zapis po liniji oblika
+		\begin{itemize} {\footnotesize
+			\item[] \hspace{-2em} Ime grupe:Lozinka:GID:Popis korisnika
+			\item[] \shell{cdrom:x:24:linux,dominik,dino}
+		} \end{itemize}
+	  \item Grupe također imaju posebnu datoteku za lozinke \shell{/etc/gshadow}
+	\end{itemize}
+	\begin{itemize}
+	  \item Operacijski sustav i s grupama radi preko jedinstvenog identifikatora
+	  \begin{itemize}
+		\item[] \textbf{GID (Group ID)}
+	  \end{itemize}
+	  \item Naredbom \shell{id} saznajemo sve grupe u koje korisnik pripada
+	  \begin{itemize}
+		\item[] \shell{uid=1000(user) gid=1000(user) groups=1000(user),4(adm)...}
+	  \end{itemize}
+      \item Privremena prijava u druge grupe naredbom \shell{newgrp}
+	 \end{itemize}
+\end{frame}
+
+
+\section{Upravljanje korisnicima}
+\begin{frame}[t]
+\frametitle{Upravljanje korisnicima}
+\begin{itemize}
+  \item Osnovne operacije s korisnicima
+  \begin{itemize}
+    \item Dodavanje novog korisnika
+    \begin{itemize}
+      \item[] \shell{adduser}
+    \end{itemize}
+    \item Promjena lozinke korisnika
+    \begin{itemize}
+      \item[] \shell{passwd}
+    \end{itemize}
+    \item Promjena podataka o korisniku
+    \begin{itemize}
+      \item[] \shell{usermod}
+    \end{itemize}
+    \item Uklanjanje korisnika
+    \begin{itemize}
+      \item[] \shell{deluser}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+\begin{itemize}
+	\item Analogne naredbe postoje i za grupe
+	\begin{itemize}
+		\item[] \shell{groupadd, groupmod, groupdel}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Upravljanje korisnicima}
+\begin{itemize}
+  \item Stvaranje novog korisnika
+  \begin{itemize}
+    \item[] \shell{\$ adduser <korisnik>}
+  \end{itemize}
+  \item Dodavanje korisnika postojećoj grupi
+  \begin{itemize}
+  	\item[] \shell{\$ usermod -aG <grupa> <korisnik>}
+    \item[ili] \shell{\$ adduser <korisnik> <grupa>}
+  \end{itemize}
+  \item Stvaranje nove grupe
+  \begin{itemize}
+    \item[] \shell{\$ addgroup <grupa>}
+    \item[ili] \shell{\$ adduser --group <grupa>}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Promjena podataka o korisniku}
+\begin{itemize}
+  \item Promjena podataka o korisniku
+  \begin{itemize}
+    \item Mogu se mjenjati svi podaci
+    \begin{itemize}
+      \item[] \shell{usermod <opcije> <username>}
+    \end{itemize}
+    \item Promjena ljuske, opcija \shell{-s <shell>}
+    \item Promjena matičnog direktorija, opcija \shell{-d <dir>}
+  \end{itemize}
+\end{itemize}
+\begin{itemize}
+  \item Ljuska korisnika može se promijeniti i  naredbom \shell{chsh}
+  \item Naredba \shell{chfn} mijenja dodatne podatke o korisnicima
+  \begin{itemize}
+  	\item[] Finger podaci - \shell{Info} polje
+  \end{itemize}
+  \item Lozinka se mijenja naredbom \shell{passwd}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Upravljanje korisnicima}
+\begin{itemize}
+  \item Brisanje kreiranog korisnika
+  \begin{itemize}
+    \item[] \shell{\$ deluser <korisnik>}
+  \end{itemize}
+  \item Brisanje korisnika iz grupe
+  \begin{itemize}
+    \item[] \shell{\$ deluser <korisnik> <grupa>}
+  \end{itemize}
+  \item Brisanje grupe
+  \begin{itemize}
+  	\item[] \shell{\$ delgroup <grupa>}
+    \item[ili] \shell{\$ deluser --group <grupa>}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Upravljanje korisnicima}
+\begin{itemize}
+  \item Kod stvaranja korisnika se može definirati lokacija matičnog 
+        direktorija i njegovo brisanje zajedno sa korisnikom
+  \item Navedene naredbe su sučelja drugih naredbi
+  \begin{itemize}
+    \item[] \shell{adduser} $\Rightarrow$ \shell{useradd}
+    \item[] \shell{deluser} $\Rightarrow$ \shell{userdel}
+    \item[] \shell{addgroup} $\Rightarrow$ \shell{groupadd}
+    \item[] \shell{delgroup} $\Rightarrow$ \shell{groupdel}
+  \end{itemize}
+  \item Sve prethodne akcije se mogu napraviti i navedenim naredbama
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Upravljanje korisnicima}
+\begin{itemize}
+  \item Ako kod stvaranja korisnika nisu definirani parametri, koriste se 
+        postavke u \shell{/etc/adduser.conf}
+  \item U matičnom direktoriju se stvaraju predefinirane datoteke
+  \begin{itemize}
+     \item Raspored početnih datoteka je definiran u direktoriju \shell{/etc/skel} (engl. \emph{skeleton})
+  \end{itemize}
+\end{itemize}
+\begin{itemize}
+  \item Zadatak
+  \begin{itemize}
+    \item Proučiti opcije u datoteci \shell{/etc/adduser.conf}
+    \item Izlistati direktorij \shell{/etc/skel} i matični direktorij
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Naredbe}
+	\begin{table}[h]
+		%  \rowcolors{2}{White}{LightGray}
+		\begin{tabular}{|c|l|}
+			\hline
+			\rowcolor{BlueViolet!20}Naredba & Opis \\
+			\hline
+			Ctrl+D & odjava iz terminala \\
+			\hline
+			logout & odjava iz terminala \\
+			\hline
+			who & prikazuje podatke o korisniku \\
+			\hline
+			who am i & ispisuje korisnika u trenutnom terminalu \\
+			\hline
+			whoami & ispisuje isključivo korisničko ime korisnika u terminalu \\
+			\hline
+			finger & ispisuje trenutno aktivne korisnike \\
+			\hline
+			su & izmjena korisnika \\
+			\hline
+			newgrp & prijava u drugu grupu \\
+			\hline
+			usermod & izmjena podataka o korisniku \\
+			\hline
+			passwd & promjena korisničke lozinke \\
+			\hline
+		\end{tabular}
+	\end{table}
+\end{frame}
+
+\end{document}

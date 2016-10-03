@@ -1,0 +1,38 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\newcommand{\shell}[1]{\texttt{\textbf{#1}}}
+\renewcommand*{\familydefault}{\sfdefault}
+\renewcommand*{\sfdefault}{lmss}
+\pagenumbering{gobble}
+\begin{document}
+	\title{Domaća zadaća - 05\vspace{-2em}}
+	\maketitle
+	Za svaki zadatak treba napisati bash skriptu s rješenjem zadatka. Jedna točka zadatka se \textbf{može rješiti s više redova i naredbi} u skripti. \\
+
+	\subsection*{Zadatak 1}
+   	\begin{itemize}
+			\item Kreirajte datoteku imenovanu kao korisnik koji trenutačno koristi terminal. 
+      \item U datoteku spremite osnovne podatke o korisniku (ime, home direktorij i ljuska) te podatak u kojim se grupama nalazi. Navedite koja je grupa korisniku primarna.
+      \item[] Primjer izlazne datoteke:
+      \item[] \begin{verbatim}
+      USER: fer
+      HOME DIR: /home/fer
+      SHELL: /bin/bash
+      GROUPS: users students university
+      PRIMARY GROUP: students
+      \end{verbatim}
+		\end{itemize}
+	\subsection*{Zadatak 2}
+		\begin{itemize}
+			\item Kreirajte korisnika \shell{okosl} s lozinkom \shell{okosl}. Osigurajte da se korisnik može prijaviti na sustav i da ima matični direktorij.
+			\item Kreirajte grupu \shell{linux} i dodajte novokreiranog korisnika u grupu.
+			\item Kreirajte direktorij \shell{/tmp/tmp\_etc} i u njega kopirajte sadržaj direktorija \shell{/etc}. Sljedeće tri točke će se odnositi na taj direktorij.
+			\item Korisnicima u grupi \shell{linux} dozvolite modificiranje svih datoteka s ekstenzijom \shell{.conf} u direktoriju i poddirektorijima.
+			\item Brisanje svih direktorija i poddirektorija omogućite samo korisniku \shell{okosl}.
+	      \item Korisnicima u grupi \shell{linux} i svim ostalim korisnicima zabranite otvaranje poddirektorija.
+	      \item[] U komentaru odgovorite: Mogu li članovi grupe \shell{linux} i dalje pristupiti datotekama koje se nalaze unutar bilo kojeg podirektorija? Objasnite. Ima li veze ako je grupa \shell{linux} korisniku primarna ili sekundarna?
+      \item Zabranite korisniku \shell{okosl} mogućnost prijave na sustav.
+		\end{itemize}
+\end{document}

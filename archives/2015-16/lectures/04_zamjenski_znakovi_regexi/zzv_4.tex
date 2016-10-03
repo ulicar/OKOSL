@@ -1,0 +1,106 @@
+\documentclass[table,usenames,dvipsnames]{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage{varwidth}
+\usetikzlibrary{shapes,arrows}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+% Changing of bullet foreground color not possible if {itemize item}[ball]
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+\newcommand{\MyCBox}[1]{%
+  \fcolorbox{black}{gray!30}{\begin{varwidth}{\dimexpr\linewidth-2\fboxsep}#1
+\end{varwidth}}}
+\definecolor{LightGray}{gray}{0.9}
+
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{08. Zamjenski znakovi i regularni izrazi} 
+\author[Dino Lukman i Goran Cetušić]{Dino Lukman i Goran Cetušić\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+    %\beamerdefaultoverlayspecification{<+->}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}[t]
+\frametitle{Zadaci (1)}
+\begin{itemize}
+  \item Ispisati datoteke u /bin koje u nazivu sadrže samo dva slova
+  \item Ispisati datoteke u /bin čiji naziv započinje sa 'z' i završava s 'p'
+  \item Ispisati datoteke u /bin čiji naziv započinje sa 'ta' i ima tri slova
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zadaci (2)}
+\begin{itemize}
+  \item Ispisati retke u datoteci \shell{/etc/inittab} koji imaju u sebi 
+        niz sačinjen od jednog slova i jedne ili više brojki
+  \item Sljedeći zadaci se odnose na traženje uzoraka u datoteci 
+        \shell{/usr/share/dict/words}
+  \begin{itemize}
+    \item Pronaći retke koji počinju sa ``ok''
+    \item Pronaći retke od 4 slova, a slova mogu biti samo iz niza asdfgeiou
+    \item Pronaći rekte od 8 slova koje započinju s velikim slovom, a ostala mogu biti iz niza astghzei
+    \item Koliko ima riječi u kojima se dva puta ponavlja niz ``ss''
+    \item Koliko ima redaka koji ne sadrže samoglasnike?
+    \item Koliko ima riječi od 3 slova koje počinju slovima a, b, c; 
+        završavaju sa x, y, z?
+    \item Koliko ima riječi koje počinju slovom ``a'', završavaju slovom 
+        ``y'', a bilo gdje između sadrže niz ``bu''?
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Rješenja (1)}
+\begin{itemize}
+	\item \shell{ls /bin/??} ili \shell{ls /bin/ | grep -E \textasciicircum{}..\$}
+	\item \shell{ls /bin/z*p} ili \shell{ls /bin/ | grep -E \textasciicircum{}z.*p\$}
+	\item \shell{ls /bin/ta?}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Rješenja (2)}
+\begin{itemize}
+  \item \shell{grep -E "\textasciicircum{}[0-9]+[a-Z][0-9]*\$|\textasciicircum{}[0-9]*[a-Z][0-9]+\$" /etc/inittab}
+  \item \shell{grep -E \textasciicircum{}ok /usr/share/dict/words}
+  \item \shell{grep -E "\textasciicircum{}[asdfgeiou]\{4\}\$" /usr/share/dict/words}
+  \item \shell{grep -E "\textasciicircum{}[A-Z][astghzei]\{7\}\$" /usr/share/dict/words}
+  \item \shell{grep -E .*ss.*ss.* /usr/share/dict/words | wc -l}
+  \item \shell{grep -v [aeiou] /usr/share/dict/words}
+  \item \shell{grep -E \textasciicircum{}[abc].[xyz]\$ /usr/share/dict/words | wc -l}
+  \item \shell{grep -E \textasciicircum{}a.*bu.*y\$ /usr/share/dict/words | wc -l}
+\end{itemize}
+\end{frame}
+
+\end{document}

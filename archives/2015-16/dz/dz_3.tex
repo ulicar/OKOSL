@@ -1,0 +1,39 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\newcommand{\shell}[1]{\texttt{#1}}
+\begin{document}
+  \title{Domaća zadaća - 03\vspace{-2em}}
+  \maketitle
+  Za svaki zadatak treba napisati bash skriptu s rješenjem zadatka. Jedna točka - jedna naredba - jedan redak. Datoteke nastale kao rezultat izvršavanja skripti nije potrebno predavati s rješenjima. Skripte se moraju izvršavati bez prekida.
+  \subsection*{Zadatak 1}
+  \begin{itemize}
+    \item Stvorite datoteku koja u prvom redu sadrži vaš JMBAG koristeći naredbu \texttt{echo} i preusmjeravanje. Datoteku nazovite \texttt{personal\_info.dat}
+    \item Pomoću naredbe \texttt{cat} i here dokumenta dodajte vaše ime i prezime u redak ispod JMBAG-a.
+  \end{itemize}
+  \subsection*{Zadatak 2}
+  Koliki je rezultat naredbe \shell{echo 12345 | wc -c}? Zašto?
+  \subsection*{Zadatak 3}
+  \begin{itemize}
+    \item[] Za sve točke ovog zadatka iskoristite datoteku \texttt{korisnici.dat}. Imena u datoteci nisu case-sensitive. Svaki redak datoteke ima format
+    \item[] \texttt{<broj retka>:<ime>:<id korisnika>}
+    \item Sortirajte datoteku po broju retka i rezultat zapišite u \texttt{korisnici.sortirano.dat}
+    \item Ispišite sva jedinstvena imena (koja se ne ponavljaju) u datoteku\\\texttt{jedistveni\_korisnici.dat}
+    \item Imena koja se ponavljaju više puta zapišite u datoteku\\\texttt{nejedinstveni\_korisnici.dat}
+  \end{itemize}
+  \subsection*{Zadatak 4}
+  \begin{itemize}
+  	\item Prebrojite koliko riječi iz datoteke \texttt{/usr/share/dict/words} sadrži znak \texttt{\&}
+  	\item U datoteku \texttt{yous.dat} izdvojite sve riječi iz datoteke \texttt{/usr/share/dict} koje sadrže tekst \texttt{you}
+  	\item Prebrojite koliko je takvih riječi
+  	\item Udvostručite sadržaj datoteke \texttt{yous.dat}
+  \end{itemize}
+  \subsection*{Zadatak 5}
+  Locirajte datoteku \texttt{jedinstveni\_korisnici.dat} stvorenu u zadatku 3 koristeći, redom, naredbe
+  \begin{itemize}
+    \item \texttt{find}
+    \item \texttt{locate}
+    \item \texttt{ls}
+  \end{itemize}
+\end{document}

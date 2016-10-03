@@ -1,0 +1,109 @@
+\documentclass{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+% Changing of bullet foreground color not possible if {itemize item}[ball]
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{02. Zadaci za vježbu}
+\author[Antun Aleksa, Josip Žuljević]{Antun Aleksa, Josip Žuljević\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+    %\beamerdefaultoverlayspecification{<+->}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}[t]
+\frametitle{Zadatak 1}
+\begin{itemize}
+  \item Prvi zadatak:
+  \begin{itemize}
+		\item Napraviti direktorij \shell{Paul}
+		\item U njemu napravite praznu datoteku \shell{Ringo}
+		\item Kopirajte datoteku \shell{Ringo} na desktop
+		\item Ispišite zadnje vrijeme promjene direktorija \shell{Paul}
+		\item Izbrišite datoteku \shell{Ringo} u direktoriju \shell{Paul}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zadatak 2}
+\begin{itemize}
+	\item Drugi zadatak:
+	\begin{itemize}
+		\item Napravite prazne datoteke \shell{John} i \shell{George}
+		\item U \shell{John} upišite 10 redova teksta, a u \shell{George} 5 redova
+		\item Obadvije datoteke premjestite u novi direktorij \shell{One}
+		\item Ispišite prva 3 reda datoteke \shell{George}
+		\item Koristeći opciju za negativan broj redaka ispišite prvih 7 redova datoteke \shell{John}
+		\item Izbrišite sve stvorene datoteke i direktorije
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{Zadatak 3}
+\begin{itemize}
+	\item Treći zadatak:
+	\begin{itemize}
+		\item Napravite direktorij \shell{Jules}
+		\item U njemu stvorite direktorije \shell{Rita}, \shell{Lucy}, \shell{Elenor}, \shell{Desmond}
+		\item Kopirajte direktorij \shell{Rita} u \shell{Lucy}
+		\item U direktoriju \shell{Desmond} stvorite prazne datoteke \shell{Molly} i \shell{Bill}
+		\item U direktoriju \shell{Elenor} napravite simboličku poveznicu na direktorij \shell{Lucy} 
+		\item Izbrišite direktorij \shell{Lucy}
+		\item Provjerite sadržaj direktorija \shell{Elenor}
+		\item Ispišite zadnje vrijeme promjene direktorija \shell{Elenor}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zadatak 4}
+\begin{itemize}
+	\item Četvrti zadatak:
+	\begin{itemize}
+		\item Očitajte vrijeme zadnjeg pristupa datoteci \shell{/etc/passwd}
+		\item Napravite direktorij \shell{Pennie}
+		\item Ispišite zauzeće direktorija
+		\item U direktoriju \shell{Pennie} jednom naredbom napravite datoteke \shell{Sally} i \shell{Jules}
+		\item U direktoriju \shell{Pennie} napravite simboličku poveznicu koja pokazuje na direktorij \shell{/usr/bin}
+		\item Ponovno ispišite zauzeće direktorija
+		\item Ispišite zauzeće direktorija uz dereferenciranje poveznica
+		\item Izbrišite sve stvorene datoteke
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\end{document}

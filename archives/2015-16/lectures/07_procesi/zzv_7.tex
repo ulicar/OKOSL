@@ -1,0 +1,93 @@
+\documentclass[table,usenames,dvipsnames]{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage{tikz}
+\usepackage{listings}
+\usetikzlibrary{shapes,arrows}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+\definecolor{LightGray}{gray}{0.9}
+
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{07. Zadaci za vježbu}
+\author[Dominik Barbarić]{Dominik Barbarić\\ \small{Nositelj: dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}[t]
+	\frametitle{Zadaci za vježbu}
+	\begin{itemize}
+		\item Zadatak 1
+		\begin{itemize}
+			\item U \shell{man bash} proučite dio \emph{Special parameters}
+			\item Ispišite parametar \shell{-}
+			\item Potražite u man stranicama značenje ispisanih argumenata
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Zadaci za vježbu}
+	\begin{itemize}
+		\item Zadatak 2
+		\begin{itemize}
+			\item Ispišite sve procese korisnika \shell{root} i korisnika s kojim trenutno radite
+			\item Ispišite sve procese s nazivom \shell{bash}
+			\item U pozadini pokrenite \shell{nano}
+			\item Saznajte PID ljuske u kojoj trenutno radite
+			\item Ispišite proces ljuske i sve procese s PPID-om trenutne ljuske
+			\item Ponovite prethodnu naredbu s hijerarhijskim prikazom (\shell{--forest})
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Zadaci za vježbu}
+	\begin{itemize}
+		\item Zadatak 3
+		\begin{itemize}
+			\item U pozadini pokrenite \shell{nano} s imenom neke datoteke u argumentu
+			\item[] \emph{Primjer:} \shell{nano datoteka.txt}
+			\item Prebacite nano u prednji plan i upišite neki tekst. Nemojte spremati promjene u datoteku.
+			\item Programu pošaljite signal \shell{SIGTERM}
+			\item[] \emph{Što se dogodilo?}
+			\item Ponovite postupak, no ovaj put procesu \shell{nano} pošaljite signal \shell{SIGKILL}.
+			\item[] \emph{Koja je razlika u ponašanju procesa na ova dva signala? Zašto se proces drugačije ponaša?}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+
+\end{document}

@@ -1,0 +1,65 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[croatian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[top=20mm]{geometry}
+\usepackage{enumitem} 
+\newcommand{\shell}[1]{\texttt{\textbf{#1}}}
+\renewcommand*{\familydefault}{\sfdefault}
+\renewcommand*{\sfdefault}{lmss}
+\begin{document}
+	\title{Laboratorijska vježba 3\\{\small Osnove korištenja operacijskog sustava Linux}\vspace{-2em}}
+	\maketitle
+	
+  \subsection*{Zadatak 1}
+  Napisati skriptu \shell{enlarge.sh} koja prima dva parametra u pozivu skripte. Prvi parametar je putanja do datoteke, a drugi je pozitivan broj $N$. Nije potrebno provjeravati ispravnost ulaznih parametara.\\
+  
+  \noindent Skripta treba ispisati sadržaj zadane datoteke $N$ puta na standardni izlaz.\\
+  Primjer pozivanja skripte: \shell{./enlarge.sh datoteka.txt 3}
+
+	\subsection*{Zadatak 2}
+  Za rješavanje zadatka koristite priložene datoteke \shell{lab03-2-input01.dat} i \shell{lab03-2-input02.dat}. U prvoj datoteci nalaze se linije oblika \shell{id:naziv}, a u drugoj oblika \shell{id:velicina}.\\
+  
+  \noindent Napišite skriptu \shell{merge.sh} koja stvara treću datoteku u kojoj su izvorni podaci spojeni tako da svaka linija ima oblik \shell{id:naziv:velicina}. Skripta kao ulazne parametre prima putanje do dviju datoteka.
+	
+	\subsection*{Zadatak 3}
+  Napisati skriptu koja u prvom parametru prima putanju do datoteke. Svaki redak datoteke ima oblik \shell{kljuc:vrijednost}. Ulazna datoteka nije sortirana, a isti ključevi se pojavljuju više puta s različitim vrijednostima.\\
+  
+  \noindent Grupirajte sve vrijednosti koje imaju zajednički ključ u jedan red. Vrijednosti s istim ključem odvojite zarezom. Za priloženu ulaznu datoteku \shell{lab03-3-input01.dat} dan je primjer izlazne datoteke \shell{lab03-3-output01.dat}.
+	
+	\subsection*{Zadatak 4}
+	\begin{itemize}
+    \item Stvoriti direktorij \shell{/home/studenti}, kreirati grupu \shell{studenti} i dodijeliti joj ekluzivna prava pisanja i čitanja nad stvorenim direktorijem.
+    \item Kreirajte predložak (\emph{skeleton}) za nove matične direktorije. Direktoriji koje svaki novi korisnik treba imati u novom matičnom direktoriju su: \shell{Documents} i \shell{Github}. Osim toga, potrebno je dodati i simboličku poveznicu \shell{Shared} koji pokazuje na direktorij \shell{/home/public}. Dozvole nad direktorijem \shell{/home/public} neka budu iste kao i one za direktorij \shell{/tmp}.
+    \item Napisati skriptu koja će stvoriti korisnika na sustavu. Novom korisniku je na temelju predloška iz prethodne točke potrebno stvoriti matični direktorij unutar direktorija \shell{studenti} te ga dodati u grupu \shell{studenti}.
+    \item Pretpostavite da članovi grupe \shell{studenti} imaju direktorije koje su zaštitili od brisanja od strane drugih korisnika. Uredite prikladnu konfiguracijsku datoteku tako da članovima grupe \shell{koordinatori} omogućite brisanje tih direktorija.
+	\end{itemize}
+  
+	\subsection*{Zadatak 5}
+  Priložena skripta \shell{lab03-5.sh} sadrži beskonačnu petlju. Na sljedeća pitanja je potrebno odgovoriti pokretanjem te skripte i manipulacijom njenog procesa.
+	\begin{itemize}
+    \item Pokrenite proces u foreground-u te ga zatim pošaljite u pozadinu. Objasnite kako ste to napravili. Kako biste proces poslali u pozadinu odmah pri pokretanju?
+    \item Aktivnom procesu (status \emph{RUNNING}) pošaljite \shell{SIGSTOP}. Što se dogodilo s procesom? Može li se signal \shell{SIGSTOP} programski obraditi?
+    \item Nastavite izvođenje procesa u pozadini. Kako ste to izveli?
+    \item Ugasite terminal. Objasnite što se dogodilo s procesom. Koji signal mu je poslan? Navedite barem jedan način kako biste pokrenuli proces i osigurali nastavak njegova izvođenja nakon gašenja terminala.
+	\end{itemize}
+
+\subsection*{Zadatak 6}
+  Koristeći here document sintaksu stvoriti datoteku sadržaja:
+  \begin{verbatim}
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Hi there</title>
+    </head>
+    <body>
+      This is a page
+      a simple page
+    </body>
+  </html>
+  \end{verbatim}
+  \begin{itemize}
+    \item Ispisati sav sadržaj izmedu oznaka \shell{<html>} i \shell{</html>}.
+    \item Ispisati sav sadržaj datoteke, bez HTML oznaka. ( \shell{<xxxx>} i \shell{</xxxx>} )
+  \end{itemize}
+
+\end{document}

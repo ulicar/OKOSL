@@ -1,0 +1,95 @@
+\documentclass{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{datetime}
+\usepackage{graphics}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+% Changing of bullet foreground color not possible if {itemize item}[ball]
+\DefineNamedColor{named}{Purple}{cmyk}{0.52,0.97,0,0.55}
+\setbeamertemplate{itemize item}[triangle]
+\setbeamercolor{title}{fg=Purple}
+\setbeamercolor{frametitle}{fg=Purple}
+\setbeamercolor{itemize item}{fg=Purple}
+\setbeamercolor{section number projected}{bg=Purple,fg=white}
+\setbeamercolor{subsection number projected}{bg=Purple}
+
+\renewcommand{\dateseparator}{.}
+\newcommand{\todayiso}{\twodigit\day \dateseparator \twodigit\month \dateseparator \the\year}
+\newcommand{\shell}[1]{\texttt{#1}}
+\title{Osnove korištenja operacijskog sustava Linux}
+\subtitle{02. Zadaci za vježbu}
+\author[Nino Nikola Stanusic]{Nino Nikola Stanusic\\{\small Nositelj: dr. sc. Stjepan Groš}}
+\institute[FER]{Sveučilište u Zagrebu \\
+				Fakultet elektrotehnike i računarstva}
+				
+\date{\todayiso}
+
+\begin{document}
+    %\beamerdefaultoverlayspecification{<+->}
+{
+\setbeamertemplate{headline}[] % still there but empty
+\setbeamertemplate{footline}{}
+
+\begin{frame}
+\maketitle
+\end{frame}
+}
+
+\begin{frame}[t]
+\frametitle{Zadatak 1}
+\begin{itemize}
+\item Prvi zadatak
+\begin{itemize}
+	\item Kreirati datoteku "Zadatak1" u /tmp direktoriju. U Zadatak1 upisati soritiran /etc/passwd po abecedi.
+	\item Kreirati datoteku "Zadatak2" u /tmp direktoriju. U Zadatak2 upisati sve linije iz Zadatak1 koje sadrže riječ "false".
+	\item Nadovezati Zadatak2 na Zadatak1 i upisati u /tmp/Zadatak3.
+	\item U /home/Zadatak4 upisati sve jedinstvene redove iz Zadatak3.
+	\item Pomoću naredbe find pronaći Zadatak4.
+	\item Pomoću naredbe locate pronaći Zadatak4.
+    \item Ispisati Zadatak4 na stderr.
+    \item Izbrisati koristene datoteke.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zadatak 2}
+\begin{itemize}
+\item Drugi zadatak
+\begin{itemize}
+	\item Sve se obavlja u home direktoriju!
+	\item Kreirati praznu datoteku "Napuni". U datoteku "Napuni" treba prebaciti zadnjih 
+500 riječi iz /usr/share/dict/words.
+	\item Iz "Napuni" ispisati samo one riječi koje pocinju sa zoo.
+	\item Ispisati ukupni broj riječi i slova u "Napuni".
+	\item Preimenovat "Napuni" u "Isprazni". "Isprazni" treba isprazniti u novi "Napuni2" koji je sortiran silazno [z,y,x,w,v...].
+	\item Od "Napuni2" ispisati samo prva tri slova svake riječi, s time da treba ispisati one kombinacije slova koje se ne ponavljaju vise od jednom.
+	\item Izbrisati "Napuni2" i "Isprazni".
+	
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Zadatak 3}
+\begin{itemize}
+\item Treci zadatak
+\begin{itemize}
+	\item Pomocu find naredbe ispisati sve postojece direktorije u datoteku "znamOvo", a sve greske u "neZnamOvo". 
+	\item Prebaciti prvih i zadnjih 20 linija iz "znamOvo" na kraj datoteke "neZnamOvo".
+	
+	
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\end{document}
